@@ -7,7 +7,7 @@ package client;
 
 /**
  *
- * @author Acer
+ * @author Loh Xin Yi
  */
 public class MemberMaintenance {
 

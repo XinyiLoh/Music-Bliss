@@ -7,7 +7,7 @@ package entity;
 
 /**
  *
- * @author Acer
+ * @author Koh Hui Hui
  */
 public class Session {
     

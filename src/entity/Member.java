@@ -7,7 +7,7 @@ package entity;
 
 /**
  *
- * @author Acer
+ * @author Loh Xin Yi
  */
 public class Member {
     

@@ -7,7 +7,7 @@ package client;
 
 /**
  *
- * @author Acer
+ * @author Siah Xin Ying
  */
 public class SongMaintenance {
     

@@ -7,7 +7,7 @@ package client;
 
 /**
  *
- * @author Acer
+ * @author Koh Hui Hui
  */
 public class SessionSchedule {
     
