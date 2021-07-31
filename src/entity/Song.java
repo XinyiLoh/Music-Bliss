@@ -11,4 +11,41 @@ package entity;
  */
 public class Song {
     
+    private static int songID = 100;
+    private String songName;
+    private String singer;
+
+    public Song() {
+    }
+
+    public Song(String songName, String singer) {
+        this.songName = songName;
+        this.singer = singer;
+    }
+
+    public static int getSongID() {
+        return songID;
+    }
+
+    public static void setSongID(int songID) {
+        Song.songID = songID;
+    }
+
+    public String getSongName() {
+        return songName;
+    }
+
+    public void setSongName(String songName) {
+        this.songName = songName;
+    }
+
+    public String getSinger() {
+        return singer;
+    }
+
+    public void setSinger(String singer) {
+        this.singer = singer;
+    }
+    
+    
 }
