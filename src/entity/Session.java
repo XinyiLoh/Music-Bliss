@@ -10,5 +10,17 @@ package entity;
  * @author Koh Hui Hui
  */
 public class Session {
+    private static int sessionID = 1;
+    
+    public Session() {
+    }
+
+    public static int getSessionID() {
+        return sessionID;
+    }
+
+    public static void setSessionID(int sessionID) {
+        Session.sessionID = sessionID;
+    }
     
 }
