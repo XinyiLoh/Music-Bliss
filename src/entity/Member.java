@@ -12,28 +12,38 @@ import java.util.Calendar;
  *
  * @author Loh Xin Yi
  */
-public class Member {
+public class Member implements Comparable<Member>{
     private static int iD = 1000;
     private String firstName;
     private String lastName;
     private String mobile;
     private String gender;
-    private Calendar joinDate;
+    private String joinDate;
+    private int rewardPoints;
+    Calendar cal = Calendar.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+    
+    public Member(){
+        
+    }
 
-    public Member(String firstName, String lastName, String mobile, String gender, Calendar joinDate) {
+    public Member(String firstName, String lastName, String mobile, String gender, int rewardPoints) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobile = mobile;
         this.gender = gender;
-        this.joinDate = joinDate;
+        this.rewardPoints = rewardPoints;
+        this.joinDate = sdf.format(cal.getTime());
+        iD++;
     }
+    
+    public int compareTo(Member m){
+        return (int) (this.rewardPoints - m.rewardPoints);
+    }
+
 
     public static int getiD() {
         return iD;
-    }
-
-    public static void setiD(int iD) {
-        Member.iD = iD;
     }
 
     public String getFirstName() {
@@ -68,14 +78,25 @@ public class Member {
         this.gender = gender;
     }
 
-    public static String getJoinDate(Calendar date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
-        return sdf.format(date.getTime());
+    public String getJoinDate() {
+        return joinDate;
     }
 
-    public void setJoinDate(Calendar joinDate) {
-        this.joinDate = joinDate;
+    public void setJoinDate(String joinDate) {
+        this.joinDate = sdf.format(cal.getTime());
     }
     
-    
+    public int getRewardPoints() {
+        return rewardPoints;
+    }
+
+    public void setRewardPoints(int rewardPoints) {
+        this.rewardPoints = rewardPoints;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" + "firstName=" + firstName + ", lastName=" + lastName + ", mobile=" + mobile + ", gender=" + gender + ", joinDate=" + joinDate + ", rewardPoints=" + rewardPoints + ", cal=" + cal + ", sdf=" + sdf + '}';
+    }
+
 }
