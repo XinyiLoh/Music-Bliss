@@ -12,7 +12,7 @@ package entity;
  
 public class Song implements Comparable<Song>{
     
-    private static int songID = 0;
+    private static int songID = 1;
     private String songName;
     private String singer;
 
@@ -23,16 +23,16 @@ public class Song implements Comparable<Song>{
     public Song(String songName, String singer) {
         this.songName = songName;
         this.singer = singer;   
-        songID++;
+
     }
 
-    public static int getSongID() {
-        return songID;
-    }
-
-    public static void setSongID(int songID) {
-        Song.songID = songID;
-    }
+//    public static int getSongID() {
+//        return songID;
+//    }
+//
+//    public static void setSongID(int songID) {
+//        Song.songID = songID;
+//    }
 
     public String getSongName() {
         return songName;
@@ -64,7 +64,7 @@ public class Song implements Comparable<Song>{
     }
     
     public String toString() {
-        return "\nSong ID: "+ songID +"\nSong: " + songName + "\nSinger: " + singer;
+        return "\nSong ID: "+ songID++ +"\nSong: " + songName + "\nSinger: " + singer;
     }
 
     

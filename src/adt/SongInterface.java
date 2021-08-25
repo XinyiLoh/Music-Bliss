@@ -9,7 +9,7 @@ package adt;
  *
  * @author Siah Xin Ying
  */
-public interface SongInterface<T extends Comparable<?super T>> {
+public interface SongInterface<T extends Comparable<T>> {
 
     public boolean add(T newEntry);
 
@@ -23,7 +23,7 @@ public interface SongInterface<T extends Comparable<?super T>> {
     
     public boolean contains(T anEntry);
     
-    public T remove(int givenPosition) throws IndexOutOfBoundsException;
+    public T remove(int givenPosition);
 
     public void clear();
 

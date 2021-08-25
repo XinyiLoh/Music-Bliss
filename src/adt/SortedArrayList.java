@@ -13,7 +13,7 @@ import java.io.Serializable;
  * 
  * 
  */
-public class SortedArrayList<T extends Comparable<? super T>> implements SongInterface<T>, Serializable {
+public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T>, Serializable {
 
     private T[] songArray;
     private int numberOfSongs;
@@ -148,11 +148,11 @@ public class SortedArrayList<T extends Comparable<? super T>> implements SongInt
 //        }
 //        
 //        return result;
-        if (givenPosition < 0 || givenPosition >= numberOfSongs) {
+        if (givenPosition < 0 || givenPosition > numberOfSongs) {
             throw new IndexOutOfBoundsException();
         }
         T result = songArray[givenPosition];
-        for (int i = givenPosition + 1; i < numberOfSongs; i++) {
+        for (int i = givenPosition; i < numberOfSongs; i++) {
             songArray[i - 1] = songArray[i];
         }
         songArray[numberOfSongs] = null;
@@ -177,6 +177,7 @@ public class SortedArrayList<T extends Comparable<? super T>> implements SongInt
             songArray[i] = songArray[i + 1];
         }
     }
+
 
 
 }
