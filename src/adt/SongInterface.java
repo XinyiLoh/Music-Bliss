@@ -17,7 +17,7 @@ public interface SongInterface<T extends Comparable<T>> {
     
 //    public int getPosition(T song);
     
-//    public T getPosition(int givenPosition);
+    public T getPosition(int givenPosition);
             
     public int find(T givenPosition);
     

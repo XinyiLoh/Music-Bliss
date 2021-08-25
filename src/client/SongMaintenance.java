@@ -27,9 +27,15 @@ public class SongMaintenance {
         Song tempSong1 = new Song("STAY", "THE KID LAROI");
         Song tempSong2 = new Song("GONE", "ROSIE");
         Song tempSong3 = new Song("MOOD", "24KGOLDIN");
+
         songList.add(tempSong1);
         songList.add(tempSong2);
         songList.add(tempSong3);
+
+        String outputStr = "";
+        for (int position = 1; position <= songList.getNumberOfSongs(); ++position) {
+            outputStr += position + ". " + songList.getPosition(position);
+        }
 
         do {
             System.out.println("1. Add New Song ");
@@ -43,11 +49,11 @@ public class SongMaintenance {
 //                System.err.print("\nInvalid choice, please try again");
 //            }
             scan.nextLine();
-        } while (selection != 1 && selection != 2 && selection != 3 && selection !=4);
+        } while (selection != 1 && selection != 2 && selection != 3 && selection != 4);
 
         switch (selection) {
             case 1: {
-                
+
                 do {
                     String addSongName;
                     String addSinger;
@@ -69,17 +75,23 @@ public class SongMaintenance {
                 break;
             }
 
-            case 2: {            
+            case 2: {
                 do {
                     int number;
-                    System.out.println(songList);
-                    
+                    String output = "";
+                    System.out.println(outputStr);
                     System.out.print("Enter song's no to delete: ");
                     number = scan.nextInt();
                     songList.remove(number);
-                    
+
                     System.out.println("Delete Successful");
-                    
+
+                    for (int position = 1; position <= songList.getNumberOfSongs(); ++position) {
+                        output += position + ". " + songList.getPosition(position);
+                    }
+
+                    System.out.println(output);
+
                     System.out.print("\nDo you wanna delete more? [y/n]: ");
                     decision = scan.next().charAt(0);
 
@@ -96,11 +108,10 @@ public class SongMaintenance {
                 System.out.print("Find the song by typing Song Name: ");
                 findSong = scan.nextLine();
                 tempSong.equals(findSong);
-                
+
                 System.out.print(tempSong);
             }
         }
-
         System.out.print("\nList out the songList: " + songList.getNumberOfSongs());
         System.out.println("\nList out the songList: " + songList);
 

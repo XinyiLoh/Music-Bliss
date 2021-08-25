@@ -117,14 +117,14 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
         return outputStr;
     }
 
-//    public T getPosition(int givenPosition) {
-//        T result = null;
-//        if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
-//            result = songArray[givenPosition - 1];
-//        }
-//
-//        return result;
-//    }
+    public T getPosition(int givenPosition) {
+        T result = null;
+        if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
+            result = songArray[givenPosition - 1];
+        }
+
+        return result;
+    }
     
     public int find(T givenPosition) {
         int result = DEFAULT_ERROR_CODE;
@@ -138,16 +138,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     }
 
     public T remove(int givenPosition) {
-//        T result = null;
-//        if((givenPosition >=1)&&(givenPosition<=numberOfSongs)){
-//            result = songArray[givenPosition - 1];
-//            if(givenPosition < numberOfSongs){
-//                removeGap(givenPosition);
-//            }
-//            numberOfSongs--;
-//        }
-//        
-//        return result;
         if (givenPosition < 0 || givenPosition > numberOfSongs) {
             throw new IndexOutOfBoundsException();
         }
@@ -177,8 +167,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
             songArray[i] = songArray[i + 1];
         }
     }
-
-
 
 }
 

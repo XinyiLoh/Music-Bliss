@@ -64,7 +64,7 @@ public class Song implements Comparable<Song>{
     }
     
     public String toString() {
-        return "\nSong ID: "+ songID++ +"\nSong: " + songName + "\nSinger: " + singer;
+        return "Song: " + songName + "\nSinger: " + singer + "\n";
     }
 
     
