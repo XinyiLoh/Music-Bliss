@@ -9,18 +9,21 @@ package entity;
  *
  * @author Siah Xin Ying
  */
-public class Song {
+ 
+public class Song implements Comparable<Song>{
     
-    private static int songID = 100;
+    private static int songID = 0;
     private String songName;
     private String singer;
 
     public Song() {
+        
     }
 
     public Song(String songName, String singer) {
         this.songName = songName;
-        this.singer = singer;
+        this.singer = singer;   
+        songID++;
     }
 
     public static int getSongID() {
@@ -46,6 +49,25 @@ public class Song {
     public void setSinger(String singer) {
         this.singer = singer;
     }
+
+    @Override
+    public int compareTo(Song other) {
+        return this.getSongName().compareTo(other.getSongName());
+    }
+    
+    public boolean equals(Object other){
+        if(other instanceof Song){
+            Song otherName = (Song)other;
+            return(this.songName.equals(otherName.songName) && (this.singer==otherName.singer));
+        }
+        return false;
+    }
+    
+    public String toString() {
+        return "\nSong ID: "+ songID +"\nSong: " + songName + "\nSinger: " + singer;
+    }
+
+    
     
     
 }

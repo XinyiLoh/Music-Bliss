@@ -9,6 +9,31 @@ package adt;
  *
  * @author Siah Xin Ying
  */
-public interface SongInterface {
-        
+public interface SongInterface<T extends Comparable<?super T>> {
+
+    public boolean add(T newEntry);
+
+//    public boolean remove(T song);
+    
+//    public int getPosition(T song);
+    
+//    public T getPosition(int givenPosition);
+            
+    public int find(T givenPosition);
+    
+    public boolean contains(T anEntry);
+    
+    public T remove(int givenPosition) throws IndexOutOfBoundsException;
+
+    public void clear();
+
+    public int getNumberOfSongs();
+
+    public boolean isEmpty();
+
+    public boolean isFull();
+
+    
+ 
 }
+
