@@ -24,6 +24,8 @@ public interface SongInterface<T extends Comparable<T>> {
     public boolean contains(T anEntry);
     
     public T remove(int givenPosition);
+    
+    public boolean replace(int givenPosition, T newEntry);
 
     public void clear();
 

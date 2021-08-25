@@ -10,8 +10,8 @@ import java.io.Serializable;
 /**
  *
  * @author Siah Xin Ying
- * 
- * 
+ *
+ *
  */
 public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T>, Serializable {
 
@@ -89,15 +89,25 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
         return numberOfSongs == songArray.length;
     }
 
+//    private void doubleArray() {
+//        T[] oldList = songArray;
+//        int oldSize = oldList.length;
+//
+//        songArray = (T[]) new Object[FACTOR * oldSize];
+//
+//        for (int i = 0; i < oldSize; i++) {
+//            songArray[i] = oldList[i];
+//        }
+//    }
     private void doubleArray() {
-        T[] oldList = songArray;
-        int oldSize = oldList.length;
+        int arrayLength = songArray.length;
 
-        songArray = (T[]) new Object[FACTOR * oldSize];
-
-        for (int i = 0; i < oldSize; i++) {
-            songArray[i] = oldList[i];
+        T[] tempArray = (T[]) new Object[FACTOR * arrayLength];
+        for (int i = 0; i < numberOfSongs; i++) {
+            tempArray[i] = songArray[i];
         }
+
+        songArray = tempArray;
     }
 
     public boolean isEmpty() {
@@ -125,15 +135,15 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
 
         return result;
     }
-    
+
     public int find(T givenPosition) {
         int result = DEFAULT_ERROR_CODE;
-        for(int i =0;i<numberOfSongs;i++){
-            if(songArray[i].equals(givenPosition)){
+        for (int i = 0; i < numberOfSongs; i++) {
+            if (songArray[i].equals(givenPosition)) {
                 result = i;
             }
         }
-        
+
         return result;
     }
 
@@ -150,6 +160,18 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
         return result;
     }
 
+    public boolean replace(int givenPosition, T newEntry) {
+    boolean isSuccessful = true;
+
+    if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
+      songArray[givenPosition - 1] = newEntry;
+    } else {
+      isSuccessful = false;
+    }
+
+    return isSuccessful;
+  }
+    
     private void makeRoom(int newPosition) {
         int newIndex = newPosition - 1;
         int lastIndex = numberOfSongs - 1;
@@ -169,4 +191,3 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     }
 
 }
-
