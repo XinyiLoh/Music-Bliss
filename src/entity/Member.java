@@ -37,10 +37,10 @@ public class Member implements Comparable<Member>{
         iD++;
     }
     
+    @Override
     public int compareTo(Member m){
         return (int) (this.rewardPoints - m.rewardPoints);
     }
-
 
     public static int getiD() {
         return iD;
@@ -96,7 +96,7 @@ public class Member implements Comparable<Member>{
 
     @Override
     public String toString() {
-        return "Member{" + "firstName=" + firstName + ", lastName=" + lastName + ", mobile=" + mobile + ", gender=" + gender + ", joinDate=" + joinDate + ", rewardPoints=" + rewardPoints + ", cal=" + cal + ", sdf=" + sdf + '}';
+        return "Member{ ID =" + iD + ", firstName=" + firstName + ", lastName=" + lastName + ", mobile=" + mobile + ", gender=" + gender + ", joinDate=" + joinDate + ", rewardPoints=" + rewardPoints + ", cal=" + cal + ", sdf=" + sdf + '}';
     }
 
 }

@@ -24,7 +24,8 @@ public class MemberMaintenance {
         memberList.insert(new Member("k", "Tn", "010-1111111", "Male", 300));
         memberList.insert(new Member("ck", "T", "010-1111111", "Male", 400));
          
-         System.out.println("memberList: \n" + memberList);
+        System.out.println("memberList: \n" + memberList);
+         
      }
     
 }

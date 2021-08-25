@@ -14,9 +14,11 @@ public interface SortedListInterface<T> {
 
     public boolean insert(T newEntry);
     
+    public boolean delete(T anEntry);
+    
     public boolean update(T anEntry);
 
-    public boolean delete(T anEntry);
+    public void clearList();
 
     public boolean found(T anEntry);
 
@@ -24,6 +26,6 @@ public interface SortedListInterface<T> {
 
     public boolean emptyList();
     
-    //public T getEntry(int givenPosition);
+    public T getEntry(int givenPosition);
 
 }
