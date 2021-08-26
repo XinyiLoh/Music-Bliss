@@ -9,23 +9,21 @@ package adt;
  *
  * @author Loh Xin Yi
  */
-public interface SortedListInterface<T> {
-    //search
-
+public interface SortedListInterface<T extends Comparable<T>> {
+    
     public boolean insert(T newEntry);
     
-    public boolean delete(T anEntry);
-    
-    public boolean update(T anEntry);
-
-    public void clearList();
-
     public boolean found(T anEntry);
-
-    public int totalEntries();
-
-    public boolean emptyList();
+    
+    public int getPosition(T anEntry);
     
     public T getEntry(int givenPosition);
+    
+    public boolean delete(T anEntry);
 
+    public void clearList();
+    
+    public boolean emptyList();
+
+    public int totalEntries();
 }
