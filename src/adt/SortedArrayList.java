@@ -119,11 +119,16 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     }
 
     public String toString() {
+//        String outputStr = "";
+//        for (int i = 0; i < numberOfSongs; ++i) {
+//            outputStr += songArray[i] + "\n";
+//        }
+//
+//        return outputStr;
         String outputStr = "";
-        for (int i = 0; i < numberOfSongs; ++i) {
-            outputStr += songArray[i] + "\n";
+        for (int position = 1; position <= getNumberOfSongs(); ++position) {
+            outputStr += position + ". " + getPosition(position);
         }
-
         return outputStr;
     }
 
@@ -143,13 +148,16 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
                 result = i;
             }
         }
-
         return result;
     }
 
     public T remove(int givenPosition) {
-        if (givenPosition < 0 || givenPosition > numberOfSongs) {
-            throw new IndexOutOfBoundsException();
+        try {
+            if (givenPosition < 0 || givenPosition > numberOfSongs) {
+                throw new IndexOutOfBoundsException("Invalid Input.");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
         }
         T result = songArray[givenPosition];
         for (int i = givenPosition; i < numberOfSongs; i++) {
@@ -161,17 +169,21 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     }
 
     public boolean replace(int givenPosition, T newEntry) {
-    boolean isSuccessful = true;
+        boolean isSuccessful = true;
 
-    if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
-      songArray[givenPosition - 1] = newEntry;
-    } else {
-      isSuccessful = false;
+        if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
+            int i = 0;
+            while (i < numberOfSongs && songArray[i].compareTo(newEntry) > 0) {
+                i++;
+            }
+            songArray[givenPosition - 1] = newEntry;
+        } else {
+            isSuccessful = false;
+        }
+
+        return isSuccessful;
     }
 
-    return isSuccessful;
-  }
-    
     private void makeRoom(int newPosition) {
         int newIndex = newPosition - 1;
         int lastIndex = numberOfSongs - 1;
