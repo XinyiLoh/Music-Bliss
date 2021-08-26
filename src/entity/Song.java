@@ -5,6 +5,8 @@
  */
 package entity;
 
+import java.util.Objects;
+
 /**
  *
  * @author Siah Xin Ying
@@ -26,13 +28,13 @@ public class Song implements Comparable<Song>{
 
     }
 
-//    public static int getSongID() {
-//        return songID;
-//    }
-//
-//    public static void setSongID(int songID) {
-//        Song.songID = songID;
-//    }
+    public static int getSongID() {
+        return songID;
+    }
+
+    public static void setSongID(int songID) {
+        Song.songID = songID;
+    }
 
     public String getSongName() {
         return songName;
@@ -52,7 +54,7 @@ public class Song implements Comparable<Song>{
 
     @Override
     public int compareTo(Song other) {
-        return this.getSongName().compareTo(other.getSongName());
+        return songName.compareTo(other.songName);
     }
     
     public boolean equals(Object other){
@@ -62,12 +64,21 @@ public class Song implements Comparable<Song>{
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.songName);
+        hash = 37 * hash + Objects.hashCode(this.singer);
+        return hash;
+    }
+    
+    
     
     public String toString() {
         return songName + " - (" + singer + ")\n\n";
     }
 
-    
-    
+ 
     
 }

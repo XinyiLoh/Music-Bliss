@@ -52,11 +52,11 @@ public class SongMaintenance {
 
         do {
             do {
-                System.out.println("1. Add New Song ");
-                System.out.println("2. Delete Song ");
-                System.out.println("3. Search ");
-                System.out.println("4. Edit Song ");
-                System.out.println("5. View All Song");
+                System.out.println("1. Song List ");
+                System.out.println("2. Add Song ");
+                System.out.println("3. Update Song ");
+                System.out.println("4. Remove Song ");
+                System.out.println("5. Search");
                 System.out.print("Enter choice: ");
 
                 try {
@@ -73,6 +73,16 @@ public class SongMaintenance {
 
             switch (selection) {
                 case 1: {
+                    System.out.print("\nList out the songList: " + songList.getNumberOfSongs() + "\n");
+                    System.out.println("\nList out the songList: \n" + songList.toString());                    
+
+                    System.out.print("Back? [y/n]: ");
+                    option = scan.next().charAt(0);
+
+                    break;
+                }
+
+                case 2: {
                     do {
                         String addSongName;
                         String addSinger;
@@ -93,56 +103,11 @@ public class SongMaintenance {
                         scan.nextLine();
                     } while (decision != 'n' && decision != 'N');
 
-                    System.out.print("Back? [y/n]: ");
-                    option = scan.next().charAt(0);
-
-                    break;
-                }
-
-                case 2: {
-                    do {
-                        int number;
-
-                        System.out.println(songList.toString());
-                        System.out.print("Enter song's number to delete: ");
-                        number = scan.nextInt();
-                        
-                        try {
-                            if (number < 0 || number > songList.getNumberOfSongs()) {
-                                throw new IndexOutOfBoundsException("Invalid Input.");  
-                            }else{
-                                songList.remove(number);
-                            }
-                        } catch (IndexOutOfBoundsException e) {
-                            System.out.println(e.getMessage());
-                        }
-
-                        System.out.print("\nDo you wanna delete more? [y/n]: ");
-                        decision = scan.next().charAt(0);
-
-                    } while (decision != 'n' && decision != 'N');
                     System.out.print("\nBack? [y/n]: ");
                     option = scan.next().charAt(0);
                     break;
                 }
                 case 3: {
-                    do {
-                        scan.nextLine();
-                        int findSong;
-                        System.out.print("Enter the number to seach: ");
-                        findSong = scan.nextInt();
-
-                        System.out.print(songList.getPosition(findSong));
-
-                        System.out.print("\nDo you wanna search more? [y/n]: ");
-                        decision = scan.next().charAt(0);
-                    } while (decision != 'n' && decision != 'N');
-
-                    System.out.print("\nBack? [y/n]: ");
-                    option = scan.next().charAt(0);
-                    break;
-                }
-                case 4: {
                     do {
                         int index;
                         String replaceName;
@@ -167,19 +132,54 @@ public class SongMaintenance {
                         decision = scan.next().charAt(0);
                         scan.nextLine();
                     } while (decision != 'n' && decision != 'N');
+
+                    System.out.print("\nBack? [y/n]: ");
+                    option = scan.next().charAt(0);
+                    break;
+                }
+                case 4: {
+                    do {
+                        int number;
+
+                        System.out.println(songList.toString());
+                        System.out.print("Enter song's number to delete: ");
+                        number = scan.nextInt();
+
+                        try {
+                            if (number < 0 || number > songList.getNumberOfSongs()) {
+                                throw new IndexOutOfBoundsException("Invalid Input.");
+                            } else {
+                                songList.remove(number);
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                        System.out.print("\nDo you wanna delete more? [y/n]: ");
+                        decision = scan.next().charAt(0);
+
+                    } while (decision != 'n' && decision != 'N');
+
                     System.out.print("\nnBack? [y/n]: ");
                     option = scan.next().charAt(0);
                     break;
                 }
 
                 case 5: {
+                    do {
+                        scan.nextLine();
+                        int findSong;
+                        System.out.print("Enter the number to search: ");
+                        findSong = scan.nextInt();
 
-                    System.out.print("\nList out the songList: " + songList.getNumberOfSongs() + "\n");
-                    System.out.println("\nList out the songList: \n" + songList.toString());
+                        System.out.print(songList.getPosition(findSong));
 
+                        System.out.print("\nDo you wanna search more? [y/n]: ");
+                        decision = scan.next().charAt(0);
+                    } while (decision != 'n' && decision != 'N');
                     System.out.print("\nBack? [y/n]: ");
                     option = scan.next().charAt(0);
-                    break;
+
                 }
 
             }

@@ -33,6 +33,6 @@ public interface SongInterface<T extends Comparable<T>> {
 
     public boolean isFull();
     
-    public int find(T givenPosition);
+    public int getEntry(T givenPosition);
 }
 

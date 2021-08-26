@@ -161,7 +161,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
         }
     }
 
-    public int find(T givenPosition) {
+    public int getEntry(T givenPosition) {
         int result = DEFAULT_ERROR_CODE;
         for (int i = 0; i < numberOfSongs; i++) {
             if (songArray[i].equals(givenPosition)) {
