@@ -22,6 +22,4 @@ public class Session {
     public static void setSessionID(int sessionID) {
         Session.sessionID = sessionID;
     }
-    
-//    testing push and pull
 }
