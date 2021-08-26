@@ -13,7 +13,7 @@ import java.util.Calendar;
  * @author Loh Xin Yi
  */
 public class Member implements Comparable<Member>{
-    private static int iD = 1000;
+    private int iD;
     private String firstName;
     private String lastName;
     private String mobile;
@@ -26,26 +26,36 @@ public class Member implements Comparable<Member>{
     public Member(){
         
     }
+    
+    public Member(int iD){
+        this.iD = iD;
+    }
 
-    public Member(String firstName, String lastName, String mobile, String gender, int rewardPoints) {
+    public Member(int iD, String firstName, String lastName, String mobile, String gender, int rewardPoints) {
+        this.iD = iD;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobile = mobile;
         this.gender = gender;
         this.rewardPoints = rewardPoints;
         this.joinDate = sdf.format(cal.getTime());
-        iD++;
     }
     
     @Override
     public int compareTo(Member m){
-        return (int) (this.rewardPoints - m.rewardPoints);
+        
+        return (int) (this.iD - m.iD);
+        //return (int) (this.rewardPoints - m.rewardPoints);
     }
 
-    public static int getiD() {
+    public int getiD() {
         return iD;
     }
 
+    public void setiD(int iD) {
+        this.iD = iD;
+    }
+    
     public String getFirstName() {
         return firstName;
     }
@@ -96,7 +106,7 @@ public class Member implements Comparable<Member>{
 
     @Override
     public String toString() {
-        return "Member{ ID =" + iD + ", firstName=" + firstName + ", lastName=" + lastName + ", mobile=" + mobile + ", gender=" + gender + ", joinDate=" + joinDate + ", rewardPoints=" + rewardPoints + ", cal=" + cal + ", sdf=" + sdf + '}';
+        return iD + " " + firstName + " " + lastName + " " + mobile + " " + gender + " " + joinDate + " " + rewardPoints;
     }
 
 }

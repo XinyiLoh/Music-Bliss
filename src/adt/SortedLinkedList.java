@@ -21,6 +21,7 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
         noOfEntries = 0;
     }
     
+    @Override
     public boolean insert(T newEntry){
        
         head = insert(newEntry,head);
@@ -40,6 +41,69 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
         return currLocation;
     }
 
+    @Override
+    public boolean found(T anEntry){
+        
+        boolean search = false;
+        Node currLocation = head;
+        
+        while (currLocation != null && (anEntry.compareTo(currLocation.data) > 0 || anEntry.compareTo(currLocation.data) < 0)) {
+            currLocation = currLocation.next;
+        }
+
+        if (currLocation != null && anEntry.compareTo(currLocation.data) == 0) {
+            search = true;
+        }
+
+        return search;
+    }
+    
+    @Override
+    public int getPosition(T anEntry){
+        Node currLocation = head;
+        int position = 1;
+
+        if (emptyList()) {
+            position = 0;
+            
+        } else if (noOfEntries == 1) {
+            return position;
+        }
+
+        while (currLocation != null && (anEntry.compareTo(currLocation.data) > 0 || anEntry.compareTo(currLocation.data) < 0)) {
+            currLocation = currLocation.next;
+            position++;
+        }
+
+        return position;
+    }
+    
+    @Override
+    public T getEntry(int givenPosition) {
+        
+        T entry = null;
+
+        if (!(emptyList())) {
+            if ((givenPosition >= 1) && (givenPosition <= noOfEntries)) {
+                
+                Node currLocation = head;
+                
+                if(givenPosition == 1){
+                    entry = currLocation.data;
+                    
+                }else{
+                    for (int i = 0; i < givenPosition - 1; i++) {
+                        currLocation = currLocation.next;
+                    }
+                    entry = currLocation.data;
+                }
+            }
+        }
+
+        return entry;
+    }
+
+    @Override
     public boolean delete(T anEntry){
         
         if(head == null){
@@ -63,14 +127,16 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
             Node prevLocation = null;
             Node currLocation = head;
         
-            while (currLocation != null && currLocation.data.compareTo(anEntry)<0) {
+            while (currLocation != null && anEntry.compareTo(currLocation.data) != 0) {
               prevLocation = currLocation;
               currLocation = currLocation.next;
             }
         
-            if(currLocation != null && currLocation.data.equals(anEntry)){
+            if(currLocation != null && anEntry.compareTo(currLocation.data) == 0){
                 if(currLocation == head){
                     head = head.next;
+                }else if(getPosition(anEntry) == noOfEntries){
+                    prevLocation.next = null;
                 }else{
                     prevLocation.next = currLocation.next;
                 }
@@ -81,37 +147,22 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
             return false;
         }
     }
-    
         
-    public boolean update(T anEntry){
-        throw new UnsupportedOperationException();
-        }
-    
     @Override
     public void clearList(){
         head = null;
         noOfEntries = 0;
     }
-
-    public boolean found(T anEntry){
-        throw new UnsupportedOperationException();
-    }
     
+    @Override
+    public boolean emptyList(){
+        return (noOfEntries == 0);
+    }
 
     @Override
     public int totalEntries(){
         return noOfEntries;
         }
-
-    @Override
-    public boolean emptyList(){
-        return (noOfEntries == 0);
-    }
-    
-    @Override
-    public T getEntry(int givenPosition) {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public String toString() {
