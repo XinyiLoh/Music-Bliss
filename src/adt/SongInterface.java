@@ -34,5 +34,7 @@ public interface SongInterface<T extends Comparable<T>> {
     public boolean isFull();
     
     public int getEntry(T givenPosition);
+    
+    public boolean found(T anEntry);
 }
 

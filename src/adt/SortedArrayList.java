@@ -37,7 +37,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
             return true;
         } else {
             int i = 0;
-            while (i < numberOfSongs && songArray[i].compareTo(newEntry) > 0) {
+            while (i < numberOfSongs && songArray[i].compareTo(newEntry) < 0) {
                 i++;
             }
             if (isArrayFull()) {
@@ -52,7 +52,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     }
 
     public T remove(int givenPosition) {
-        
+
         T result = songArray[givenPosition];
         for (int i = givenPosition; i < numberOfSongs; i++) {
             songArray[i - 1] = songArray[i];
@@ -76,7 +76,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
 
         if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
             int i = 0;
-            while (i < numberOfSongs && songArray[i].compareTo(newEntry) > 0) {
+            while (i < numberOfSongs && songArray[i].compareTo(newEntry) < 0) {
                 i++;
             }
             songArray[givenPosition - 1] = newEntry;
@@ -130,17 +130,12 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     }
 
     public String toString() {
-//        String outputStr = "";
-//        for (int i = 0; i < numberOfSongs; ++i) {
-//            outputStr += songArray[i] + "\n";
-//        }
-//
-//        return outputStr;
         String outputStr = "";
         for (int position = 1; position <= getNumberOfSongs(); ++position) {
-            outputStr += position + ". " + getPosition(position);
+            outputStr += position + ".  " + getPosition(position);
         }
         return outputStr;
+
     }
 
     private void makeRoom(int newPosition) {
@@ -176,7 +171,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
 //            return false;
 //        } else {
 //            int i = 0;
-//            while (i < numberOfSongs && songArray[i].compareTo(anEntry) < 0) {
+//            while (i < numberOfSongs && songArray[i].compareTo(anEntry) > 0) {
 //                i++;
 //            }
 //            if (songArray[i].equals(anEntry)) {
@@ -185,7 +180,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
 //                return true;
 //            }
 //            return false;
-//        }
+//        
 //    }
 //    private void doubleArray() {
 //        T[] oldList = songArray;
@@ -197,4 +192,14 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
 //            songArray[i] = oldList[i];
 //        }
 //    }
+    public boolean found(T anEntry) {
+        boolean result = false;
+        for (int i = 0; i < numberOfSongs; i++) {
+            if(songArray[i].equals(anEntry)){
+                return true;
+            }
+        }
+        return result;
+    }
+
 }
