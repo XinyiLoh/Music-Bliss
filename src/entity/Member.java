@@ -43,9 +43,7 @@ public class Member implements Comparable<Member>{
     
     @Override
     public int compareTo(Member m){
-        
         return (int) (this.iD - m.iD);
-        //return (int) (this.rewardPoints - m.rewardPoints);
     }
 
     public int getiD() {
@@ -106,7 +104,10 @@ public class Member implements Comparable<Member>{
 
     @Override
     public String toString() {
-        return iD + " " + firstName + " " + lastName + " " + mobile + " " + gender + " " + joinDate + " " + rewardPoints;
+       
+        return String.format("%7d %12s %12s %15s %10s %25s %10d ",iD, firstName,lastName,mobile,gender,joinDate,rewardPoints);
     }
+
+  
 
 }

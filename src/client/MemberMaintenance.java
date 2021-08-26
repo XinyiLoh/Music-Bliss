@@ -8,13 +8,15 @@ package client;
 import adt.SortedLinkedList;
 import adt.SortedListInterface;
 import entity.Member;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  *
  * @author Loh Xin Yi
  */
 public class MemberMaintenance {
-    
+
     public static void main(String[] args) {
         
         SortedListInterface<Member> memberList = new SortedLinkedList<>();
@@ -27,20 +29,126 @@ public class MemberMaintenance {
          
         System.out.println("memberList: \n" + memberList);
         
-        System.out.println("=======================================");
-        System.out.println("|                                      |");
-        System.out.println("|             JY Hospital              |");
-        System.out.println("|                                      |");
-        System.out.println("|              MAIN MENU               |");
-        System.out.println("|          1. Patient Menu             |");
-        System.out.println("|          2. Doctor Menu              |");
-        System.out.println("|          3. Doctor Duty Menu         |");
-        System.out.println("|          4. Exit                     |");
-        System.out.println("|                                      |");
-        System.out.println("=======================================");
-        System.out.print("Enter Your Selection: ");
-        choose = input.nextLine().charAt(0);
+        Scanner scan = new Scanner(System.in);
+        char selection;
         
+        do{
+
+            System.out.println("\n\n𝓜𝓾𝓼𝓲𝓬 𝓑𝓵𝓲𝓼𝓼      ");
+            System.out.println("_________________________________");
+            System.out.println("            Main Menu            "); 
+            System.out.println("_________________________________");
+            System.out.println("1.      Member Maintenance");
+            System.out.println("2.      Song Maintenance");
+            System.out.println("3.      Session Schedule");
+            System.out.println("0.      Exit");
+            System.out.println("_________________________________");
+            
+            System.out.print("Enter choice: ");
+            selection = scan.nextLine().charAt(0);
+            
+            switch(selection){
+                case '1':
+                    char option;
+                    
+                    do{
+                        System.out.println("\n\n====================");
+                        System.out.println("Member Maintenance");
+                        System.out.println("====================");
+                        System.out.println("1.Member List");
+                        System.out.println("2.Add Member");
+                        System.out.println("3.Update Member");
+                        System.out.println("4.Remove Member");
+                        System.out.println("0.Back to Main Menu");
+                        System.out.println("====================");
+                        System.out.print("Enter choice: ");
+                        option = scan.nextLine().charAt(0);
+                        
+                        switch(option){
+                            case '1':
+                                System.out.println("\n\nMember List");
+                                System.out.println("--------------------------------------------------------------------------------------------------------");
+                                System.out.println("     ID   First Name    Last name          Mobile     Gender                 Join Date     Reward Points");
+                                System.out.println("--------------------------------------------------------------------------------------------------------");
+                                System.out.print(memberList);
+                                System.out.println("--------------------------------------------------------------------------------------------------------");
+                                break;
+                                
+                            case '2':
+                                break;
+                                
+                            case '3':
+                                
+                                int updateID;
+                                Member updateEntry = new Member();
+                                System.out.print("Enter Member ID : ");
+                                
+                                try {
+                                    
+                                    updateID = scan.nextInt();
+                                    updateEntry.setiD(updateID);
+                                    
+                                    if(memberList.found(updateEntry)){
+                                        
+                                    }else{
+                                        System.out.println("Member ID not found.");
+                                    }
+
+                                } catch (InputMismatchException a) {
+                                    System.out.println("Must enter numbers.");
+                                    scan.next();
+                                }
+                                
+                                break;
+                                
+                            case '4':
+                                
+                                int removeID;
+                                Member removeEntry = new Member();
+                                System.out.print("Enter Member ID : ");
+                                
+                                try {
+                                    removeID = scan.nextInt();
+                                    removeEntry.setiD(removeID);
+                                    
+                                    if(memberList.found(removeEntry)){
+                                        if(memberList.delete(removeEntry)){
+                                            System.out.println("Delete Successfully.");
+                                        }else{
+                                            System.err.println("Delete Failed.");
+                                        }
+                                    }else{
+                                        System.err.println("Member ID not found.");
+                                    }
+
+                                } catch (InputMismatchException a) {
+                                    System.err.println("Must enter numbers.");
+                                }
+                                scan.nextLine();
+                                break;
+                                
+                            case '0':
+                                break;
+                            default:
+                                System.out.print("Incorrect Input, Please try again.\n\n");
+                        }
+                        
+                    }while(Character.compare(option,'0') != 0);
+                    
+                    break;
+                case '2':
+                    System.out.print("Song Maintenance");
+                    break;
+                case '3':
+                    System.out.print("Session Schedule");
+                    break;
+                case '0':
+                    System.out.print("Bye ^^ ");
+                default:
+                    System.out.print("Incorrect Input, Please try again.\n\n");
+            }
+        
+        }while(Character.compare(selection,'0') != 0);
 
      }
     
