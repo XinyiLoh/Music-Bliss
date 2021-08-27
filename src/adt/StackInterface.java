@@ -9,6 +9,6 @@ package adt;
  *
  * @author Koh Hui Hui
  */
-public interface StackInterface {
-    
+public interface StackInterface<T extends Comparable<T>> {
+
 }

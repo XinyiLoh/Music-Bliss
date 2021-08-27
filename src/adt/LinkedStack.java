@@ -7,8 +7,8 @@ package adt;
 
 /**
  *
- * @author Koh Hui Hui 
+ * @author Koh Hui Hui
  */
-public class LinkedStack {
-    
+public class LinkedStack<T extends Comparable<T>> implements StackInterface<T> {
+
 }
