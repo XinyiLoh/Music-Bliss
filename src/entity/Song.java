@@ -34,12 +34,14 @@ public class Song implements Comparable<Song> {
 
     public int compareTo(Song other) {
         return (songName.compareTo(other.songName));
-    }
 
+    }
+    
+    
+//
 //    public int compareTo(Song s) {
 //        return (int) (this.songID - s.songID);
 //    }
-    
     public int getSongID() {
         return songID;
     }

@@ -65,7 +65,7 @@ public class SongMaintenance {
 
                     System.out.println("\n\nSong List");
                     System.out.println("------------------------------------------------------");
-                    System.out.println(" ID     Song                            Singer ");
+                    System.out.println("NO.  ID     Song                            Singer ");
                     System.out.println("------------------------------------------------------");
                     System.out.print(songList);
                     System.out.println("------------------------------------------------------");
@@ -78,6 +78,7 @@ public class SongMaintenance {
 
                 case 2: {
                     do {
+                        Song addSong = new Song();
                         String addSongName;
                         String addSinger;
                         scan.nextLine();
@@ -88,8 +89,8 @@ public class SongMaintenance {
                         System.out.print("Enter singer: ");
                         addSinger = scan.nextLine().toUpperCase();
 
-                        tempSong.setSongName(addSongName);
-                        tempSong.setSinger(addSinger);
+                        addSong.setSongName(addSongName);
+                        addSong.setSinger(addSinger);
                         songList.add(new Song(addSongName, addSinger));
 
                         System.out.print("Do you wanna add more? [y/n]: ");
@@ -103,71 +104,52 @@ public class SongMaintenance {
                 }
                 case 3: {
                     do {
-                        int index;
-                        int s;
+                        Song updateSong = new Song();
+                        String songName;
+
                         String replaceName;
                         String replaceSinger;
 
-                        System.out.println("1. Edit Song");
-                        System.out.println("2. Edit Singer");
-                        System.out.println("3. Edit Both");
-                        System.out.print("Enter selection: ");
-                        s = scan.nextInt();
+                        System.out.println("\n\nUpdate Song");
+                        System.out.println("-----------------");
+                        System.out.print("Enter Song Name: ");
+                        songName = scan.nextLine().toUpperCase();
                         scan.nextLine();
 
-                        System.out.println(songList);
-                        
+                        updateSong.setSongName(songName);
 
-                        switch (s) {
-//                            case 1: {
-//                                System.out.print("Enter Song number: ");
-//                                index = scan.nextInt();
-//                                scan.nextLine();
-//                                System.out.print("Enter Song name: ");
-//                                replaceName = scan.nextLine().toUpperCase();
-//                                tempSong.setSongName(replaceName);
-//                                int currID = songList.getPosition(index).getSongID();
-//                                String currSinger = songList.getPosition(index).getSinger();
-//                                tempSong.setSongID(currID);
-//                                tempSong.setSinger(currSinger);
-//                                songList.replace(index, tempSong);
-//                                break;
-//                            }
-//                            case 2: {
-//                                System.out.print("Enter Song number: ");
-//                                index = scan.nextInt();
-//                                scan.nextLine();
-//                                System.out.print("Enter Singer: ");
-//                                replaceSinger = scan.nextLine().toUpperCase();
-//                                tempSong.setSinger(replaceSinger);
-//                                int currID = songList.getPosition(index).getSongID();
-//                                String currSong = songList.getPosition(index).getSongName();
-//                                tempSong.setSongID(currID);
-//                                tempSong.setSongName(currSong);
-//                                songList.replace(index, tempSong);
-//                                break;
-//                            }
-                            case 3: {
-                                System.out.print("Enter Song number: ");
-                                index = scan.nextInt();
-                                scan.nextLine();
-                                System.out.println(songList.toString());
-                                System.out.print("Enter Song number: ");
-                                index = scan.nextInt();
-                                scan.nextLine();
-                                System.out.print("Enter Song name: ");
-                                replaceName = scan.nextLine().toUpperCase();
-                                tempSong.setSongName(replaceName);
-                                System.out.print("Enter Singer: ");
-                                replaceSinger = scan.nextLine().toUpperCase();
-                                tempSong.setSinger(replaceSinger);
-                                int currID = songList.getPosition(index).getSongID();
-                                tempSong.setSongID(currID);
-                                songList.replace(index, tempSong);
-                                break;
-                            }
-                            default:
-                                break;
+                        if (songList.found(updateSong)) {
+                            updateSong = songList.getEntry(songList.getPosition(updateSong));
+                            int updateSelection;
+
+                            scan.nextLine();
+
+//                            do {
+//                                System.out.println("1. Update Song");
+//                                System.out.println("2. Update Singer");
+//                                System.out.println("3. Update Both");
+//                                System.out.print("Enter selection: ");
+//                                updateSelection = scan.nextInt();
+//
+//                                switch (updateSelection) {
+//                                    case 1:
+                            System.out.print("Enter Song name: ");
+                            replaceName = scan.nextLine().toUpperCase();
+                            updateSong.setSongName(replaceName);
+
+                            System.out.print("Enter Singer: ");
+                            replaceSinger = scan.nextLine().toUpperCase();
+                            updateSong.setSinger(replaceSinger);
+
+                            int currID = updateSong.getSongID();
+                            updateSong.setSongID(currID);
+                            songList.replace(songList.getPosition(updateSong), updateSong);
+                            break;
+//                                }
+//                            }while();
+
+                        } else {
+                            System.out.print("\nError ");
                         }
 
                         System.out.print("\nDo you wanna replace more? [y/n]: ");
@@ -220,7 +202,7 @@ public class SongMaintenance {
                         System.out.println("------------------------------------------------------");
                         System.out.println(" ID     Song                            Singer ");
                         System.out.println("------------------------------------------------------");
-                        System.out.print(songList.getPosition(findSong));
+                        System.out.print(songList.getEntry(findSong));
                         System.out.println("------------------------------------------------------");
 
                         System.out.print("\nDo you wanna search more? [y/n]: ");
@@ -235,11 +217,4 @@ public class SongMaintenance {
         } while (option != 'n');
     }
 
-//    public static String list() {
-//        String outputStr = "";
-//        for (int position = 1; position <= songList.getNumberOfSongs(); ++position) {
-//            outputStr += position + ". " + songList.getPosition(position);
-//        }
-//        return outputStr;
-//    }
 }

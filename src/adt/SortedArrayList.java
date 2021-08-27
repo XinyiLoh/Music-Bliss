@@ -62,12 +62,31 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
         return result;
     }
 
-    public T getPosition(int givenPosition) {
+//    public T getPosition(int givenPosition) {
+//        T result = null;
+//        if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
+//            result = songArray[givenPosition - 1];
+//        }
+//
+//        return result;
+//    }
+    public T getEntry(int givenPosition) {
         T result = null;
+
         if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
             result = songArray[givenPosition - 1];
         }
 
+        return result;
+    }
+
+    public int getPosition(T givenPosition) {
+        int result = DEFAULT_ERROR_CODE;
+        for (int i = 0; i < numberOfSongs; i++) {
+            if (songArray[i].equals(givenPosition)) {
+                result = i;
+            }
+        }
         return result;
     }
 
@@ -132,7 +151,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     public String toString() {
         String outputStr = "";
         for (int position = 1; position <= getNumberOfSongs(); ++position) {
-            outputStr += position + ".  " + getPosition(position);
+            outputStr += position + ".  " + getEntry(position);
         }
         return outputStr;
 
@@ -156,13 +175,18 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
         }
     }
 
-    public int getEntry(T givenPosition) {
-        int result = DEFAULT_ERROR_CODE;
-        for (int i = 0; i < numberOfSongs; i++) {
-            if (songArray[i].equals(givenPosition)) {
-                result = i;
+    public boolean found(T anEntry) {
+        boolean result = false;
+        int i = 0;
+          while (i < numberOfSongs && songArray[i].compareTo(anEntry) < 0) {
+                i++;
             }
-        }
+//        for (int i = 0; i < numberOfSongs; i++) {
+            if (songArray[i].equals(anEntry)) {
+                return true;
+            }
+            
+//        }
         return result;
     }
 
@@ -192,14 +216,4 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
 //            songArray[i] = oldList[i];
 //        }
 //    }
-    public boolean found(T anEntry) {
-        boolean result = false;
-        for (int i = 0; i < numberOfSongs; i++) {
-            if(songArray[i].equals(anEntry)){
-                return true;
-            }
-        }
-        return result;
-    }
-
 }

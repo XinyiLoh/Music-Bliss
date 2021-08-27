@@ -12,18 +12,16 @@ package adt;
 public interface SongInterface<T extends Comparable<T>> {
 
     public boolean add(T newEntry);
-    
+
     public T remove(int givenPosition);
 
-    public T getPosition(int givenPosition);
-    
+//    public T getPosition(int givenPosition);
     public boolean replace(int givenPosition, T newEntry);
-    
+
 //    public boolean remove(T song);
-    
 //    public int getPosition(T song);
-                     
-    public boolean contains(T anEntry);         
+
+    public boolean contains(T anEntry);
 
     public void clear();
 
@@ -32,9 +30,11 @@ public interface SongInterface<T extends Comparable<T>> {
     public boolean isEmpty();
 
     public boolean isFull();
-    
-    public int getEntry(T givenPosition);
-    
-    public boolean found(T anEntry);
-}
 
+//    public int getEntry(T givenPosition);
+    public T getEntry(int givenPosition);
+
+    public boolean found(T anEntry);
+
+    public int getPosition(T givenPosition);
+}
