@@ -13,7 +13,7 @@ import java.io.Serializable;
  *
  *
  */
-public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T>, Serializable {
+public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySortedListInterface<T>, Serializable {
 
     private T[] songArray;
     private int numberOfSongs;
@@ -21,11 +21,11 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     private static final int FACTOR = 2;
     private static final int DEFAULT_ERROR_CODE = -1;
 
-    public SortedArrayList() {
+    public SiahxySortedArrayList() {
         this(DEFAULT_CAPACITY);
     }
 
-    public SortedArrayList(int initialCapacity) {
+    public SiahxySortedArrayList(int initialCapacity) {
         numberOfSongs = 0;
         songArray = (T[]) new Comparable[initialCapacity];
     }
@@ -52,7 +52,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     }
 
     public T remove(int givenPosition) {
-
         T result = songArray[givenPosition];
         for (int i = givenPosition; i < numberOfSongs; i++) {
             songArray[i - 1] = songArray[i];
@@ -62,21 +61,11 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
         return result;
     }
 
-//    public T getPosition(int givenPosition) {
-//        T result = null;
-//        if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
-//            result = songArray[givenPosition - 1];
-//        }
-//
-//        return result;
-//    }
     public T getEntry(int givenPosition) {
         T result = null;
-
         if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
             result = songArray[givenPosition - 1];
         }
-
         return result;
     }
 
@@ -165,77 +154,4 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
             songArray[i + 1] = songArray[i];
         }
     }
-
-    private void removeGap(int givenPosition) {
-        int removedIndex = givenPosition - 1;
-        int lastIndex = numberOfSongs - 1;
-
-        for (int i = removedIndex; i < lastIndex; i++) {
-            songArray[i] = songArray[i + 1];
-        }
-    }
-//
-//    public boolean found(T anEntry) {
-//        boolean result = false;
-//        int i = 0;
-//          while (i < numberOfSongs && songArray[i].compareTo(anEntry) < 0) {
-//                i++;
-//            }
-////        for (int i = 0; i < numberOfSongs; i++) {
-//            if (songArray[i].equals(anEntry)) {
-//                return true;
-//            }
-//            
-////        }
-//        return result;
-//    }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    public boolean remove(T anEntry) {
-//        if (!isEmpty()) {
-//            return false;
-//        } else {
-//            int i = 0;
-//            while (i < numberOfSongs && songArray[i].compareTo(anEntry) > 0) {
-//                i++;
-//            }
-//            if (songArray[i].equals(anEntry)) {
-//                removeGap(i + 1);
-//                numberOfSongs--;
-//                return true;
-//            }
-//            return false;
-//        
-//    }
-//    private void doubleArray() {
-//        T[] oldList = songArray;
-//        int oldSize = oldList.length;
-//
-//        songArray = (T[]) new Object[FACTOR * oldSize];
-//
-//        for (int i = 0; i < oldSize; i++) {
-//            songArray[i] = oldList[i];
-//        }
-//    }
-
-
 }

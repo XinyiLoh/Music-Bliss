@@ -5,11 +5,11 @@
  */
 package client;
 
-import adt.SongInterface;
-import adt.SortedArrayList;
+import adt.SiahxySortedArrayList;
 import entity.Song;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import adt.SiahxySortedListInterface;
 
 /**
  *
@@ -19,7 +19,7 @@ public class SongMaintenance {
 
     public static void main(String[] args) {
 
-        SongInterface<Song> songList = new SortedArrayList<Song>();
+        SiahxySortedListInterface<Song> songList = new SiahxySortedArrayList<Song>();
         Song tempSong = new Song();
         Scanner scan = new Scanner(System.in);
         int selection = 0;
@@ -61,11 +61,10 @@ public class SongMaintenance {
 
             switch (selection) {
                 case 1: {
-                    System.out.print("\nList out the songList: " + songList.getNumberOfSongs() + "\n");
 
-                    System.out.println("\n\nSong List");
+                    System.out.println("\nSong List: " + songList.getNumberOfSongs());
                     System.out.println("------------------------------------------------------");
-                    System.out.println("NO.  ID     Song                            Singer ");
+                    System.out.println("NO.  ID     Song            Singer ");
                     System.out.println("------------------------------------------------------");
                     System.out.print(songList);
                     System.out.println("------------------------------------------------------");
@@ -83,10 +82,12 @@ public class SongMaintenance {
                         String addSinger;
                         scan.nextLine();
 
-                        System.out.print("Enter song's name: ");
+                        System.out.println("\n\nAdd New Song");
+                        System.out.println("-----------------");
+                        System.out.print("Enter Song: ");
                         addSongName = scan.nextLine().toUpperCase();
 
-                        System.out.print("Enter singer: ");
+                        System.out.print("Enter Singer: ");
                         addSinger = scan.nextLine().toUpperCase();
 
                         addSong.setSongName(addSongName);
@@ -110,7 +111,7 @@ public class SongMaintenance {
 
                     System.out.println("\n\nUpdate Song");
                     System.out.println("-----------------");
-                    System.out.print("Enter Song Name: ");
+                    System.out.print("Enter Song: ");
                     songName = scan.nextLine().toUpperCase();
 
                     updateSong.setSongName(songName);
@@ -168,10 +169,11 @@ public class SongMaintenance {
                                     System.out.print("Enter Singer: ");
                                     replaceSinger = scan.nextLine().toUpperCase();
                                     updateSong.setSinger(replaceSinger);
-                                    
+
                                     currID = updateSong.getSongID();
                                     updateSong.setSongID(currID);
                                     songList.replace(songList.getPosition(updateSong), updateSong);
+                                    break;
                             }
                             System.out.print("\nDo you wanna replace more? [y/n]: ");
                             decision = scan.next().charAt(0);
@@ -190,23 +192,29 @@ public class SongMaintenance {
                 }
                 case 4: {
                     do {
-                        int number;
-                        System.out.print("Enter Song ID : ");
-
-                        System.out.println(songList);
-                        System.out.print("Enter song's number to delete: ");
-                        number = scan.nextInt();
-
-                        try {
-                            if (number < 0 || number > songList.getNumberOfSongs()) {
-                                throw new IndexOutOfBoundsException("Invalid Input.");
-                            } else {
-                                songList.remove(number);
-                            }
-                        } catch (IndexOutOfBoundsException e) {
-                            System.out.println(e.getMessage());
-                        }
                         scan.nextLine();
+                        Song removeSong = new Song();
+                        String songName;
+
+                        System.out.println("\n\nUpdate Song");
+                        System.out.println("-----------------");
+                        System.out.print("Enter Song: ");
+                        songName = scan.nextLine().toUpperCase();
+
+                        removeSong.setSongName(songName);
+
+                        if (songList.contains(removeSong)) {
+
+                            removeSong = songList.getEntry(songList.getPosition(removeSong));
+
+                            System.out.println(removeSong);
+
+                            System.out.println("Remove Successfully");
+                            songList.remove(songList.getPosition(removeSong));
+
+                        } else {
+                            System.out.println("Sorry.");
+                        }
 
                         System.out.print("\nDo you wanna delete more? [y/n]: ");
                         decision = scan.next().charAt(0);
@@ -221,15 +229,25 @@ public class SongMaintenance {
                 case 5: {
                     do {
                         scan.nextLine();
-                        int findSong;
-                        System.out.print("Enter the number to search: ");
-                        findSong = scan.nextInt();
+                        Song searchSong = new Song();
+                        String songName;
+                        System.out.println("\n\nSearch");
+                        System.out.println("-----------------");
+                        System.out.print("Enter the Song: ");
+                        songName = scan.nextLine().toUpperCase();
 
-                        System.out.println("------------------------------------------------------");
-                        System.out.println(" ID     Song                            Singer ");
-                        System.out.println("------------------------------------------------------");
-                        System.out.print(songList.getEntry(findSong));
-                        System.out.println("------------------------------------------------------");
+                        searchSong.setSongName(songName);
+
+                        if (songList.contains(searchSong)) {
+
+                            searchSong = songList.getEntry(songList.getPosition(searchSong));
+
+                            System.out.println("------------------------------------------------------");
+                            System.out.print(searchSong);
+                            System.out.println("------------------------------------------------------");
+                        } else {
+                            System.out.println("Sorry");
+                        }
 
                         System.out.print("\nDo you wanna search more? [y/n]: ");
                         decision = scan.next().charAt(0);

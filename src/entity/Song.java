@@ -36,12 +36,7 @@ public class Song implements Comparable<Song> {
         return (songName.compareTo(other.songName));
 
     }
-    
-    
-//
-//    public int compareTo(Song s) {
-//        return (int) (this.songID - s.songID);
-//    }
+
     public int getSongID() {
         return songID;
     }
@@ -74,17 +69,8 @@ public class Song implements Comparable<Song> {
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 37 * hash + Objects.hashCode(this.songName);
-        hash = 37 * hash + Objects.hashCode(this.singer);
-        return hash;
-    }
-
     public String toString() {
         return String.format("%-7d %-24s %-90s\n", songID, songName, singer);
-//        return  songName + " - (" + singer + ")\n\n";
     }
 
 }
