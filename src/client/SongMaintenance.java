@@ -20,7 +20,6 @@ public class SongMaintenance {
     public static void main(String[] args) {
 
         SiahxySortedListInterface<Song> songList = new SiahxySortedArrayList<Song>();
-        Song tempSong = new Song();
         Scanner scan = new Scanner(System.in);
         int selection = 0;
         char decision;
