@@ -10,6 +10,7 @@ import adt.SortedListInterface;
 import entity.Member;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -75,10 +76,87 @@ public class MemberMaintenance {
                                 break;
                                 
                             case '2':
+                                
+                                System.out.println("\n\nAdd Member");
+                                System.out.println("---------------");
+                                
+                                //Manually key in ID
+                                //System.out.print("Please Enter ID: ");
+                                //int id = scan.nextInt();
+                                //scan.nextLine();
+                                
+                                int id = memberList.getEntry(memberList.totalEntries()).getiD() + 1;
+                                
+                                System.out.print("Please Enter First Name: ");
+                                String fname = scan.nextLine();
+                                String extractFname = fname.replaceAll("[^A-Za-z]+", "");
+                                
+                                System.out.print("Please Enter Last Name: ");
+                                String lname = scan.nextLine();
+                                String extractLname = lname.replaceAll("[^A-Za-z]+", "");
+                                
+                                boolean phone = false;
+                                String pnum = "0";
+                                
+                                while(!phone){
+                                    System.out.print("Please Enter Phone Number: ");
+                                    pnum = scan.nextLine();
+                                    
+                                    if(Pattern.matches("\\d{10}",pnum)){
+                                        pnum = pnum.replaceFirst("(\\d{3})(\\d+)", "$1-$2");
+                                        phone = true;
+                                    }else{
+                                        System.err.println("Must enter 10 numbers.");
+                                    }
+                                }
+                                
+                                boolean selectGender = false;
+                                String gender = "Not Selected";
+                                
+                                while(!selectGender){
+                                    System.out.print("Please Enter Gender (M = Male/ F = Female): ");
+                                    char genderCode = scan.nextLine().charAt(0);
+                                    
+                                    if(genderCode == 'M' || genderCode == 'F'|| genderCode == 'f'|| genderCode == 'm'){
+                                        if(genderCode == 'M' || genderCode == 'm'){
+                                            gender = "Male";
+                                        }else{
+                                            gender = "Female";
+                                        }
+                                        selectGender = true;
+                                    }else{
+                                        System.err.println("Must enter F or M character only.");
+                                    }
+                                }
+                                
+                                boolean reward = false;
+                                int rw = 0;
+                                
+                                while(!reward){
+                                    System.out.print("Please Enter Reward Points: ");
+                                    try {
+                                        rw = scan.nextInt();
+                                        reward = true;
+                                    } catch (InputMismatchException a) {
+                                        System.err.println("Must enter numbers.");
+                                        scan.next();
+                                    }
+                                }
+                                
+                                Member newMember = new Member(id,extractFname,extractLname,pnum,gender,rw);
+                                
+                                if(memberList.insert(newMember)){
+                                    System.out.println("\nNew Member Added Successfully.");
+                                }else{
+                                    System.err.println("\nAdd Failed.");
+                                }
+                                
+                                scan.nextLine();
                                 break;
                                 
                             case '3':
-                                
+                                System.out.println("\n\nUpdate Member");
+                                System.out.println("-----------------");
                                 int updateID;
                                 Member updateEntry = new Member();
                                 System.out.print("Enter Member ID : ");
@@ -89,26 +167,129 @@ public class MemberMaintenance {
                                     updateEntry.setiD(updateID);
                                     
                                     if(memberList.found(updateEntry)){
+                                        updateEntry = memberList.getEntry(memberList.getPosition(updateEntry));
+                                        char updateChoice;
+                                        
+                                        scan.nextLine();
+                                        do{
+                                            System.out.println("\n" + updateEntry);
+                                            
+                                            System.out.println("\nUpdate");
+                                            System.out.println("-------");
+                                            System.out.println("1.First Name");
+                                            System.out.println("2.Last Name");
+                                            System.out.println("3.Phone Number");
+                                            System.out.println("4.Gender");
+                                            System.out.println("5.Reward Points");
+                                            System.out.println("0.Cancel");
+                                            System.out.println("--------------------");
+                                        
+                                            System.out.print("Enter choice: ");
+                                            updateChoice = scan.nextLine().charAt(0); 
+                                            
+                                            switch(updateChoice){
+                                                case '1':
+                                                    System.out.print("Please Enter First Name: ");
+                                                    String updateFname = scan.nextLine();
+                                                    String extractUpdateFname = updateFname.replaceAll("[^A-Za-z]+", "");
+                                                    updateEntry.setFirstName(extractUpdateFname);
+                                                    System.out.print("Update Successfully.\n");
+                                                    break;
+                                                case '2':
+                                                    System.out.print("Please Enter Last Name: ");
+                                                    String updateLname = scan.nextLine();
+                                                    String extractUpdateLname = updateLname.replaceAll("[^A-Za-z]+", "");
+                                                    updateEntry.setLastName(extractUpdateLname);
+                                                    System.out.print("Update Successfully.\n");
+                                                    break;
+                                                case '3':
+                                                    boolean updatePhone = false;
+                                                    String updatePnum = "0";
+
+                                                    while(!updatePhone){
+                                                        System.out.print("Please Enter Phone Number: ");
+                                                        updatePnum = scan.nextLine();
+
+                                                        if(Pattern.matches("\\d{10}",updatePnum)){
+                                                            updatePnum = updatePnum.replaceFirst("(\\d{3})(\\d+)", "$1-$2");
+                                                            updateEntry.setMobile(updatePnum);
+                                                            updatePhone = true;
+                                                        }else{
+                                                            System.err.println("Must enter 10 numbers.");
+                                                        }
+                                                    }
+                                                    System.out.print("Update Successfully.\n");
+                                                    break;
+                                                case '4':
+                                                    boolean selectGend = false;
+                                                    String gend = "Not Selected";
+
+                                                    while(!selectGend){
+                                                        System.out.print("Please Enter Gender (M = Male/ F = Female): ");
+                                                        char genderCode = scan.nextLine().charAt(0);
+
+                                                        if(genderCode == 'M' || genderCode == 'F'|| genderCode == 'f'|| genderCode == 'm'){
+                                                            if(genderCode == 'M' || genderCode == 'm'){
+                                                                gend = "Male";
+                                                            }else{
+                                                                gend = "Female";
+                                                            }
+                                                            updateEntry.setGender(gend);
+                                                            selectGend = true;
+                                                        }else{
+                                                            System.err.println("Must enter F or M character only.");
+                                                        }
+                                                    }
+                                                    System.out.print("Update Successfully.\n");
+                                                    break;
+                                                case '5':
+                                                    boolean rewardP = false;
+                                                    int rp = 0;
+
+                                                    while(!rewardP){
+                                                        System.out.print("Please Enter Reward Points: ");
+                                                        try {
+                                                            rp = scan.nextInt();
+                                                            updateEntry.setRewardPoints(rp);
+                                                            rewardP = true;
+                                                        } catch (InputMismatchException a) {
+                                                            System.err.println("Must enter numbers.");
+                                                            scan.next();
+                                                        }
+                                                    }
+                                                    System.out.print("Update Successfully.\n");
+                                                    break;
+                                                case '0':
+                                                    System.err.print("Update Cancel.");
+                                                    break;
+                                                default:
+                                                    System.err.print("Incorrect Input, Please try again.\n\n");
+                                            }
+                                            
+                                            memberList.delete(updateEntry);
+                                            memberList.insert(updateEntry);
+                                            
+                                        }while(Character.compare(updateChoice,'0') != 0);
                                         
                                     }else{
-                                        System.out.println("Member ID not found.");
+                                        System.err.println("Member ID not found.");
                                     }
 
                                 } catch (InputMismatchException a) {
-                                    System.out.println("Must enter numbers.");
+                                    System.err.println("Must enter numbers.");
                                     scan.next();
                                 }
-                                
+                                scan.nextLine();
                                 break;
-                                
                             case '4':
                                 
-                                int removeID;
+                                System.out.println("\n\nRemove Member");
+                                System.out.println("-----------------");
                                 Member removeEntry = new Member();
                                 System.out.print("Enter Member ID : ");
                                 
                                 try {
-                                    removeID = scan.nextInt();
+                                    int removeID = scan.nextInt();
                                     removeEntry.setiD(removeID);
                                     
                                     if(memberList.found(removeEntry)){
@@ -123,6 +304,7 @@ public class MemberMaintenance {
 
                                 } catch (InputMismatchException a) {
                                     System.err.println("Must enter numbers.");
+                                    scan.next();
                                 }
                                 scan.nextLine();
                                 break;
@@ -130,7 +312,7 @@ public class MemberMaintenance {
                             case '0':
                                 break;
                             default:
-                                System.out.print("Incorrect Input, Please try again.\n\n");
+                                System.err.print("Incorrect Input, Please try again.\n\n");
                         }
                         
                     }while(Character.compare(option,'0') != 0);
@@ -145,7 +327,7 @@ public class MemberMaintenance {
                 case '0':
                     System.out.print("Bye ^^ ");
                 default:
-                    System.out.print("Incorrect Input, Please try again.\n\n");
+                    System.err.print("Incorrect Input, Please try again.\n\n");
             }
         
         }while(Character.compare(selection,'0') != 0);
