@@ -83,8 +83,8 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     public int getPosition(T givenPosition) {
         int result = DEFAULT_ERROR_CODE;
         for (int i = 0; i < numberOfSongs; i++) {
-            if (songArray[i].equals(givenPosition)) {
-                result = i;
+            if (songArray[i].compareTo(givenPosition) == 0) {
+                result = i+1;
             }
         }
         return result;
@@ -113,7 +113,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
     public boolean contains(T anEntry) {
         boolean found = false;
         for (int i = 0; !found && (i < numberOfSongs); i++) {
-            if (anEntry.equals(songArray[i])) {
+            if (anEntry.compareTo(songArray[i]) == 0) {
                 found = true;
             }
         }
@@ -174,22 +174,42 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
             songArray[i] = songArray[i + 1];
         }
     }
+//
+//    public boolean found(T anEntry) {
+//        boolean result = false;
+//        int i = 0;
+//          while (i < numberOfSongs && songArray[i].compareTo(anEntry) < 0) {
+//                i++;
+//            }
+////        for (int i = 0; i < numberOfSongs; i++) {
+//            if (songArray[i].equals(anEntry)) {
+//                return true;
+//            }
+//            
+////        }
+//        return result;
+//    }
 
-    public boolean found(T anEntry) {
-        boolean result = false;
-        int i = 0;
-          while (i < numberOfSongs && songArray[i].compareTo(anEntry) < 0) {
-                i++;
-            }
-//        for (int i = 0; i < numberOfSongs; i++) {
-            if (songArray[i].equals(anEntry)) {
-                return true;
-            }
-            
-//        }
-        return result;
-    }
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //    public boolean remove(T anEntry) {
 //        if (!isEmpty()) {
 //            return false;
@@ -216,4 +236,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SongInterface<T
 //            songArray[i] = oldList[i];
 //        }
 //    }
+
+
 }

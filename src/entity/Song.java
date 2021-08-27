@@ -69,7 +69,7 @@ public class Song implements Comparable<Song> {
     public boolean equals(Object other) {
         if (other instanceof Song) {
             Song otherName = (Song) other;
-            return (this.songName.equals(otherName.songName) && (this.singer == otherName.singer));
+            return (this.songName.equals(otherName.songName));
         }
         return false;
     }
