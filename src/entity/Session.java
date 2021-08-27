@@ -9,9 +9,11 @@ package entity;
  *
  * @author Koh Hui Hui
  */
-public class Session {
+public class Session implements Comparable<Session> {
+
     private static int sessionID = 1;
-    
+    private String sessionName;
+
     public Session() {
     }
 
@@ -22,6 +24,8 @@ public class Session {
     public static void setSessionID(int sessionID) {
         Session.sessionID = sessionID;
     }
-    
-//    testing push and pull
+
+    public int compareTo(Session s) {
+        return (sessionName.compareTo(s.sessionName));
+    }
 }
