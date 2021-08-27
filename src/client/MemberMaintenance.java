@@ -41,7 +41,7 @@ public class MemberMaintenance {
             System.out.println("_________________________________");
             System.out.println("1.      Member Maintenance");
             System.out.println("2.      Song Maintenance");
-            System.out.println("3.      Session Schedule");
+            System.out.println("3.      Karaoke Session");
             System.out.println("0.      Exit");
             System.out.println("_________________________________");
             
