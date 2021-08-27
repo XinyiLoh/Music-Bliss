@@ -13,11 +13,11 @@ package adt;
 public class LinkedStack<T> implements StackInterface<T> {
 
     private Node topNode;
-    private int numberEntry;
+    private int numEntry;
 
     public LinkedStack() {
         topNode = null;
-        numberEntry = 0;
+        numEntry = 0;
     }
 
     @Override
@@ -25,6 +25,7 @@ public class LinkedStack<T> implements StackInterface<T> {
         Node newNode = new Node(newEntry);
         newNode.next = topNode;
         topNode = newNode;
+        numEntry++;
     }
 
     @Override
@@ -33,6 +34,7 @@ public class LinkedStack<T> implements StackInterface<T> {
         if (topNode != null) {
             topNode = topNode.next;
         }
+        numEntry--;
         return result;
     }
 
