@@ -13,19 +13,19 @@ package adt;
 public class LinkedStack<T> implements StackInterface<T> {
 
     private Node topNode;
-    private int numEntry;
+    private int size;
 
     public LinkedStack() {
         topNode = null;
-        numEntry = 0;
+        size = 0;
     }
 
     @Override
-    public void push(T newEntry) {
-        Node newNode = new Node(newEntry);
+    public void push(T newElement) {
+        Node newNode = new Node(newElement);
         newNode.next = topNode;
         topNode = newNode;
-        numEntry++;
+        size++;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class LinkedStack<T> implements StackInterface<T> {
         if (topNode != null) {
             topNode = topNode.next;
         }
-        numEntry--;
+        size--;
         return result;
     }
 
@@ -48,6 +48,31 @@ public class LinkedStack<T> implements StackInterface<T> {
     }
 
     @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public T getEach(int index) {
+
+        T each = null;
+        Node curNode = topNode;
+
+        if (curNode != null) {
+            if (index == 1) {
+                each = curNode.data;
+            }
+            if (index > 1 && index <= size()) {
+                for (int i = 0; i < index - 1; i++) {
+                    curNode = curNode.next;
+                }
+                each = curNode.data;
+            }
+        }
+        return each;
+    }
+
+    @Override
     public boolean isEmpty() {
         return topNode == null;
     }
@@ -58,7 +83,7 @@ public class LinkedStack<T> implements StackInterface<T> {
     }
 
     @Override
-    public String toString() {
+    public String getAll() {
         String list = "";
         Node currentNode = topNode;
 
@@ -68,6 +93,7 @@ public class LinkedStack<T> implements StackInterface<T> {
         }
 
         return list;
+
     }
 
     private class Node {

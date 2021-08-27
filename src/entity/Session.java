@@ -11,22 +11,46 @@ package entity;
  */
 public class Session {
 
-    private Song playlist;
+    private int sessionID;
+    private String sessionName;
+    private String sessionSinger;
 
-    public Session(Song playlist) {
-        this.playlist = playlist;
+    public Session() {
+
     }
 
-    public Song getPlaylist() {
-        return playlist;
+    public Session(int sessionID, String sessionName, String sessionSinger) {
+        this.sessionID = sessionID;
+        this.sessionName = sessionName;
+        this.sessionSinger = sessionSinger;
     }
 
-    public void setPlaylist(Song playlist) {
-        this.playlist = playlist;
+    public int getSessionID() {
+        return sessionID;
+    }
+
+    public void setSessionID(int sessionID) {
+        this.sessionID = sessionID;
+    }
+
+    public String getSessionName() {
+        return sessionName;
+    }
+
+    public void setSessionName(String sessionName) {
+        this.sessionName = sessionName;
+    }
+
+    public String getSessionSinger() {
+        return sessionSinger;
+    }
+
+    public void setSessionSinger(String sessionSinger) {
+        this.sessionSinger = sessionSinger;
     }
 
     @Override
     public String toString() {
-        return playlist.toString();
+        return "Session{" + "sessionID=" + sessionID + ", sessionName=" + sessionName + ", sessionSinger=" + sessionSinger + '}';
     }
 }

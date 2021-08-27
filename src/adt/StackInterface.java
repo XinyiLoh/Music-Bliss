@@ -11,14 +11,19 @@ package adt;
  */
 public interface StackInterface<T> {
 
-    public void push(T newEntry);
+    public void push(T newElement);
 
     public T pop();
 
     public T peek();
 
+    public int size();
+
+    public T getEach(int index);
+
     public boolean isEmpty();
 
     public void clearStack();
 
+    public String getAll();
 }

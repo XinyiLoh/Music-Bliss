@@ -73,7 +73,7 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
         int result = DEFAULT_ERROR_CODE;
         for (int i = 0; i < numberOfSongs; i++) {
             if (songArray[i].compareTo(givenPosition) == 0) {
-                result = i+1;
+                result = i + 1;
             }
         }
         return result;
