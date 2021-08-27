@@ -53,8 +53,21 @@ public class LinkedStack<T> implements StackInterface<T> {
     }
 
     @Override
-    public void clear() {
+    public void clearStack() {
         topNode = null;
+    }
+
+    @Override
+    public String toString() {
+        String list = "";
+        Node currentNode = topNode;
+
+        while (currentNode != null) {
+            list += currentNode.data + "\n";
+            currentNode = currentNode.next;
+        }
+
+        return list;
     }
 
     private class Node {

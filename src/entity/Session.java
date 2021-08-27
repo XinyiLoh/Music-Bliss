@@ -9,23 +9,24 @@ package entity;
  *
  * @author Koh Hui Hui
  */
-public class Session implements Comparable<Session> {
+public class Session {
 
-    private static int sessionID = 1;
-    private String sessionName;
+    private Song playlist;
 
-    public Session() {
+    public Session(Song playlist) {
+        this.playlist = playlist;
     }
 
-    public static int getSessionID() {
-        return sessionID;
+    public Song getPlaylist() {
+        return playlist;
     }
 
-    public static void setSessionID(int sessionID) {
-        Session.sessionID = sessionID;
+    public void setPlaylist(Song playlist) {
+        this.playlist = playlist;
     }
 
-    public int compareTo(Session s) {
-        return (sessionName.compareTo(s.sessionName));
+    @Override
+    public String toString() {
+        return playlist.toString();
     }
 }
