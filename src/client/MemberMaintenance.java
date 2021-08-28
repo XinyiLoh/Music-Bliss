@@ -329,40 +329,220 @@ public class MemberMaintenance {
 
                     break;
                 case '2':
-//                    int songSelection = 0;
-//                    do {
-//
-//                        System.out.println("\n\n====================");
-//                        System.out.println("Song Maintenance");
-//                        System.out.println("====================");
-//                        System.out.println("1. Song List ");
-//                        System.out.println("2. Add Song ");
-//                        System.out.println("3. Update Song ");
-//                        System.out.println("4. Remove Song ");
-//                        System.out.println("5. Search");
-//                        System.out.println("0. Back to Main Menu");
-//                        System.out.println("====================");
-//                        System.out.print("Enter choice: ");
-//
-//                        songSelection = scan.nextInt();
-//                        scan.next();
-//
-//                    } while (songSelection != 1 && songSelection != 2 && songSelection != 3 && songSelection != 4 && songSelection != 5);
-//
-//                    switch (songSelection) {
-//                        case 1: {
-//
-//                            System.out.println("\nSong List: " + songList.getNumberOfSongs());
-//                            System.out.println("----------------------------------------------------------------");
-//                            System.out.println("NO.  ID     Song            Singer ");
-//                            System.out.println("----------------------------------------------------------------");
-//                            System.out.print(songList);
-//                            System.out.println("----------------------------------------------------------------");
-//
-//                            break;
-//                        }
-//                    }
-//                    break;
+                    char songOption;
+                    char decision;
+                    do {
+
+                        System.out.println("\n\n====================");
+                        System.out.println("Song Maintenance");
+                        System.out.println("====================");
+                        System.out.println("1. Song List ");
+                        System.out.println("2. Add Song ");
+                        System.out.println("3. Update Song ");
+                        System.out.println("4. Remove Song ");
+                        System.out.println("5. Search");
+                        System.out.println("0. Back to Main Menu");
+                        System.out.println("====================");
+                        System.out.print("Enter choice: ");
+                        songOption = scan.nextLine().charAt(0);
+
+                        switch (songOption) {
+                            case '1':
+
+                                System.out.println("\nSong List: " + songList.getNumberOfSongs());
+                                System.out.println("----------------------------------------------------------------");
+                                System.out.println("NO.  ID     Song            Singer ");
+                                System.out.println("----------------------------------------------------------------");
+                                System.out.print(songList);
+                                System.out.println("----------------------------------------------------------------");
+
+                                break;
+
+                            case '2':
+
+                                do {
+                                    Song addSong = new Song();
+                                    String addSongName;
+                                    String addSinger;
+
+                                    System.out.println("\n\nAdd New Song");
+                                    System.out.println("-----------------");
+                                    System.out.print("Enter Song: ");
+                                    addSongName = scan.nextLine().toUpperCase();
+
+                                    System.out.print("Enter Singer: ");
+                                    addSinger = scan.nextLine().toUpperCase();
+
+                                    addSong.setSongName(addSongName);
+                                    addSong.setSinger(addSinger);
+                                    songList.add(new Song(addSongName, addSinger));
+
+                                    do {
+                                        System.out.print("Do you wanna add more? [y/n]: ");
+                                        decision = scan.next().charAt(0);
+                                        scan.nextLine();
+                                        if (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y') {
+                                            System.err.print("Incorrect Input, Please try again.\n\n");
+                                        }
+                                    } while (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y');
+                                    scan.nextLine();
+                                } while (decision != 'n' && decision != 'N');
+                                break;
+
+                            case '3':
+                                do {
+                                    Song updateSong = new Song();
+                                    int currID = 0;
+                                    String currSongName = "";
+                                    String currSinger = "";
+
+                                    System.out.println("\n\nUpdate Song");
+                                    System.out.println("-----------------");
+                                    System.out.println("1. Update Song");
+                                    System.out.println("2. Update Singer");
+                                    System.out.println("3. Update Both");
+                                    System.out.print("Enter selection: ");
+                                    char updateSelection = scan.next().charAt(0);
+                                    scan.nextLine();
+                                    System.out.print("Enter Song: ");
+                                    String songName = scan.nextLine().toUpperCase();
+                                    updateSong.setSongName(songName);
+
+                                    if (songList.contains(updateSong)) {
+
+                                        updateSong = songList.getEntry(songList.getPosition(updateSong));
+
+                                        System.out.println(updateSong);
+
+                                        switch (updateSelection) {
+                                            case '1':
+                                                System.out.print("Enter Song name: ");
+                                                String replaceName = scan.nextLine().toUpperCase();
+                                                updateSong.setSongName(replaceName);
+
+                                                currID = updateSong.getSongID();
+                                                updateSong.setSongID(currID);
+                                                currSinger = updateSong.getSinger();
+                                                updateSong.setSinger(currSinger);
+                                                songList.replace(songList.getPosition(updateSong), updateSong);
+                                                break;
+
+                                            case '2':
+                                                System.out.print("Enter Singer: ");
+                                                String replaceSinger = scan.nextLine().toUpperCase();
+                                                updateSong.setSinger(replaceSinger);
+
+                                                currID = updateSong.getSongID();
+                                                updateSong.setSongID(currID);
+                                                currSongName = updateSong.getSongName();
+                                                updateSong.setSongName(currSongName);
+                                                songList.replace(songList.getPosition(updateSong), updateSong);
+                                                break;
+
+                                            case '3':
+                                                System.out.print("Enter Song name: ");
+                                                replaceName = scan.nextLine().toUpperCase();
+                                                updateSong.setSongName(replaceName);
+
+                                                System.out.print("Enter Singer: ");
+                                                replaceSinger = scan.nextLine().toUpperCase();
+                                                updateSong.setSinger(replaceSinger);
+
+                                                currID = updateSong.getSongID();
+                                                updateSong.setSongID(currID);
+                                                songList.replace(songList.getPosition(updateSong), updateSong);
+                                                break;
+                                        }
+
+                                    } else {
+                                        System.err.println("The Song Doesn't Exist.");
+                                    }
+                                    do {
+                                        System.out.print("Do you wanna update more? [y/n]: ");
+                                        decision = scan.next().charAt(0);
+                                        if (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y') {
+                                            System.err.print("Incorrect Input, Please try again.\n\n");
+                                        }
+                                    } while (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y');
+                                    scan.nextLine();
+                                } while (decision != 'n' && decision != 'N');
+
+                                break;
+
+                            case '4':
+                                do {
+                                    Song removeSong = new Song();
+                                    String songName;
+
+                                    System.out.println("\n\nUpdate Song");
+                                    System.out.println("-----------------");
+                                    System.out.print("Enter Song: ");
+                                    songName = scan.nextLine().toUpperCase();
+
+                                    removeSong.setSongName(songName);
+
+                                    if (songList.contains(removeSong)) {
+
+                                        removeSong = songList.getEntry(songList.getPosition(removeSong));
+                                        System.out.println(removeSong);
+                                        System.out.println("Remove Successfully");
+                                        songList.remove(songList.getPosition(removeSong));
+
+                                    } else {
+                                        System.err.println("The Song Doesn't Exist.");
+                                    }
+                                    do {
+                                        System.out.print("\nDo you want to delete more? [y/n]: ");
+                                        decision = scan.next().charAt(0);
+                                        if (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y') {
+                                            System.err.print("Incorrect Input, Please try again.\n\n");
+                                        }
+                                    } while (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y');
+                                    scan.nextLine();
+                                } while (decision != 'n' && decision != 'N');
+
+                                break;
+
+                            case '5':
+                                do {
+                                    Song searchSong = new Song();
+                                    String songName;
+
+                                    System.out.println("\n\nSearch");
+                                    System.out.println("-----------------");
+                                    System.out.print("Enter the Song: ");
+                                    songName = scan.nextLine().toUpperCase();
+
+                                    searchSong.setSongName(songName);
+
+                                    if (songList.contains(searchSong)) {
+
+                                        searchSong = songList.getEntry(songList.getPosition(searchSong));
+
+                                        System.out.println("------------------------------------------------------");
+                                        System.out.print(searchSong);
+                                        System.out.println("------------------------------------------------------");
+                                    } else {
+                                        System.err.println("The Song Doesn't Exist.");
+                                    }
+                                    do {
+                                        System.out.print("\nDo you want to search more? [y/n]: ");
+                                        decision = scan.next().charAt(0);
+                                        if (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y') {
+                                            System.err.print("Incorrect Input, Please try again.\n\n");
+                                        }
+                                    } while (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y');
+                                    scan.nextLine();
+                                } while (decision != 'n' && decision != 'N');
+                                break;
+                            case '0':
+                                break;
+                            default:
+                                System.err.print("Incorrect Input, Please try again.\n\n");
+                        }
+
+                    } while (Character.compare(songOption, '0') != 0);
+                    break;
                 case '3':
                     System.out.print("Session Schedule");
                     break;

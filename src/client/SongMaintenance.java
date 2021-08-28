@@ -212,11 +212,15 @@ public class SongMaintenance {
                             songList.remove(songList.getPosition(removeSong));
 
                         } else {
-                            System.out.println("Sorry.");
+                            System.out.println("The Song Doesn't Exist.");
                         }
-
-                        System.out.print("\nDo you wanna delete more? [y/n]: ");
-                        decision = scan.next().charAt(0);
+                        do {
+                            System.out.print("\nDo you wanna delete more? [y/n]: ");
+                            decision = scan.next().charAt(0);
+                            if (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y') {
+                                System.err.print("Incorrect Input, Please try again.\n\n");
+                            }
+                        } while (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y');
 
                     } while (decision != 'n' && decision != 'N');
 
