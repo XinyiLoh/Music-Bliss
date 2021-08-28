@@ -127,12 +127,50 @@ public class KaraokeSession {
                                 }
                                 break;
                             case '2':
+                                int i;
+                                int j;
+                                int curSongRate = 0;
+                                System.out.println("\nRate Song\n");
+                                for (i = 5; i >= 1; i--) {
+                                    for (j = 1; j <= i; j++) {
+                                        System.out.print("*");
+                                    }
+                                    switch (i) {
+                                        case 1:
+                                            System.out.println("\t    Poor");
+                                            break;
+                                        case 2:
+                                            System.out.println("\t    Fair");
+                                            break;
+                                        case 3:
+                                            System.out.println("\t    Good");
+                                            break;
+                                        case 4:
+                                            System.out.println("\t    Excellent");
+                                            break;
+                                        case 5:
+                                            System.out.println("\t    Superior");
+                                            break;
+                                    }
+                                    System.out.println();
+                                }
+                                try {
+                                    System.out.println("\nEnter your rating (1 to 5): \n");
+                                    curSongRate = scan.nextInt();
+                                    if (curSongRate == (int) curSongRate) {
+                                        sessionList.peek().setSessionRate(curSongRate);
+                                    }
+                                } catch (InputMismatchException a) {
+                                    System.err.println("\nPlease enter numeric input only\n");
+                                    scan.next();
+                                }
                                 break;
                             case '0':
                                 break;
                         }
                     } while (playlistOption == '1' || playlistOption == '2');
                     break;
+
                 case '3':
                     char clearPlaylist = '0';
                     char confirmClear;
@@ -177,7 +215,8 @@ public class KaraokeSession {
                     System.out.print("\nInvalid input. \nPlease choose an option from the list. \n\n");
             }
 
-            if ((sesGoTo != '0') && sesGoTo == '1' || sesGoTo == '2' || sesGoTo == '3' || sesGoTo == '4') {
+            if ((sesGoTo != '0') && sesGoTo == '1' || sesGoTo == '2' || sesGoTo == '3' || sesGoTo
+                    == '4') {
                 System.out.print("\nBack to Karaoke Session sub-menu (N to exit): ");
                 backSesSubMenu = scan.next().charAt(0);
             }
