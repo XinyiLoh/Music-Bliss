@@ -10,6 +10,7 @@ import java.io.Serializable;
 /**
  *
  * @author Siah Xin Ying
+ * @param <T>
  *
  *
  */
@@ -30,6 +31,7 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
         songArray = (T[]) new Comparable[initialCapacity];
     }
 
+    @Override
     public boolean add(T newEntry) {
         if (isEmpty()) {
             songArray[numberOfSongs] = newEntry;
@@ -48,9 +50,9 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
             numberOfSongs++;
             return true;
         }
-
     }
 
+    @Override
     public T remove(int givenPosition) {
         T result = songArray[givenPosition];
         for (int i = givenPosition; i < numberOfSongs; i++) {
@@ -61,6 +63,7 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
         return result;
     }
 
+    @Override
     public T getEntry(int givenPosition) {
         T result = null;
         if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
@@ -69,6 +72,7 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
         return result;
     }
 
+    @Override
     public int getPosition(T givenPosition) {
         int result = DEFAULT_ERROR_CODE;
         for (int i = 0; i < numberOfSongs; i++) {
@@ -79,10 +83,15 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
         return result;
     }
 
+    @Override
     public boolean replace(int givenPosition, T newEntry) {
         boolean isSuccessful = true;
 
         if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
+            int i = 0;
+            while (songArray[i].compareTo(newEntry) < 0) {
+                i++;
+            }
             songArray[givenPosition - 1] = newEntry;
         } else {
             isSuccessful = false;
@@ -91,6 +100,7 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
         return isSuccessful;
     }
 
+    @Override
     public boolean contains(T anEntry) {
         boolean found = false;
         for (int i = 0; !found && (i < numberOfSongs); i++) {
@@ -101,19 +111,23 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
 
         return found;
     }
-    
-      public void clear() {
+
+    @Override
+    public void clear() {
         numberOfSongs = 0;
     }
 
+    @Override
     public int getNumberOfSongs() {
         return numberOfSongs;
     }
-    
+
+    @Override
     public boolean isEmpty() {
         return numberOfSongs == 0;
     }
 
+    @Override
     public boolean isFull() {
         return false;
     }
