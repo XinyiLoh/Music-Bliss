@@ -51,6 +51,6 @@ public class Session {
 
     @Override
     public String toString() {
-        return "Session{" + "sessionID=" + sessionID + ", sessionName=" + sessionName + ", sessionSinger=" + sessionSinger + '}';
+        return String.format("%-15d %-23s %-10s\n", sessionID, sessionName, sessionSinger);
     }
 }
