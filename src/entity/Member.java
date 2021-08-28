@@ -20,6 +20,7 @@ public class Member implements Comparable<Member>{
     private String gender;
     private String joinDate;
     private int rewardPoints;
+    private int totalRewardPoints = 0;
     private String membership;
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
@@ -39,14 +40,15 @@ public class Member implements Comparable<Member>{
         this.mobile = mobile;
         this.gender = gender;
         this.rewardPoints = rewardPoints;
+        this.totalRewardPoints += rewardPoints;
         this.joinDate = sdf.format(cal.getTime());
-        if (rewardPoints <= 100) {
+        if(totalRewardPoints <= 100){
             this.membership = "Basic";
-        } else if (rewardPoints > 100 && rewardPoints <= 300) {
+        } else if (totalRewardPoints > 100 && totalRewardPoints <= 300) {
             this.membership = "Bronze";
-        } else if (rewardPoints > 300 && rewardPoints <= 500) {
+        } else if (totalRewardPoints > 300 && totalRewardPoints <= 500) {
             this.membership = "Silver";
-        } else if (rewardPoints > 500){
+        } else if (totalRewardPoints > 500){
             this.membership = "Gold";
         }
     }
@@ -108,25 +110,43 @@ public class Member implements Comparable<Member>{
         return rewardPoints;
     }
 
-    public void setRewardPoints(int rewardPoints) {
-        if (rewardPoints <= 100) {
-            this.membership = "Basic";
-        } else if (rewardPoints > 100 && rewardPoints <= 300) {
-            this.membership = "Bronze";
-        } else if (rewardPoints > 300 && rewardPoints <= 500) {
-            this.membership = "Silver";
-        } else if (rewardPoints > 500){
-            this.membership = "Gold";
+    public void addRewardPoints(int addRewardPoints) {
+        
+        this.rewardPoints = rewardPoints + addRewardPoints;
+        this.totalRewardPoints += addRewardPoints;
+        
+    }
+    
+    public boolean minusRewardPoints(int minusRewardPoints) {
+        
+        if(rewardPoints <= 0 || rewardPoints < minusRewardPoints){
+            return false;
+        }else{
+            this.rewardPoints = rewardPoints - minusRewardPoints;
+            return true;
         }
-        this.rewardPoints = rewardPoints;
     }
 
+    public int getTotalRewardPoints() {
+        return totalRewardPoints;
+    }
+    
     public String getMembership() {
         return membership;
     }
 
-    public void setMembership(String membership) {
-        this.membership = membership;
+    public void setMembership() {
+        
+        if(this.totalRewardPoints <= 100){
+            this.membership = "Basic";
+        } else if (this.totalRewardPoints > 100 && totalRewardPoints <= 300) {
+            this.membership = "Bronze";
+        } else if (this.totalRewardPoints > 300 && totalRewardPoints <= 500) {
+            this.membership = "Silver";
+        } else if (this.totalRewardPoints > 500){
+            this.membership = "Gold";
+        }
+        
     }
     
     @Override
