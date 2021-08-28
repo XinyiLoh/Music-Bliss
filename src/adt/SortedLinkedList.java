@@ -107,23 +107,16 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
     public boolean delete(T anEntry){
         
         if(head == null){
-            
             return false;
-            
         }else if (noOfEntries == 1) {
-            
             clearList();
             noOfEntries--;
             return true;
-            
         } else if (head.data.equals(anEntry)) {
-            
             head = head.next;
             noOfEntries--;
             return true;
-            
         } else{
-            
             Node prevLocation = null;
             Node currLocation = head;
         
@@ -143,7 +136,6 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
                 noOfEntries--;
                 return true;
             }
-            
             return false;
         }
     }
