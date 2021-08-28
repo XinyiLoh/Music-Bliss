@@ -11,7 +11,7 @@ package adt;
  */
 public interface StackInterface<T> {
 
-    public void push(T newElement);
+    public void push(T newEntry);
 
     public T pop();
 
@@ -21,11 +21,17 @@ public interface StackInterface<T> {
 
     public int size();
 
-    public T getEach(int index);
-
     public boolean isEmpty();
 
     public void clear();
 
+    public T getEach(int index);
+
     public String getAll();
+
+    public boolean find(T anEntry);
+
+    public void duplicate(int index);
+
+    public int findDuplicate(T anEntry);
 }
