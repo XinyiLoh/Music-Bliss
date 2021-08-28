@@ -348,13 +348,12 @@ public class MusicBliss {
                                 System.out.print("Enter Member ID : ");
 
                                 try {
-                                    int removeID = scan.nextInt();
-                                    searchEntry.setiD(removeID);
+                                    int searchID = scan.nextInt();
+                                    searchEntry.setiD(searchID);
 
                                     if (memberList.found(searchEntry)) {
                                         
                                         searchEntry = memberList.getEntry(memberList.getPosition(searchEntry));
-                                        
                                         System.out.println("--------------------------------------------------------------------------------------------------------------------");
                                         System.out.print(searchEntry);
                                         System.out.println("\n--------------------------------------------------------------------------------------------------------------------");
@@ -607,6 +606,7 @@ public class MusicBliss {
                     break;
                 case '0':
                     System.out.print("Bye ^^ ");
+                    break;
                 default:
                     System.err.print("Incorrect Input, Please try again.\n\n");
             }
