@@ -62,7 +62,7 @@ public class LinkedStack<T> implements StackInterface<T> {
             if (index == 1) {
                 each = curNode.data;
             }
-            if (index > 1 && index <= size()) {
+            if (index > 1 && index <= size) {
                 for (int i = 0; i < index - 1; i++) {
                     curNode = curNode.next;
                 }
@@ -78,8 +78,9 @@ public class LinkedStack<T> implements StackInterface<T> {
     }
 
     @Override
-    public void clearStack() {
+    public void clear() {
         topNode = null;
+        size = 0;
     }
 
     @Override
@@ -88,12 +89,11 @@ public class LinkedStack<T> implements StackInterface<T> {
         Node currentNode = topNode;
 
         while (currentNode != null) {
-            list += currentNode.data + "\n";
+            list += "\n" + currentNode.data;
             currentNode = currentNode.next;
         }
 
         return list;
-
     }
 
     private class Node {

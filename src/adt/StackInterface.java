@@ -23,7 +23,7 @@ public interface StackInterface<T> {
 
     public boolean isEmpty();
 
-    public void clearStack();
+    public void clear();
 
     public String getAll();
 }
