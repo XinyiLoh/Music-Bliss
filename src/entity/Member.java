@@ -20,6 +20,7 @@ public class Member implements Comparable<Member>{
     private String gender;
     private String joinDate;
     private int rewardPoints;
+    private String membership;
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
     
@@ -39,6 +40,15 @@ public class Member implements Comparable<Member>{
         this.gender = gender;
         this.rewardPoints = rewardPoints;
         this.joinDate = sdf.format(cal.getTime());
+        if (rewardPoints <= 100) {
+            this.membership = "Basic";
+        } else if (rewardPoints > 100 && rewardPoints <= 300) {
+            this.membership = "Bronze";
+        } else if (rewardPoints > 300 && rewardPoints <= 500) {
+            this.membership = "Silver";
+        } else if (rewardPoints > 500){
+            this.membership = "Gold";
+        }
     }
     
     @Override
@@ -99,13 +109,30 @@ public class Member implements Comparable<Member>{
     }
 
     public void setRewardPoints(int rewardPoints) {
+        if (rewardPoints <= 100) {
+            this.membership = "Basic";
+        } else if (rewardPoints > 100 && rewardPoints <= 300) {
+            this.membership = "Bronze";
+        } else if (rewardPoints > 300 && rewardPoints <= 500) {
+            this.membership = "Silver";
+        } else if (rewardPoints > 500){
+            this.membership = "Gold";
+        }
         this.rewardPoints = rewardPoints;
     }
 
+    public String getMembership() {
+        return membership;
+    }
+
+    public void setMembership(String membership) {
+        this.membership = membership;
+    }
+    
     @Override
     public String toString() {
        
-        return String.format("%7d %12s %12s %15s %10s %25s %10d ",iD, firstName,lastName,mobile,gender,joinDate,rewardPoints);
+        return String.format("%7d %12s %12s %15s %10s %25s %15d %13s",iD, firstName,lastName,mobile,gender,joinDate,rewardPoints,membership);
     }
 
   

@@ -78,11 +78,11 @@ public class MusicBliss {
                         switch (option) {
                             case '1':
                                 System.out.println("\n\nMember List: " + memberList.totalEntries());
-                                System.out.println("--------------------------------------------------------------------------------------------------------");
-                                System.out.println("     ID   First Name    Last name          Mobile     Gender                 Join Date     Reward Points");
-                                System.out.println("--------------------------------------------------------------------------------------------------------");
+                                System.out.println("--------------------------------------------------------------------------------------------------------------------");
+                                System.out.println("     ID   First Name    Last name          Mobile     Gender                 Join Date     Reward Points       Level");
+                                System.out.println("--------------------------------------------------------------------------------------------------------------------");
                                 System.out.print(memberList);
-                                System.out.println("--------------------------------------------------------------------------------------------------------");
+                                System.out.println("--------------------------------------------------------------------------------------------------------------------");
                                 break;
 
                             case '2':
@@ -254,7 +254,7 @@ public class MusicBliss {
                                                 case '5':
                                                     boolean rewardP = false;
                                                     int rp = 0;
-
+                                                    
                                                     while (!rewardP) {
                                                         System.out.print("Please Enter Reward Points: ");
                                                         try {
@@ -267,6 +267,7 @@ public class MusicBliss {
                                                         }
                                                     }
                                                     System.out.print("Update Successfully.\n");
+                                                    scan.nextLine();
                                                     break;
                                                 case '0':
                                                     System.err.print("Update Cancel.");
@@ -331,9 +332,9 @@ public class MusicBliss {
                                         
                                         searchEntry = memberList.getEntry(memberList.getPosition(searchEntry));
                                         
-                                        System.out.println("---------------------------------------------------------------------------------------------------");
+                                        System.out.println("--------------------------------------------------------------------------------------------------------------------");
                                         System.out.print(searchEntry);
-                                        System.out.println("\n-------------------------------------------------------------------------------------------------");
+                                        System.out.println("\n--------------------------------------------------------------------------------------------------------------------");
                                         
                                     } else {
                                         System.err.println("Member ID not found.\n");
