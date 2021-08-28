@@ -351,7 +351,7 @@ public class MemberMaintenance {
 
                                 System.out.println("\nSong List: " + songList.getNumberOfSongs());
                                 System.out.println("----------------------------------------------------------------");
-                                System.out.println("NO.  ID     Song            Singer ");
+                                System.out.println("NO. ID      Song               Singer ");
                                 System.out.println("----------------------------------------------------------------");
                                 System.out.print(songList);
                                 System.out.println("----------------------------------------------------------------");
@@ -372,6 +372,10 @@ public class MemberMaintenance {
 
                                     System.out.print("Enter Singer: ");
                                     addSinger = scan.nextLine().toUpperCase();
+                                    addSong.setSongName(addSongName);
+                                    addSong.setSinger(addSinger);
+                                    songList.add(new Song(addSongName, addSinger));
+                                    System.out.println("Added.");
 
                                     do {
                                         System.out.print("Do you wanna add more? [y/n]: ");
@@ -393,12 +397,6 @@ public class MemberMaintenance {
 
                                     System.out.println("\n\nUpdate Song");
                                     System.out.println("-----------------");
-                                    System.out.println("1. Update Song");
-                                    System.out.println("2. Update Singer");
-                                    System.out.println("3. Update Both");
-                                    System.out.print("Enter selection: ");
-                                    char updateSelection = scan.next().charAt(0);
-                                    scan.nextLine();
                                     System.out.print("Enter Song: ");
                                     String songName = scan.nextLine().toUpperCase();
                                     updateSong.setSongName(songName);
@@ -406,8 +404,18 @@ public class MemberMaintenance {
                                     if (songList.contains(updateSong)) {
 
                                         updateSong = songList.getEntry(songList.getPosition(updateSong));
+                                        
+                                        System.out.println("------------------------------------------------------");
+                                        System.out.print(updateSong);
+                                        System.out.println("------------------------------------------------------");
 
-                                        System.out.println(updateSong);
+                                        System.out.println("1. Update Song");
+                                        System.out.println("2. Update Singer");
+                                        System.out.println("3. Update Both");
+                                        System.out.print("Enter selection: ");
+                                        char updateSelection = scan.next().charAt(0);
+                                        
+                                        scan.nextLine();
 
                                         switch (updateSelection) {
                                             case '1':
@@ -448,12 +456,13 @@ public class MemberMaintenance {
                                                 songList.replace(songList.getPosition(updateSong), updateSong);
                                                 break;
                                         }
+                                        System.out.println("Updated.");
 
                                     } else {
                                         System.err.println("The Song Doesn't Exist.");
                                     }
                                     do {
-                                        System.out.print("Do you wanna update more? [y/n]: ");
+                                        System.out.print("Do you want to update more? [y/n]: ");
                                         decision = scan.next().charAt(0);
                                         if (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y') {
                                             System.err.print("Incorrect Input, Please try again.\n\n");
@@ -469,7 +478,7 @@ public class MemberMaintenance {
                                     Song removeSong = new Song();
                                     String songName;
 
-                                    System.out.println("\n\nUpdate Song");
+                                    System.out.println("\n\nRemove Song");
                                     System.out.println("-----------------");
                                     System.out.print("Enter Song: ");
                                     songName = scan.nextLine().toUpperCase();
@@ -479,8 +488,10 @@ public class MemberMaintenance {
                                     if (songList.contains(removeSong)) {
 
                                         removeSong = songList.getEntry(songList.getPosition(removeSong));
-                                        System.out.println(removeSong);
-                                        System.out.println("Remove Successfully");
+                                        System.out.println("------------------------------------------------------");
+                                        System.out.print(removeSong);
+                                        System.out.println("------------------------------------------------------");
+                                        System.out.println("Removed.");
                                         songList.remove(songList.getPosition(removeSong));
 
                                     } else {

@@ -107,22 +107,21 @@ public class SongMaintenance {
                     scan.nextLine();
                     Song updateSong = new Song();
                     String songName;
+                    do {
+                        System.out.println("\n\nUpdate Song");
+                        System.out.println("-----------------");
+                        System.out.print("Enter Song: ");
+                        songName = scan.nextLine().toUpperCase();
 
-                    System.out.println("\n\nUpdate Song");
-                    System.out.println("-----------------");
-                    System.out.print("Enter Song: ");
-                    songName = scan.nextLine().toUpperCase();
+                        updateSong.setSongName(songName);
 
-                    updateSong.setSongName(songName);
+                        if (songList.contains(updateSong)) {
 
-                    if (songList.contains(updateSong)) {
+                            updateSong = songList.getEntry(songList.getPosition(updateSong));
+                            int updateSelection;
 
-                        updateSong = songList.getEntry(songList.getPosition(updateSong));
-                        int updateSelection;
+                            System.out.println(updateSong);
 
-                        System.out.println(updateSong);
-
-                        do {
                             int currID = 0;
                             String currSongName = "";
                             String currSinger = "";
@@ -174,15 +173,14 @@ public class SongMaintenance {
                                     songList.replace(songList.getPosition(updateSong), updateSong);
                                     break;
                             }
-                            System.out.print("\nDo you wanna replace more? [y/n]: ");
-                            decision = scan.next().charAt(0);
-                            scan.nextLine();
+                        } else {
+                            System.out.print("\nError ");
+                        }
+                        System.out.print("\nDo you wanna replace more? [y/n]: ");
+                        decision = scan.next().charAt(0);
+                        scan.nextLine();
 
-                        } while (decision != 'n' && decision != 'N');
-
-                    } else {
-                        System.out.print("\nError ");
-                    }
+                    } while (decision != 'n' && decision != 'N');
 
                     System.out.print("\nBack? [y/n]: ");
                     option = scan.next().charAt(0);
