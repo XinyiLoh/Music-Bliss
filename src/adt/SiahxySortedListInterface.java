@@ -13,8 +13,12 @@ public interface SiahxySortedListInterface<T extends Comparable<T>> {
 
     public boolean add(T newEntry);
 
-    public T remove(int givenPosition);
+    public T remove(int givenPosition);   
+    
+    public T getEntry(int givenPosition);
 
+    public int getPosition(T givenPosition);
+    
     public boolean replace(int givenPosition, T newEntry);
 
     public boolean contains(T anEntry);
@@ -27,7 +31,5 @@ public interface SiahxySortedListInterface<T extends Comparable<T>> {
 
     public boolean isFull();
 
-    public T getEntry(int givenPosition);
-
-    public int getPosition(T givenPosition);
+    
 }

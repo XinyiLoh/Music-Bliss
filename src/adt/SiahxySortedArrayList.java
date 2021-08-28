@@ -95,10 +95,6 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
         return isSuccessful;
     }
 
-    public void clear() {
-        numberOfSongs = 0;
-    }
-
     public boolean contains(T anEntry) {
         boolean found = false;
         for (int i = 0; !found && (i < numberOfSongs); i++) {
@@ -109,9 +105,21 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
 
         return found;
     }
+    
+      public void clear() {
+        numberOfSongs = 0;
+    }
 
     public int getNumberOfSongs() {
         return numberOfSongs;
+    }
+    
+    public boolean isEmpty() {
+        return numberOfSongs == 0;
+    }
+
+    public boolean isFull() {
+        return false;
     }
 
     private boolean isArrayFull() {
@@ -127,14 +135,6 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
         }
 
         songArray = tempArray;
-    }
-
-    public boolean isEmpty() {
-        return numberOfSongs == 0;
-    }
-
-    public boolean isFull() {
-        return false;
     }
 
     public String toString() {

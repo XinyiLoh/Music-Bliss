@@ -33,19 +33,13 @@ public class MemberMaintenance {
 
         System.out.println("memberList: \n" + memberList);
 
-        SiahxySortedListInterface<Song> songList = new SiahxySortedArrayList<Song>();
+        SiahxySortedListInterface<Song> songList = new SiahxySortedArrayList<>();
 
         songList.add(new Song("STAY", "THE KID LAROI"));
         songList.add(new Song("GONE", "ROSIE"));
         songList.add(new Song("MOOD", "24KGOLDIN"));
-        songList.add(new Song("NUNU NANA", "JESSI"));
+        songList.add(new Song("ATTENTION", "CHARLIE PUTH"));
         songList.add(new Song("REALLY REALLY", "WINNER"));
-        songList.add(new Song("BE KIND", "MARSHMELLO & HALSEY"));
-        songList.add(new Song("GET YOU THE MOON", "KINA"));
-        songList.add(new Song("THE OCEAN", "SHY MARTIN & MIKE PERRY"));
-        songList.add(new Song("NO ONE", "LEE HI & B.I"));
-        songList.add(new Song("A THOUSAND YEARS", "CHRISTINA PERRI"));
-        songList.add(new Song("OFFICIALLY MISSING YOU", "TAMIA"));
 
         Scanner scan = new Scanner(System.in);
         char selection;
@@ -359,11 +353,11 @@ public class MemberMaintenance {
 //                        case 1: {
 //
 //                            System.out.println("\nSong List: " + songList.getNumberOfSongs());
-//                            System.out.println("------------------------------------------------------");
+//                            System.out.println("----------------------------------------------------------------");
 //                            System.out.println("NO.  ID     Song            Singer ");
-//                            System.out.println("------------------------------------------------------");
+//                            System.out.println("----------------------------------------------------------------");
 //                            System.out.print(songList);
-//                            System.out.println("------------------------------------------------------");
+//                            System.out.println("----------------------------------------------------------------");
 //
 //                            break;
 //                        }

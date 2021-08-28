@@ -70,7 +70,7 @@ public class Song implements Comparable<Song> {
     }
 
     public String toString() {
-        return String.format("%-7d %-24s %-90s\n", songID, songName, singer);
+        return String.format("%-7d %-18s %-50s\n", songID, songName, singer);
     }
 
 }
