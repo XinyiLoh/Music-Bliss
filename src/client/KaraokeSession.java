@@ -67,6 +67,7 @@ public class KaraokeSession {
                                 if (songList.getEntry(i).getSongID() == selectId) {
                                     found = true;
                                     sessionList.push(new Session(songList.getEntry(i).getSongID(), songList.getEntry(i).getSongName(), songList.getEntry(i).getSinger()));
+                                    sessionList.peek().setSingTimes();
                                     System.out.println("\nThe song was added successfully...\n");
                                 }
                             }
@@ -207,6 +208,8 @@ public class KaraokeSession {
                     break;
                 case '4':
                     System.out.println("\n\t\tREPORTS\n");
+                    System.out.println("1. Your most streamed songs");
+                    System.out.println("2. The five-star songs");
                     break;
                 case '0':
                     break;
