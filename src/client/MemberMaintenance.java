@@ -373,14 +373,9 @@ public class MemberMaintenance {
                                     System.out.print("Enter Singer: ");
                                     addSinger = scan.nextLine().toUpperCase();
 
-                                    addSong.setSongName(addSongName);
-                                    addSong.setSinger(addSinger);
-                                    songList.add(new Song(addSongName, addSinger));
-
                                     do {
                                         System.out.print("Do you wanna add more? [y/n]: ");
                                         decision = scan.next().charAt(0);
-                                        scan.nextLine();
                                         if (decision != 'n' && decision != 'N' && decision != 'y' && decision != 'Y') {
                                             System.err.print("Incorrect Input, Please try again.\n\n");
                                         }
