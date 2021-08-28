@@ -83,10 +83,6 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
         boolean isSuccessful = true;
 
         if ((givenPosition >= 1) && (givenPosition <= numberOfSongs)) {
-            int i = 0;
-            while (i < numberOfSongs && songArray[i].compareTo(newEntry) < 0) {
-                i++;
-            }
             songArray[givenPosition - 1] = newEntry;
         } else {
             isSuccessful = false;
