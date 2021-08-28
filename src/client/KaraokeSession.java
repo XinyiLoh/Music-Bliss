@@ -88,16 +88,53 @@ public class KaraokeSession {
 
                     } while (Character.toLowerCase(addMore) == 'y');
                     break;
-
                 case '2':
-                    System.out.println("\n\t\tLET'S START SINGING\n");
-//---------------------Current Song
-//---------------------Next Song
-//---------------------Rate Song
-//---------------------Lyrics
+                    char playlistOption = '0';
+
+                    System.out.println("\n\t\tLET'S START SINGING");
+                    if (sessionList.size() < 1) {
+                        System.out.println("\nThe playlist is currently empty,\nplease add more songs to the playlist to continue");
+                    } else if (sessionList.size() == 1) {
+                        System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
+                    } else if (sessionList.size() > 1) {
+                        System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
+                        System.out.println("\nNext Song: \n" + sessionList.peekNext().getSessionName() + " by " + sessionList.peekNext().getSessionSinger());
+                    }
+
+                    do {
+                        if (sessionList.size() >= 1) {
+                            do {
+                                System.out.println("\nNext Song (1) | Rate (2) | Exit (0)");
+                                System.out.print("Enter choice: ");
+                                playlistOption = scan.next().charAt(0);
+                                if (playlistOption != '1' && playlistOption != '2' && playlistOption != '0') {
+                                    System.out.println("\nInvalid input. \nPlease try again.\n");
+                                }
+                            } while (playlistOption != '1' && playlistOption != '2' && playlistOption != '0');
+                        }
+
+                        switch (playlistOption) {
+                            case '1':
+                                if (sessionList.size() == 1) {
+                                    System.out.println("\nThe playlist now has only 1 song, \nif you want to add more songs, please proceed to sub-menu to do so");
+                                } else if (sessionList.size() > 1) {
+                                    System.out.println("size=" + sessionList.size());
+                                    sessionList.pop();
+                                    System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
+                                    if (sessionList.size() > 1) {
+                                        System.out.println("\nNext Song: \n" + sessionList.peekNext().getSessionName() + " by " + sessionList.peekNext().getSessionSinger());
+                                    }
+                                }
+                                break;
+                            case '2':
+                                break;
+                            case '0':
+                                break;
+                        }
+                    } while (playlistOption == '1' || playlistOption == '2');
                     break;
                 case '3':
-                    int clearPlaylist = 0;
+                    char clearPlaylist = '0';
                     char confirmClear;
 
                     if (!sessionList.isEmpty()) {
