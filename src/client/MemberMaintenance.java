@@ -375,7 +375,7 @@ public class MemberMaintenance {
                                     addSong.setSongName(addSongName);
                                     addSong.setSinger(addSinger);
                                     songList.add(new Song(addSongName, addSinger));
-                                    System.out.println("Added.");
+                                    System.out.println("Add Successfully.");
 
                                     do {
                                         System.out.print("Do you wanna add more? [y/n]: ");
@@ -394,6 +394,7 @@ public class MemberMaintenance {
                                     int currID = 0;
                                     String currSongName = "";
                                     String currSinger = "";
+                                    char updateSelection;
 
                                     System.out.println("\n\nUpdate Song");
                                     System.out.println("-----------------");
@@ -404,7 +405,7 @@ public class MemberMaintenance {
                                     if (songList.contains(updateSong)) {
 
                                         updateSong = songList.getEntry(songList.getPosition(updateSong));
-                                        
+
                                         System.out.println("------------------------------------------------------");
                                         System.out.print(updateSong);
                                         System.out.println("------------------------------------------------------");
@@ -413,8 +414,8 @@ public class MemberMaintenance {
                                         System.out.println("2. Update Singer");
                                         System.out.println("3. Update Both");
                                         System.out.print("Enter selection: ");
-                                        char updateSelection = scan.next().charAt(0);
-                                        
+                                        updateSelection = scan.next().charAt(0);
+
                                         scan.nextLine();
 
                                         switch (updateSelection) {
@@ -456,11 +457,11 @@ public class MemberMaintenance {
                                                 songList.replace(songList.getPosition(updateSong), updateSong);
                                                 break;
                                         }
-                                        System.out.println("Updated.");
-
+                                        System.out.println("Update Successfully.");
                                     } else {
                                         System.err.println("The Song Doesn't Exist.");
                                     }
+
                                     do {
                                         System.out.print("Do you want to update more? [y/n]: ");
                                         decision = scan.next().charAt(0);
@@ -491,7 +492,7 @@ public class MemberMaintenance {
                                         System.out.println("------------------------------------------------------");
                                         System.out.print(removeSong);
                                         System.out.println("------------------------------------------------------");
-                                        System.out.println("Removed.");
+                                        System.out.println("Delete Successfully.");
                                         songList.remove(songList.getPosition(removeSong));
 
                                     } else {
