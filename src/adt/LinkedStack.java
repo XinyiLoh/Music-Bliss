@@ -48,6 +48,15 @@ public class LinkedStack<T> implements StackInterface<T> {
     }
 
     @Override
+    public T peekNext() {
+        T result = null;
+        if (topNode != null) {
+            result = topNode.next.data;
+        }
+        return result;
+    }
+
+    @Override
     public int size() {
         return size;
     }

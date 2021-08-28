@@ -14,6 +14,8 @@ public class Session {
     private int sessionID;
     private String sessionName;
     private String sessionSinger;
+    private int sessionRate = 0;
+    private int singTimes = 0;
 
     public Session() {
 
@@ -49,8 +51,24 @@ public class Session {
         this.sessionSinger = sessionSinger;
     }
 
+    public int getSessionRate() {
+        return sessionRate;
+    }
+
+    public void setSessionRate(int sessionRate) {
+        this.sessionRate = sessionRate;
+    }
+
+    public int getSingTimes() {
+        return singTimes;
+    }
+
+    public void setSingTimes() {
+        this.singTimes++;
+    }
+
     @Override
     public String toString() {
-        return String.format("%-15d %-23s %-10s\n", sessionID, sessionName, sessionSinger);
+        return String.format("%-15d %-23s %-10s %-3d %-3d\n", sessionID, sessionName, sessionSinger, sessionRate, singTimes);
     }
 }

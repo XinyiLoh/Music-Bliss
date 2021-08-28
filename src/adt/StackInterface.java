@@ -17,6 +17,8 @@ public interface StackInterface<T> {
 
     public T peek();
 
+    public T peekNext();
+
     public int size();
 
     public T getEach(int index);

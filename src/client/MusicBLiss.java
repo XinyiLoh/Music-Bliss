@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  *
  * @author Loh Xin Yi
  */
-public class MemberMaintenance {
+public class MusicBLiss {
 
     public static void main(String[] args) {
 
@@ -30,8 +30,6 @@ public class MemberMaintenance {
         memberList.insert(new Member(1003, "Cara", "C", "012-2222222", "Female", 300));
         memberList.insert(new Member(1004, "Daniel", "D", "013-3333333", "Male", 400));
         memberList.insert(new Member(1005, "Eva", "E", "014-4444444", "Female", 300));
-
-        System.out.println("memberList: \n" + memberList);
 
         SiahxySortedListInterface<Song> songList = new SiahxySortedArrayList<>();
 
@@ -78,7 +76,7 @@ public class MemberMaintenance {
 
                         switch (option) {
                             case '1':
-                                System.out.println("\n\nMember List");
+                                System.out.println("\n\nMember List: " + memberList.totalEntries());
                                 System.out.println("--------------------------------------------------------------------------------------------------------");
                                 System.out.println("     ID   First Name    Last name          Mobile     Gender                 Join Date     Reward Points");
                                 System.out.println("--------------------------------------------------------------------------------------------------------");
@@ -322,7 +320,7 @@ public class MemberMaintenance {
                             case '0':
                                 break;
                             default:
-                                System.err.print("Incorrect Input, Please try again.\n\n");
+                                System.err.print("Incorrect Input, Please try again.\n");
                         }
 
                     } while (Character.compare(option, '0') != 0);
@@ -456,6 +454,8 @@ public class MemberMaintenance {
                                                 updateSong.setSongID(currID);
                                                 songList.replace(songList.getPosition(updateSong), updateSong);
                                                 break;
+                                            default:
+                                                System.out.print("Quit...");
                                         }
                                         System.out.println("Update Successfully.");
                                     } else {
