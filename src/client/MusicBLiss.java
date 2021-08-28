@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  *
  * @author Loh Xin Yi
  */
-public class MusicBLiss {
+public class MusicBliss {
 
     public static void main(String[] args) {
 
@@ -69,6 +69,7 @@ public class MusicBLiss {
                         System.out.println("2.Add Member");
                         System.out.println("3.Update Member");
                         System.out.println("4.Remove Member");
+                        System.out.println("5.Search Member");
                         System.out.println("0.Back to Main Menu");
                         System.out.println("====================");
                         System.out.print("Enter choice: ");
@@ -316,7 +317,34 @@ public class MusicBLiss {
                                 }
                                 scan.nextLine();
                                 break;
+                            case '5':
+                                System.out.println("\n\nSearch Member");
+                                System.out.println("-----------------");
+                                Member searchEntry = new Member();
+                                System.out.print("Enter Member ID : ");
 
+                                try {
+                                    int removeID = scan.nextInt();
+                                    searchEntry.setiD(removeID);
+
+                                    if (memberList.found(searchEntry)) {
+                                        
+                                        searchEntry = memberList.getEntry(memberList.getPosition(searchEntry));
+                                        
+                                        System.out.println("---------------------------------------------------------------------------------------------------");
+                                        System.out.print(searchEntry);
+                                        System.out.println("\n-------------------------------------------------------------------------------------------------");
+                                        
+                                    } else {
+                                        System.err.println("Member ID not found.\n");
+                                    }
+
+                                } catch (InputMismatchException a) {
+                                    System.err.println("Must enter numbers.");
+                                    scan.next();
+                                }
+                                scan.nextLine();
+                                break;
                             case '0':
                                 break;
                             default:
