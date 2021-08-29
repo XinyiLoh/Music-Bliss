@@ -90,10 +90,20 @@ public class MusicBliss {
                                 System.out.println("\n\nAdd Member");
                                 System.out.println("---------------");
 
-                                //Manually key in ID
-                                //System.out.print("Please Enter ID: ");
-                                //int id = scan.nextInt();
-                                //scan.nextLine();
+//                                boolean trueID = false;
+//                                int id = 0;
+//                                while(!trueID){
+//                                    System.out.print("Please Enter ID: ");
+//                                    try {
+//                                            id = scan.nextInt();
+//                                            scan.nextLine();
+//                                            trueID = true;
+//                                    } catch (InputMismatchException a) {
+//                                        System.err.println("Must enter numbers only.");
+//                                        scan.next();
+//                                    }
+//                                }
+                                
                                 int id = memberList.getEntry(memberList.totalEntries()).getiD() + 1;
 
                                 System.out.print("Please Enter First Name: ");
