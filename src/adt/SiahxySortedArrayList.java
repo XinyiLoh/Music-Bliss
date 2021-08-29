@@ -101,9 +101,11 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
     @Override
     public boolean contains(T anEntry) {
         boolean found = false;
-        for (int i = 0; !found && (i < numberOfSongs); i++) {
-            if (anEntry.compareTo(songArray[i]) == 0) {
-                found = true;
+        if (!isEmpty()) {
+            for (int i = 0; !found && (i < numberOfSongs); i++) {
+                if (anEntry.compareTo(songArray[i]) == 0) {
+                    found = true;
+                }
             }
         }
 
