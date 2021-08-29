@@ -1003,6 +1003,7 @@ public class MusicBliss {
                             backSesSubMenu = scan.next().charAt(0);
                         }
                     } while (sesGoTo != '0' && Character.toLowerCase(backSesSubMenu) != 'n');
+                    scan.nextLine();
                     break;
                 case '0':
                     System.out.print("Bye ^^ ");
