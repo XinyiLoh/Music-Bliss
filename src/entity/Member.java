@@ -20,6 +20,8 @@ public class Member implements Comparable<Member>{
     private String gender;
     private String joinDate;
     private int rewardPoints;
+    private int totalRewardPoints = 0;
+    private String membership;
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
     
@@ -38,7 +40,17 @@ public class Member implements Comparable<Member>{
         this.mobile = mobile;
         this.gender = gender;
         this.rewardPoints = rewardPoints;
+        this.totalRewardPoints += rewardPoints;
         this.joinDate = sdf.format(cal.getTime());
+        if(totalRewardPoints <= 100){
+            this.membership = "Basic";
+        } else if (totalRewardPoints > 100 && totalRewardPoints <= 300) {
+            this.membership = "Bronze";
+        } else if (totalRewardPoints > 300 && totalRewardPoints <= 500) {
+            this.membership = "Silver";
+        } else if (totalRewardPoints > 500){
+            this.membership = "Gold";
+        }
     }
     
     @Override
@@ -98,14 +110,49 @@ public class Member implements Comparable<Member>{
         return rewardPoints;
     }
 
-    public void setRewardPoints(int rewardPoints) {
-        this.rewardPoints = rewardPoints;
+    public void addRewardPoints(int addRewardPoints) {
+        
+        this.rewardPoints = rewardPoints + addRewardPoints;
+        this.totalRewardPoints += addRewardPoints;
+        
+    }
+    
+    public boolean minusRewardPoints(int minusRewardPoints) {
+        
+        if(rewardPoints <= 0 || rewardPoints < minusRewardPoints){
+            return false;
+        }else{
+            this.rewardPoints = rewardPoints - minusRewardPoints;
+            return true;
+        }
     }
 
+    public int getTotalRewardPoints() {
+        return totalRewardPoints;
+    }
+    
+    public String getMembership() {
+        return membership;
+    }
+
+    public void setMembership() {
+        
+        if(this.totalRewardPoints <= 100){
+            this.membership = "Basic";
+        } else if (this.totalRewardPoints > 100 && totalRewardPoints <= 300) {
+            this.membership = "Bronze";
+        } else if (this.totalRewardPoints > 300 && totalRewardPoints <= 500) {
+            this.membership = "Silver";
+        } else if (this.totalRewardPoints > 500){
+            this.membership = "Gold";
+        }
+        
+    }
+    
     @Override
     public String toString() {
        
-        return String.format("%7d %12s %12s %15s %10s %25s %10d ",iD, firstName,lastName,mobile,gender,joinDate,rewardPoints);
+        return String.format("%7d %12s %12s %15s %10s %25s %15d %13s",iD, firstName,lastName,mobile,gender,joinDate,rewardPoints,membership);
     }
 
   

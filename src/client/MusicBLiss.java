@@ -78,11 +78,11 @@ public class MusicBliss {
                         switch (option) {
                             case '1':
                                 System.out.println("\n\nMember List: " + memberList.totalEntries());
-                                System.out.println("--------------------------------------------------------------------------------------------------------");
-                                System.out.println("     ID   First Name    Last name          Mobile     Gender                 Join Date     Reward Points");
-                                System.out.println("--------------------------------------------------------------------------------------------------------");
+                                System.out.println("--------------------------------------------------------------------------------------------------------------------");
+                                System.out.println("     ID   First Name    Last name          Mobile     Gender                 Join Date     Reward Points       Level");
+                                System.out.println("--------------------------------------------------------------------------------------------------------------------");
                                 System.out.print(memberList);
-                                System.out.println("--------------------------------------------------------------------------------------------------------");
+                                System.out.println("--------------------------------------------------------------------------------------------------------------------");
                                 break;
 
                             case '2':
@@ -254,19 +254,43 @@ public class MusicBliss {
                                                 case '5':
                                                     boolean rewardP = false;
                                                     int rp = 0;
-
+                                                    
                                                     while (!rewardP) {
-                                                        System.out.print("Please Enter Reward Points: ");
-                                                        try {
-                                                            rp = scan.nextInt();
-                                                            updateEntry.setRewardPoints(rp);
-                                                            rewardP = true;
-                                                        } catch (InputMismatchException a) {
-                                                            System.err.println("Must enter numbers.");
-                                                            scan.next();
+                                                        System.out.print("Please Enter Operation (A = Add/ M = Minus): ");
+                                                        char rpOperation = scan.nextLine().charAt(0);
+
+                                                        if (rpOperation == 'A' || rpOperation == 'a' || rpOperation == 'M' || rpOperation == 'm') {
+                                                            if (rpOperation == 'A' || rpOperation == 'a') {
+                                                                System.out.print("Please Enter Number of Reward Points want to add: ");
+                                                                try {
+                                                                    rp = scan.nextInt();
+                                                                    updateEntry.addRewardPoints(rp);
+                                                                    updateEntry.setMembership();
+                                                                    rewardP = true;
+                                                                } catch (InputMismatchException a) {
+                                                                    System.err.println("Must enter numbers.");
+                                                                    scan.next();
+                                                                }
+                                                            } else {
+                                                                System.out.print("Please Enter Number of Reward Points want to minus: ");
+                                                                try {
+                                                                    rp = scan.nextInt();
+                                                                    if(!updateEntry.minusRewardPoints(rp)){
+                                                                        System.err.println("Insufficient Reward Points.");
+                                                                    }
+                                                                    rewardP = true;
+                                                                } catch (InputMismatchException a) {
+                                                                    System.err.println("Must enter numbers.");
+                                                                    scan.next();
+                                                                }
+                                                            }
+                                                        } else {
+                                                            System.err.println("Must enter F or M character only.");
                                                         }
+                                                        
                                                     }
                                                     System.out.print("Update Successfully.\n");
+                                                    scan.nextLine();
                                                     break;
                                                 case '0':
                                                     System.err.print("Update Cancel.");
@@ -324,16 +348,15 @@ public class MusicBliss {
                                 System.out.print("Enter Member ID : ");
 
                                 try {
-                                    int removeID = scan.nextInt();
-                                    searchEntry.setiD(removeID);
+                                    int searchID = scan.nextInt();
+                                    searchEntry.setiD(searchID);
 
                                     if (memberList.found(searchEntry)) {
                                         
                                         searchEntry = memberList.getEntry(memberList.getPosition(searchEntry));
-                                        
-                                        System.out.println("---------------------------------------------------------------------------------------------------");
+                                        System.out.println("--------------------------------------------------------------------------------------------------------------------");
                                         System.out.print(searchEntry);
-                                        System.out.println("\n-------------------------------------------------------------------------------------------------");
+                                        System.out.println("\n--------------------------------------------------------------------------------------------------------------------");
                                         
                                     } else {
                                         System.err.println("Member ID not found.\n");
@@ -583,6 +606,7 @@ public class MusicBliss {
                     break;
                 case '0':
                     System.out.print("Bye ^^ ");
+                    break;
                 default:
                     System.err.print("Incorrect Input, Please try again.\n\n");
             }

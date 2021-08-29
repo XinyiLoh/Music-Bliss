@@ -8,33 +8,32 @@ package adt;
 /**
  *
  * @author Koh Hui Hui
- * @param <T>
  */
 public class LinkedStack<T> implements StackInterface<T> {
 
     private Node topNode;
-    private int size;
+    private int entryCount;
 
     public LinkedStack() {
         topNode = null;
-        size = 0;
+        entryCount = 0;
     }
 
     @Override
-    public void push(T newElement) {
-        Node newNode = new Node(newElement);
-        newNode.next = topNode;
+    public void push(T newEntry) {
+        Node newNode = new Node(newEntry);
+        newNode.setNextNode(topNode);
         topNode = newNode;
-        size++;
+        entryCount++;
     }
 
     @Override
     public T pop() {
         T result = peek();
         if (topNode != null) {
-            topNode = topNode.next;
+            topNode = topNode.getNextNode();
         }
-        size--;
+        entryCount--;
         return result;
     }
 
@@ -42,7 +41,7 @@ public class LinkedStack<T> implements StackInterface<T> {
     public T peek() {
         T result = null;
         if (topNode != null) {
-            result = topNode.data;
+            result = topNode.getData();
         }
         return result;
     }
@@ -51,34 +50,14 @@ public class LinkedStack<T> implements StackInterface<T> {
     public T peekNext() {
         T result = null;
         if (topNode != null) {
-            result = topNode.next.data;
+            result = topNode.getNextNode().getData();
         }
         return result;
     }
 
     @Override
     public int size() {
-        return size;
-    }
-
-    @Override
-    public T getEach(int index) {
-
-        T each = null;
-        Node curNode = topNode;
-
-        if (curNode != null) {
-            if (index == 1) {
-                each = curNode.data;
-            }
-            if (index > 1 && index <= size) {
-                for (int i = 0; i < index - 1; i++) {
-                    curNode = curNode.next;
-                }
-                each = curNode.data;
-            }
-        }
-        return each;
+        return entryCount;
     }
 
     @Override
@@ -89,7 +68,27 @@ public class LinkedStack<T> implements StackInterface<T> {
     @Override
     public void clear() {
         topNode = null;
-        size = 0;
+        entryCount = 0;
+    }
+
+    @Override
+    public T getEach(int index) {
+
+        T each = null;
+        Node currentNode = topNode;
+
+        if (currentNode != null) {
+            if (index == 1) {
+                each = currentNode.getData();
+            }
+            if (index > 1 && index <= entryCount) {
+                for (int i = 0; i < index - 1; i++) {
+                    currentNode = currentNode.getNextNode();
+                }
+                each = currentNode.getData();
+            }
+        }
+        return each;
     }
 
     @Override
@@ -98,26 +97,84 @@ public class LinkedStack<T> implements StackInterface<T> {
         Node currentNode = topNode;
 
         while (currentNode != null) {
-            list += "\n" + currentNode.data;
-            currentNode = currentNode.next;
+            list += "\n" + currentNode.getData();
+            currentNode = currentNode.getNextNode();
         }
 
         return list;
     }
 
+    @Override
+    public boolean find(T anEntry) {
+        boolean found = false;
+        Node currentNode = topNode;
+
+        while (!found && currentNode != null) {
+            if (anEntry.equals(currentNode.getData())) {
+                found = true;
+            } else {
+                currentNode = currentNode.getNextNode();
+            }
+        }
+
+        return found;
+    }
+
+    @Override
+    public void duplicate(int index) {
+        Node newNode = new Node(getEach(index));
+        newNode.setNextNode(topNode);
+        topNode = newNode;
+        entryCount++;
+    }
+
+    @Override
+    public int findDuplicate(T anEntry) {
+        boolean found = false;
+        Node currentNode = topNode;
+        int numTimes = 0;
+
+        while (!found && currentNode != null) {
+            for (int i = 0; i < entryCount - 1; i++) {
+                currentNode = currentNode.getNextNode();
+                if (anEntry.equals(currentNode.getData())) {
+                    numTimes++;
+                }
+            }
+        }
+
+        return numTimes;
+    }
+
     private class Node {
 
         private T data;
-        private Node next;
+        private Node nextNode;
 
         private Node(T data) {
             this.data = data;
-            this.next = null;
+            this.nextNode = null;
         }
 
         private Node(T data, Node next) {
             this.data = data;
-            this.next = next;
+            this.nextNode = next;
+        }
+
+        public T getData() {
+            return data;
+        }
+
+        public void setData(T data) {
+            this.data = data;
+        }
+
+        public Node getNextNode() {
+            return nextNode;
+        }
+
+        public void setNextNode(Node next) {
+            this.nextNode = next;
         }
     }
 }
