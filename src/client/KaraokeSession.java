@@ -25,14 +25,15 @@ public class KaraokeSession {
         StackInterface<Session> rankList = new LinkedStack<>();
         SiahxySortedArrayList<Song> songList = new SiahxySortedArrayList<>();
         Scanner scan = new Scanner(System.in);
-        char sesGoTo;
-        char backSesSubMenu = 'n';
 
         songList.add(new Song("STAY", "THE KID LAROI"));
         songList.add(new Song("GONE", "ROSIE"));
         songList.add(new Song("MOOD", "24KGOLDIN"));
         songList.add(new Song("ATTENTION", "CHARLIE PUTH"));
         songList.add(new Song("REALLY REALLY", "WINNER"));
+
+        char sesGoTo;
+        char backSesSubMenu = 'n';
 
         do {
 //------------Star Rate
