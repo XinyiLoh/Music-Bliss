@@ -417,7 +417,7 @@ public class MusicBliss {
                         System.out.println("2. Add Song ");
                         System.out.println("3. Update Song ");
                         System.out.println("4. Remove Song ");
-                        System.out.println("5. Search");
+                        System.out.println("5. Search Song");
                         System.out.println("0. Back to Main Menu");
                         System.out.println("====================");
                         System.out.print("Enter choice: ");

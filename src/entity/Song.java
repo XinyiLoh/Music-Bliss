@@ -5,6 +5,8 @@
  */
 package entity;
 
+import java.util.Objects;
+
 /**
  *
  * @author Siah Xin Ying
@@ -65,6 +67,13 @@ public class Song implements Comparable<Song> {
             return (this.songName.equals(otherName.songName));
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.songName);
+        return hash;
     }
 
     public String toString() {
