@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Loh Xin Yi
+ * @author Music Bliss
  */
 public class MusicBliss {
 
@@ -432,6 +432,7 @@ public class MusicBliss {
 
                                     if (!finding && (search == 1 || search == 2)) {
                                         System.err.println("Member not found.\n");
+                                        scan.nextLine();
                                         break;
                                     }
 
