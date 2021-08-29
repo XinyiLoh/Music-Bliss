@@ -256,18 +256,6 @@ public class MusicBliss {
                                                         }
                                                     }
 
-//                                                    while (!updatePhone) {
-//                                                        System.out.print("Please Enter Phone Number: ");
-//                                                        updatePnum = scan.nextLine();
-//
-//                                                        if (Pattern.matches("\\d{10}", updatePnum)) {
-//                                                            updatePnum = updatePnum.replaceFirst("(\\d{3})(\\d+)", "$1-$2");
-//                                                            updateEntry.setMobile(updatePnum);
-//                                                            updatePhone = true;
-//                                                        } else {
-//                                                            System.err.println("Must enter 10 numbers.");
-//                                                        }
-//                                                    }
                                                     System.out.print("Update Successfully.\n");
                                                     break;
                                                 case '4':
