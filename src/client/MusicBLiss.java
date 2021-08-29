@@ -372,22 +372,52 @@ public class MusicBliss {
                             case '5':
                                 System.out.println("\n\nSearch Member");
                                 System.out.println("-----------------");
-                                Member searchEntry = new Member();
-                                System.out.print("Enter Member ID : ");
-
+                                System.out.println("1. By ID");
+                                System.out.println("2. By Phone Number");
+                                System.out.println("-----------------");
+                                Member searchEntryID = new Member();
+                                Member searchEntryPhone = new Member();
+                                System.out.print("Enter Option: ");
+                                
                                 try {
-                                    int searchID = scan.nextInt();
-                                    searchEntry.setiD(searchID);
+                                    int search = scan.nextInt();
+                                    
+                                    if(search == 1){
+                                        System.out.print("Enter Member ID: ");
+                                        int searchID = scan.nextInt();
+                                        searchEntryID.setiD(searchID);
+                                    }else if(search == 2){
+                                        scan.nextLine();
+                                        System.out.print("Enter Member Mobile: ");
+                                        String searchPhone = scan.nextLine();
+                                        searchPhone = searchPhone.replaceFirst("(\\d{3})(\\d+)", "$1-$2");
+                                        searchEntryPhone.setMobile(searchPhone);
+                                    }else{
+                                        System.err.print("Invalid option.\n");
+                                    }
+                                    
+                                    boolean finding = false;
+                                    for(int i = 1; i <= memberList.totalEntries(); i++){
+                                        
+                                        if (memberList.found(searchEntryID) || memberList.getEntry(i).equals(searchEntryPhone)) {
+                                            searchEntryID = memberList.getEntry(memberList.getPosition(searchEntryID));
+                                            searchEntryPhone = memberList.getEntry(i);
+                                            System.out.println("--------------------------------------------------------------------------------------------------------------------");
+                                            if(searchEntryID != null){
+                                                System.out.print(searchEntryID);
+                                            }else{
+                                                System.out.print(searchEntryPhone);
+                                            }
+                                            System.out.println("\n--------------------------------------------------------------------------------------------------------------------");
+                                            finding = true;
+                                            break;
+                                        }
+                                        
+                                    }
 
-                                    if (memberList.found(searchEntry)) {
-                                        
-                                        searchEntry = memberList.getEntry(memberList.getPosition(searchEntry));
-                                        System.out.println("--------------------------------------------------------------------------------------------------------------------");
-                                        System.out.print(searchEntry);
-                                        System.out.println("\n--------------------------------------------------------------------------------------------------------------------");
-                                        
-                                    } else {
-                                        System.err.println("Member ID not found.\n");
+                                    if(!finding && (search == 1 || search == 2)){
+                                        System.err.println("Member not found.\n");
+                                        break;
                                     }
 
                                 } catch (InputMismatchException a) {
