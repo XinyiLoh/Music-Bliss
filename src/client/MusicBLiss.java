@@ -105,15 +105,29 @@ public class MusicBliss {
                                 String extractLname = lname.replaceAll("[^A-Za-z]+", "");
 
                                 boolean phone = false;
+                                boolean pass = true;
                                 String pnum = "0";
 
                                 while (!phone) {
+                                    pass = true;
                                     System.out.print("Please Enter Phone Number: ");
                                     pnum = scan.nextLine();
-
+                                    
                                     if (Pattern.matches("\\d{10}", pnum)) {
                                         pnum = pnum.replaceFirst("(\\d{3})(\\d+)", "$1-$2");
-                                        phone = true;
+                                        Member equalsPhone = new Member(pnum);
+                                        for(int i = 1; i <= memberList.totalEntries(); i++){
+                                            if(memberList.getEntry(i).equals(equalsPhone)){
+                                                pass = false;
+                                                System.err.print("Phone Number already existed.\n");
+                                                break;
+                                            }
+                                        }
+                                        
+                                        if(pass){ 
+                                            phone = true;
+                                        }
+                                        
                                     } else {
                                         System.err.println("Must enter 10 numbers.");
                                     }
@@ -181,6 +195,7 @@ public class MusicBliss {
 
                                         scan.nextLine();
                                         do {
+                                            memberList.delete(updateEntry);
                                             System.out.println("\n" + updateEntry);
 
                                             System.out.println("\nUpdate");
@@ -213,20 +228,34 @@ public class MusicBliss {
                                                     break;
                                                 case '3':
                                                     boolean updatePhone = false;
-                                                    String updatePnum = "0";
-
+                                                    String updatePnum;
+                                                    
                                                     while (!updatePhone) {
+                                                        pass = true;
                                                         System.out.print("Please Enter Phone Number: ");
                                                         updatePnum = scan.nextLine();
 
                                                         if (Pattern.matches("\\d{10}", updatePnum)) {
                                                             updatePnum = updatePnum.replaceFirst("(\\d{3})(\\d+)", "$1-$2");
-                                                            updateEntry.setMobile(updatePnum);
-                                                            updatePhone = true;
+                                                            Member equalsPhone = new Member(updatePnum);
+                                                            for(int i = 1; i <= memberList.totalEntries(); i++){
+                                                                if(memberList.getEntry(i).equals(equalsPhone)){
+                                                                    pass = false;
+                                                                    System.err.print("Phone Number already existed.\n");
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                            if(pass){ 
+                                                                updateEntry.setMobile(updatePnum);
+                                                                updatePhone = true;
+                                                            }
+
                                                         } else {
                                                             System.err.println("Must enter 10 numbers.");
                                                         }
                                                     }
+
                                                     System.out.print("Update Successfully.\n");
                                                     break;
                                                 case '4':
@@ -298,8 +327,7 @@ public class MusicBliss {
                                                 default:
                                                     System.err.print("Incorrect Input, Please try again.\n\n");
                                             }
-
-                                            memberList.delete(updateEntry);
+                                            
                                             memberList.insert(updateEntry);
 
                                         } while (Character.compare(updateChoice, '0') != 0);

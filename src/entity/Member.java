@@ -7,6 +7,7 @@ package entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 /**
  *
@@ -31,6 +32,10 @@ public class Member implements Comparable<Member>{
     
     public Member(int iD){
         this.iD = iD;
+    }
+    
+    public Member(String mobile){
+        this.mobile = mobile;
     }
 
     public Member(int iD, String firstName, String lastName, String mobile, String gender, int rewardPoints) {
@@ -148,6 +153,32 @@ public class Member implements Comparable<Member>{
         }
         
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Member other = (Member) obj;
+        if (!Objects.equals(this.mobile, other.mobile)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     @Override
     public String toString() {
