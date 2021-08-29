@@ -35,12 +35,14 @@ public class KaraokeSession {
         songList.add(new Song("REALLY REALLY", "WINNER"));
 
         do {
+//------------Star Rate
             String oneStar = "One-Star (Poor)";
             String twoStar = "Two-Star (Fair)";
             String threeStar = "Three-Star (Good)";
             String fourStar = "Four-Star (Excellent)";
             String fiveStar = "Five-Star (Superior)";
 
+//------------Select Module
             System.out.println("\nKaraoke Session\n----------------");
             System.out.println("1.Add Song to Playlist");
             System.out.println("2.Start Singing");
@@ -52,7 +54,8 @@ public class KaraokeSession {
 
             switch (sesGoTo) {
                 case '1':
-                    int selectId = 0;
+//------------Add Song
+                    int selectId;
                     char addMore;
 
                     System.out.println("\n\t\tADD SONG TO PLAYLIST");
@@ -69,12 +72,12 @@ public class KaraokeSession {
                         try {
                             System.out.print("\nEnter ID to select song: ");
                             selectId = scan.nextInt();
-
+//------------add if id exists
                             for (int i = 1; i <= songList.getNumberOfSongs(); i++) {
                                 if (songList.getEntry(i).getSongID() == selectId) {
                                     found = true;
+//------------push selected song from song list to karaoke list
                                     sessionList.push(new Session(songList.getEntry(i).getSongID(), songList.getEntry(i).getSongName(), songList.getEntry(i).getSinger()));
-                                    sessionList.peek().setStreamTimes();
                                     System.out.println("\nThe song was added successfully.\n");
                                 }
                             }
@@ -86,6 +89,7 @@ public class KaraokeSession {
                             scan.next();
                         }
 
+//------------add more songs
                         do {
                             System.out.print("Do you want to continue? (y/n) ");
                             addMore = scan.next().charAt(0);
@@ -100,17 +104,19 @@ public class KaraokeSession {
                     char playlistOption = '0';
 
                     System.out.println("\n\t\tLET'S START SINGING");
+//------------Display NOW PLAYING and NEXT SONG
                     if (sessionList.isEmpty()) {
                         System.out.println("\nThe playlist is currently empty,\nplease add more songs to the playlist to continue.");
                     } else if (sessionList.size() == 1) {
                         System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
                     } else if (sessionList.size() > 1) {
+//------------Next song is displayed using peekNext()
                         System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
                         System.out.println("\nNext Song: \n" + sessionList.peekNext().getSessionName() + " by " + sessionList.peekNext().getSessionSinger());
                     }
 
                     do {
-                        if (sessionList.size() >= 1) {
+                        if (!(sessionList.isEmpty())) {
                             do {
                                 System.out.println("\nNext Song (1) | Rate (2) | Exit (0)");
                                 System.out.print("Enter choice: ");
@@ -123,6 +129,8 @@ public class KaraokeSession {
 
                         switch (playlistOption) {
                             case '1':
+//------------skip to Next Song
+//------------In karaoke, to start singing next song, the current song will be removed using pop
                                 if (sessionList.size() == 1) {
                                     System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
                                     System.out.println("\nThe playlist now has only 1 song, \nif you want to add more songs, please proceed to sub-menu to do so.");
@@ -135,13 +143,16 @@ public class KaraokeSession {
                                 }
                                 break;
                             case '2':
+//------------rate song
                                 int i;
                                 int j;
-                                int curSongRate = 0;
+                                int curSongRate;
                                 String starRate = null;
+                                boolean replaceRate = false;
 
                                 System.out.println("\nRate Song\n");
                                 System.out.println("Star\t    Classification\n--------------------------");
+//------------display stars
                                 for (i = 5; i >= 1; i--) {
                                     for (j = 1; j <= i; j++) {
                                         System.out.print("*");
@@ -164,7 +175,6 @@ public class KaraokeSession {
                                             break;
                                     }
                                 }
-//                                Problem:Same song is rated differently
                                 try {
                                     System.out.print("\nEnter your rating (1 to 5): ");
                                     curSongRate = scan.nextInt();
@@ -186,21 +196,20 @@ public class KaraokeSession {
                                             break;
                                     }
                                     if (curSongRate == (int) curSongRate) {
-                                        if (rankList.find(sessionList.peek())) { //if the current song is rated already
-                                            for (int n = 1; n <= rankList.size(); n++) {
-                                                if (rankList.getEach(n).getSessionID() == sessionList.peek().getSessionID()) {
-                                                    rankList.getEach(n).setSessionRate(curSongRate);    //the new rate will be replaced
-                                                    System.out.print("\nSong is rated as " + starRate);
-                                                }
+                                        for (int n = 1; n <= rankList.size(); n++) {
+                                            if (rankList.getEach(n).getSessionID() == sessionList.peek().getSessionID()) {
+//------------If there are same songs, it will take the newest rate
+                                                rankList.getEach(n).setSessionRate(curSongRate);
+                                                System.out.print("\nSong is rated as " + starRate);
+                                                replaceRate = true;
                                             }
-                                        } else {
+                                        }
+                                        if (!(replaceRate)) {
                                             sessionList.peek().setSessionRate(curSongRate);
                                             rankList.push(sessionList.peek());
-                                            System.out.print("\nSong is rated as " + starRate);
+                                            System.out.print("\nSong is rated as " + starRate + "\n");
                                         }
-//                                        System.out.println(rankList.getAll());
                                     }
-
                                 } catch (InputMismatchException a) {
                                     System.err.println("\nPlease enter numeric input only.\n");
                                     scan.next();
@@ -214,7 +223,8 @@ public class KaraokeSession {
                     break;
 
                 case '3':
-                    char clearPlaylist = '0';
+//------------display the playlist
+                    char editPlaylist = '0';
                     char confirmClear;
 
                     if (!sessionList.isEmpty()) {
@@ -228,84 +238,113 @@ public class KaraokeSession {
                             System.out.print(sessionList.getEach(i));
                         }
                         do {
-                            System.out.println("\nClear Playlist (1) | Exit (0)");
+                            System.out.println("\nClear Playlist (1) | Duplicate Song (2) | Exit (0)");
                             System.out.print("Enter choice: ");
-                            clearPlaylist = scan.next().charAt(0);
-                            if (clearPlaylist != '1' && clearPlaylist != '0') {
+                            editPlaylist = scan.next().charAt(0);
+                            if (editPlaylist != '1' && editPlaylist != '2' && editPlaylist != '0') {
                                 System.out.println("\nInvalid input. \nPlease choose an option from the list.\n");
                             }
-                        } while (clearPlaylist != '1' && clearPlaylist != '0');
+                        } while (editPlaylist != '1' && editPlaylist != '2' && editPlaylist != '0');
                     } else {
                         System.out.println("\nYour playlist is currently empty.\n\nIf you want to add song to your playlist,\nplease proceed to sub-menu to do so.");
                     }
-                    if (clearPlaylist == '1') {
-                        System.out.print("Are you sure? (Y to proceed): ");
-                        confirmClear = scan.next().charAt(0);
-                        if (Character.toLowerCase(confirmClear) == 'y') {
-                            sessionList.clear();
-                            System.out.println("\nYour playlist is empty now.\n\nIf you want to add song to your playlist,\nplease proceed to sub-menu to do so.");
-                        }
-                    }
-                    break;
-                case '4':
-                    char viewReport;
-                    System.out.println("\n\t\tREPORTS");
-                    do {
-                        System.out.println("\n1. Your most streamed songs");
-                        System.out.println("2. The rated songs");
-                        System.out.println("0. Exit");
-                        System.out.print("\nEnter choice: ");
-                        viewReport = scan.next().charAt(0);
-                        switch (viewReport) {
-                            case '1':
-                                break;
-                            case '2':
-                                if (!(rankList.isEmpty())) {
-                                    for (int i = 1; i <= rankList.size(); i++) {
-                                        switch (rankList.getEach(i).getSessionRate()) {
-                                            case 5:
-                                                System.out.println("\n" + fiveStar);
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
-                                            case 4:
-                                                System.out.println("\n" + fourStar);
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
-                                            case 3:
-                                                System.out.println("\n" + threeStar);
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
-                                            case 2:
-                                                System.out.println("\n" + twoStar);
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
-                                            case 1:
-                                                System.out.println("\n" + oneStar);
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
+                    switch (editPlaylist) {
+                        case '1':
+//------------clear playlist
+                            System.out.print("Are you sure? (Y to proceed): ");
+                            confirmClear = scan.next().charAt(0);
+                            if (Character.toLowerCase(confirmClear) == 'y') {
+                                sessionList.clear();
+                                System.out.println("\nYour playlist is empty now.\n\nIf you want to add song to your playlist,\nplease proceed to sub-menu to do so.");
+
+                            }
+                            break;
+                        case '2':
+//------------users can duplicate songs by entering id
+                            boolean found = false;
+                            int dupId;
+                            int count = 0;
+                            try {
+                                System.out.print("\nEnter ID to select song: ");
+                                dupId = scan.nextInt();
+
+                                if (sessionList.size() == 1) {
+                                    found = true;
+                                    sessionList.duplicate(1);
+                                    System.out.println("\nThe selected song was duplicated.\n");
+                                } else {
+                                    for (int i = 1; i <= sessionList.size(); i++) {
+                                        if (sessionList.getEach(i).getSessionID() == dupId && count == 0) {
+                                            found = true;
+                                            count++;
+                                            sessionList.duplicate(i);
+                                            System.out.println("\nThe selected song was duplicated.\n");
                                         }
                                     }
-                                } else {
-                                    System.out.println("\nYou have not rated any song yet.\n");
                                 }
-                                break;
-                            case '0':
-                                break;
-                            default:
-                                System.out.print("\nInvalid input. \nPlease choose an option from the list.\n");
-                                break;
+//------------show again the list after duplicate
+                                System.out.println(sessionList.size() + " songs");
+                                System.out.println("----------------------------------------------------------------");
+                                System.out.println("#\tID\t\tTITLE\t\t\tARTIST");
+                                System.out.println("----------------------------------------------------------------");
+                                for (int i = 1; i <= sessionList.size(); i++) {
+                                    System.out.print(i + "\t");
+                                    System.out.print(sessionList.getEach(i));
+                                }
+                                if (!found) {
+                                    System.out.println("\nSong ID does not exist.\n");
+                                }
+                            } catch (InputMismatchException a) {
+                                System.err.println("\nPlease enter numeric input only.\n");
+                                scan.next();
+                            }
+                            break;
+                        case '0':
+                            break;
+                    }
+                    break;
+
+                case '4':
+//------------show song rank in the report based on the star rates
+                    System.out.println("\n\t\tREPORTS (SONG RANK)");
+                    if (!(rankList.isEmpty())) {
+                        for (int i = 1; i <= rankList.size(); i++) {
+                            switch (rankList.getEach(i).getSessionRate()) {
+                                case 5:
+                                    System.out.println("\n" + fiveStar);
+                                    System.out.println("----------------------------------------------------------------");
+                                    System.out.print(rankList.getEach(i));
+                                    System.out.println("----------------------------------------------------------------");
+                                    break;
+                                case 4:
+                                    System.out.println("\n" + fourStar);
+                                    System.out.println("----------------------------------------------------------------");
+                                    System.out.print(rankList.getEach(i));
+                                    System.out.println("----------------------------------------------------------------");
+                                    break;
+                                case 3:
+                                    System.out.println("\n" + threeStar);
+                                    System.out.println("----------------------------------------------------------------");
+                                    System.out.print(rankList.getEach(i));
+                                    System.out.println("----------------------------------------------------------------");
+                                    break;
+                                case 2:
+                                    System.out.println("\n" + twoStar);
+                                    System.out.println("----------------------------------------------------------------");
+                                    System.out.print(rankList.getEach(i));
+                                    System.out.println("----------------------------------------------------------------");
+                                    break;
+                                case 1:
+                                    System.out.println("\n" + oneStar);
+                                    System.out.println("----------------------------------------------------------------");
+                                    System.out.print(rankList.getEach(i));
+                                    System.out.println("----------------------------------------------------------------");
+                                    break;
+                            }
                         }
-                    } while (viewReport != '0');
+                    } else {
+                        System.out.println("\nYou have not rated any song yet.\n");
+                    }
                     break;
                 case '0':
                     break;

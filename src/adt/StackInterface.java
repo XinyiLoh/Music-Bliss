@@ -33,5 +33,4 @@ public interface StackInterface<T> {
 
     public void duplicate(int index);
 
-    public int findDuplicate(T anEntry);
 }

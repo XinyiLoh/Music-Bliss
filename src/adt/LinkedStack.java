@@ -30,7 +30,7 @@ public class LinkedStack<T> implements StackInterface<T> {
     @Override
     public T pop() {
         T result = peek();
-        if (topNode != null) {
+        if (!(isEmpty())) {
             topNode = topNode.getNextNode();
         }
         entryCount--;
@@ -40,7 +40,7 @@ public class LinkedStack<T> implements StackInterface<T> {
     @Override
     public T peek() {
         T result = null;
-        if (topNode != null) {
+        if (!(isEmpty())) {
             result = topNode.getData();
         }
         return result;
@@ -49,7 +49,7 @@ public class LinkedStack<T> implements StackInterface<T> {
     @Override
     public T peekNext() {
         T result = null;
-        if (topNode != null) {
+        if (!(isEmpty())) {
             result = topNode.getNextNode().getData();
         }
         return result;
@@ -77,7 +77,7 @@ public class LinkedStack<T> implements StackInterface<T> {
         T each = null;
         Node currentNode = topNode;
 
-        if (currentNode != null) {
+        if (!(isEmpty())) {
             if (index == 1) {
                 each = currentNode.getData();
             }
@@ -96,7 +96,7 @@ public class LinkedStack<T> implements StackInterface<T> {
         String list = "";
         Node currentNode = topNode;
 
-        while (currentNode != null) {
+        while (!(isEmpty())) {
             list += "\n" + currentNode.getData();
             currentNode = currentNode.getNextNode();
         }
@@ -109,7 +109,7 @@ public class LinkedStack<T> implements StackInterface<T> {
         boolean found = false;
         Node currentNode = topNode;
 
-        while (!found && currentNode != null) {
+        while (!found && !(isEmpty())) {
             if (anEntry.equals(currentNode.getData())) {
                 found = true;
             } else {
@@ -126,24 +126,6 @@ public class LinkedStack<T> implements StackInterface<T> {
         newNode.setNextNode(topNode);
         topNode = newNode;
         entryCount++;
-    }
-
-    @Override
-    public int findDuplicate(T anEntry) {
-        boolean found = false;
-        Node currentNode = topNode;
-        int numTimes = 0;
-
-        while (!found && currentNode != null) {
-            for (int i = 0; i < entryCount - 1; i++) {
-                currentNode = currentNode.getNextNode();
-                if (anEntry.equals(currentNode.getData())) {
-                    numTimes++;
-                }
-            }
-        }
-
-        return numTimes;
     }
 
     private class Node {
