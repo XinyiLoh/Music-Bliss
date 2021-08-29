@@ -5,8 +5,6 @@
  */
 package entity;
 
-import java.util.Objects;
-
 /**
  *
  * @author Siah Xin Ying
