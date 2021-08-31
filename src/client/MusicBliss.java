@@ -660,23 +660,25 @@ public class MusicBliss {
                                             addSongName = scan.nextLine().toUpperCase();
                                             addSong.setSongName(addSongName);
 
-                                            currID = songList.getEntry(songList.getPosition(addSong)).getSongID();
-                                            addSong.setSongID(currID);
-
                                             if (songList.contains(addSong)) {
+                                                currID = songList.getEntry(songList.getPosition(addSong)).getSongID();
+                                                addSong.setSongID(currID);
                                                 System.out.print("Enter Singer: ");
                                                 addSinger = scan.nextLine().toUpperCase();
 
                                                 singerAdding = songList.getEntry(songList.getPosition(addSong)).getSinger();
 
                                                 singerList.setSinger(addSinger);
-                                                singerAdding.add(singerList);                                                
+                                                singerAdding.add(singerList);
                                                 addSong.addSinger(singerList);
+                                                System.out.println("Add Successfully.");
 
                                             } else {
-                                                System.err.print("The Singer Doesn't Exist.");
+                                                System.err.println("The Singer Doesn't Exist.");
                                             }
+                                            
                                             break;
+                                            
                                         default:
                                             System.out.print("Quit...");
                                     }
@@ -706,7 +708,6 @@ public class MusicBliss {
                                     System.out.print("Enter Song Name: ");
                                     String songName = scan.nextLine().toUpperCase();
                                     updateSong.setSongName(songName);
-
 
                                     if (songList.contains(updateSong)) {
 
@@ -761,6 +762,8 @@ public class MusicBliss {
                                                     updateSong.setSinger(singerUpdate);
                                                     songList.replace(songList.getPosition(updateSong), updateSong);
 
+                                                } else {
+                                                    System.err.println("The Singer Doesn't Exist.");
                                                 }
                                                 break;
 
@@ -857,6 +860,8 @@ public class MusicBliss {
                                                 } else {
                                                     System.out.println("The Singer Doesn't Exist.");
                                                 }
+                                            }else {
+                                                System.err.println("The Song Doesn't Exist.");
                                             }
                                             break;
 
