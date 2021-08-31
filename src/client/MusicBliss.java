@@ -499,11 +499,11 @@ public class MusicBliss {
                                                 case '1':
                                                         try {
                                                     System.out.println("\nSong List: " + songList.getNumberOfSongs());
-                                                    System.out.println("----------------------------------------------------------------");
+                                                    System.out.println("----------------------------------------------------------------------------------------");
                                                     System.out.println("NO. ID      Song               Singer ");
-                                                    System.out.println("----------------------------------------------------------------");
+                                                    System.out.println("----------------------------------------------------------------------------------------");
                                                     System.out.print(songList);
-                                                    System.out.println("----------------------------------------------------------------");
+                                                    System.out.println("----------------------------------------------------------------------------------------");
 
                                                     System.out.print("\nEnter ID to select song: ");
                                                     int favouriteSongID = scan.nextInt();
@@ -541,15 +541,15 @@ public class MusicBliss {
                                                 break;
                                                 case '2':
                                                     System.out.println("\nFavourite Song List of " + memberfavouriteSongEntry.getFirstName() + " " + memberfavouriteSongEntry.getLastName());
-                                                    System.out.println("----------------------------------------------------------------");
+                                                    System.out.println("----------------------------------------------------------------------------------------");
                                                     if (memberfavouriteSongEntry.getFavouriteSongList() == null) {
                                                         System.out.println("No favourite song.");
                                                     } else {
                                                         System.out.print(memberfavouriteSongEntry.getFavouriteSongList());
-                                                        System.out.println("----------------------------------------------------------------");
+                                                        System.out.println("----------------------------------------------------------------------------------------");
                                                         System.out.println("Total " + memberfavouriteSongEntry.getFavouriteSongList().getNumberOfSongs() + " Favourite Songs");
                                                     }
-                                                    System.out.println("----------------------------------------------------------------");
+                                                    System.out.println("----------------------------------------------------------------------------------------");
 
                                                     try {
                                                         System.out.print("\nEnter ID to select song: ");
@@ -837,7 +837,7 @@ public class MusicBliss {
                                             break;
 
                                         case '2':
-                                            System.out.println("\n\nRemove Song");
+                                            System.out.println("\n\nRemove Singer");
                                             System.out.println("-----------------");
                                             System.out.print("Enter Song Name: ");
                                             songName = scan.nextLine().toUpperCase();
@@ -860,7 +860,7 @@ public class MusicBliss {
                                                     removeSinger = Singer.getEntry(Singer.getPosition(removeSinger));
 
                                                     System.out.print(removeSinger);
-                                                    System.out.println("----------------------------------------------------------------------------------------------");
+                                                    System.out.println("\n----------------------------------------------------------------------------------------------");
                                                     System.out.print(removeSong);
                                                     System.out.println("----------------------------------------------------------------------------------------------");
                                                     System.out.println("Delete Successfully.");
