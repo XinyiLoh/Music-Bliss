@@ -5,6 +5,8 @@
  */
 package entity;
 
+import adt.SiahxySortedArrayList;
+import adt.SiahxySortedListInterface;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
@@ -23,13 +25,14 @@ public class Member implements Comparable<Member>{
     private int rewardPoints;
     private int totalRewardPoints = 0;
     private String membership;
+    private SiahxySortedListInterface<Song> favouriteSongList;
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-    
+
     public Member(){
         
     }
-    
+
     public Member(int iD){
         this.iD = iD;
     }
@@ -38,7 +41,7 @@ public class Member implements Comparable<Member>{
         this.mobile = mobile;
     }
 
-    public Member(int iD, String firstName, String lastName, String mobile, String gender, int rewardPoints) {
+    public Member(int iD, String firstName, String lastName, String mobile, String gender, int rewardPoints, SiahxySortedListInterface<Song> favouriteSongList) {
         this.iD = iD;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -56,6 +59,7 @@ public class Member implements Comparable<Member>{
         } else if (totalRewardPoints > 500){
             this.membership = "Gold";
         }
+        this.favouriteSongList = favouriteSongList;
     }
     
     @Override
@@ -178,14 +182,18 @@ public class Member implements Comparable<Member>{
         return true;
     }
     
+    public void setFavouriteSongList(SiahxySortedListInterface<Song> favouriteSongList) {
+        this.favouriteSongList = favouriteSongList;
+    }
     
+    public SiahxySortedListInterface<Song> getFavouriteSongList() {
+        return favouriteSongList;
+    }
     
     @Override
     public String toString() {
        
         return String.format("%7d %12s %12s %15s %10s %25s %15d %13s",iD, firstName,lastName,mobile,gender,joinDate,rewardPoints,membership);
     }
-
-  
 
 }

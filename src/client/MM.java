@@ -27,12 +27,13 @@ public class MM {
     public static void main(String[] args) {
 
         SortedListInterface<Member> memberList = new SortedLinkedList<>();
+        SiahxySortedListInterface<Song> favouriteSongList = new SiahxySortedArrayList<>();
 
-        memberList.insert(new Member(1001, "Aurora", "A", "010-0000000", "Female", 100));
-        memberList.insert(new Member(1002, "Bob", "B", "011-1111111", "Male", 700));
-        memberList.insert(new Member(1003, "Cara", "C", "012-2222222", "Female", 300));
-        memberList.insert(new Member(1004, "Daniel", "D", "013-3333333", "Male", 400));
-        memberList.insert(new Member(1005, "Eva", "E", "014-4444444", "Female", 300));
+        memberList.insert(new Member(1001, "Aurora", "A", "010-0000000", "Female", 100,favouriteSongList));
+        memberList.insert(new Member(1002, "Bob", "B", "011-1111111", "Male", 700,favouriteSongList));
+        memberList.insert(new Member(1003, "Cara", "C", "012-2222222", "Female", 300,favouriteSongList));
+        memberList.insert(new Member(1004, "Daniel", "D", "013-3333333", "Male", 400,favouriteSongList));
+        memberList.insert(new Member(1005, "Eva", "E", "014-4444444", "Female", 300,favouriteSongList));
 
         SiahxySortedListInterface<Song> songList = new SiahxySortedArrayList<>();
 
@@ -76,6 +77,7 @@ public class MM {
                         System.out.println("3.Update Member");
                         System.out.println("4.Remove Member");
                         System.out.println("5.Search Member");
+                        System.out.println("6.Favorite Song List");
                         System.out.println("0.Back to Main Menu");
                         System.out.println("====================");
                         System.out.print("Enter choice: ");
@@ -96,19 +98,6 @@ public class MM {
                                 System.out.println("\n\nAdd Member");
                                 System.out.println("---------------");
 
-//                                boolean trueID = false;
-//                                int id = 0;
-//                                while(!trueID){
-//                                    System.out.print("Please Enter ID: ");
-//                                    try {
-//                                            id = scan.nextInt();
-//                                            scan.nextLine();
-//                                            trueID = true;
-//                                    } catch (InputMismatchException a) {
-//                                        System.err.println("Must enter numbers only.");
-//                                        scan.next();
-//                                    }
-//                                }
                                 int id = memberList.getEntry(memberList.totalEntries()).getiD() + 1;
 
                                 System.out.print("Please Enter First Name: ");
@@ -181,14 +170,14 @@ public class MM {
                                     }
                                 }
 
-                                Member newMember = new Member(id, extractFname, extractLname, pnum, gender, rw);
+                                Member newMember = new Member(id, extractFname, extractLname, pnum, gender, rw, favouriteSongList);
 
                                 if (memberList.insert(newMember)) {
                                     System.out.println("\nNew Member Added Successfully.");
                                 } else {
                                     System.err.println("\nAdd Failed.");
-                                }
-
+                                }  
+                                
                                 scan.nextLine();
                                 break;
 
@@ -434,6 +423,110 @@ public class MM {
                                         System.err.println("Member not found.\n");
                                         scan.nextLine();
                                         break;
+                                    }
+
+                                } catch (InputMismatchException a) {
+                                    System.err.println("Must enter numbers.");
+                                    scan.next();
+                                }
+                                scan.nextLine();
+                                break;
+                            case '6':
+                                System.out.println("\n\nFavourite Song List");
+                                System.out.println("-------------------");
+                                Member memberfavouriteSongEntry = new Member();
+                                System.out.print("Enter Member ID : ");
+
+                                try {
+                                    int memberfavouriteSongID = scan.nextInt();
+                                    memberfavouriteSongEntry.setiD(memberfavouriteSongID);
+                                    memberfavouriteSongEntry = memberList.getEntry(memberList.getPosition(memberfavouriteSongEntry));
+                                    favouriteSongList = memberfavouriteSongEntry.getFavouriteSongList();
+
+                                    if (memberList.found(memberfavouriteSongEntry)) {
+                                        scan.nextLine();
+                                        char fsChoice;
+                                        do{
+                                            System.out.println("\nOptions ");
+                                            System.out.println("-------- ");
+                                            System.out.println("1. Add Favourite Song ");
+                                            System.out.println("2. Remove Favourite Song ");
+                                            System.out.println("0. Cancel ");
+                                            System.out.print("Enter choice: ");
+                                            fsChoice = scan.nextLine().charAt(0);
+
+                                            switch(fsChoice){
+                                                case '1':
+                                                        try {
+                                                            System.out.println("\nSong List: " + songList.getNumberOfSongs());
+                                                            System.out.println("----------------------------------------------------------------");
+                                                            System.out.println("NO. ID      Song               Singer ");
+                                                            System.out.println("----------------------------------------------------------------");
+                                                            System.out.print(songList);
+                                                            System.out.println("----------------------------------------------------------------");
+                                                   
+                                                            System.out.print("\nEnter ID to select song: ");
+                                                            int favouriteSongID = scan.nextInt();
+                                                            boolean found = false;
+                                                            for (int i = 1; i <= songList.getNumberOfSongs(); i++) {
+                                                                if (songList.getEntry(i).getSongID() == favouriteSongID) {
+                                                                    favouriteSongList.add(songList.getEntry(i));
+                                                                    memberfavouriteSongEntry.setFavouriteSongList(favouriteSongList);
+                                                                    //memberList.delete(memberfavouriteSongEntry);
+                                                                    //memberList.insert(memberfavouriteSongEntry);
+                                                                    System.out.println("The song has added into favourite song list.\n");
+                                                                    found = true;
+                                                                }
+                                                            }
+                                                            if (!found) {
+                                                                System.err.println("Song ID does not exist.\n\n");
+                                                            }
+                                                        } catch (InputMismatchException a) {
+                                                            System.err.println("Must enter numbers.");
+                                                            scan.next();
+                                                        }
+                                                    scan.nextLine();
+                                                    break;
+                                                case '2':
+                                                    try {
+                                                        memberfavouriteSongEntry = memberList.getEntry(memberList.getPosition(memberfavouriteSongEntry));
+                                                        System.out.println("\nFavourite Song List of " + memberfavouriteSongEntry.getFirstName() + " " + memberfavouriteSongEntry.getLastName()); 
+                                                        System.out.println("----------------------------------------------------------------");
+                                                        System.out.print(favouriteSongList); 
+                                                        System.out.println("Total " + favouriteSongList.getNumberOfSongs() + " Favourite Songs");
+                                                        System.out.print("\nEnter ID to select song: ");
+                                                            int favouriteSongID = scan.nextInt();
+                                                            boolean found = false;
+                                                            for (int i = 1; i <= favouriteSongList.getNumberOfSongs(); i++) {
+                                                                if(favouriteSongList.getEntry(i).getSongID() == favouriteSongID){
+                                                                    favouriteSongList.remove(i);
+                                                                    memberfavouriteSongEntry.setFavouriteSongList(favouriteSongList);
+                                                                    //memberList.delete(memberfavouriteSongEntry);
+                                                                    //memberList.insert(memberfavouriteSongEntry);
+                                                                    System.out.println("The favourite song has added removed.\n");
+                                                                    found = true;
+                                                                }
+                                                            }
+                                                            if (!found) {
+                                                                System.err.println("Song ID is not in the favourite song list.\n\n");
+                                                            }
+                                                        } catch (InputMismatchException a) {
+                                                            System.err.println("Must enter numbers.");
+                                                            scan.next();
+                                                        }
+                                                    scan.nextLine();
+                                                    break;
+                                                case '0':
+                                                    System.err.print("Quit.\n");   
+                                                    favouriteSongList.clear();
+                                                    break;
+                                                default:
+                                                    System.err.print("Invalid option.\n\n");
+                                            }
+                                        }while(Character.compare(fsChoice, '0') != 0);
+                                       
+                                    } else {
+                                        System.err.println("Member ID not found.");
                                     }
 
                                 } catch (InputMismatchException a) {
