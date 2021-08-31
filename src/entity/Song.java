@@ -5,6 +5,8 @@
  */
 package entity;
 
+import adt.SiahxySortedArrayList;
+import adt.SiahxySortedListInterface;
 import java.util.Objects;
 
 /**
@@ -15,26 +17,46 @@ public class Song implements Comparable<Song> {
 
     private static int id = 1000;
     private int songID;
-    private String songName;
-    private String singer;
-
+    private String songName;    
+    private SiahxySortedListInterface<Singer> Singer = new SiahxySortedArrayList();
+    
     public Song() {
     }
 
     public Song(int songID) {
         this.songID = songID;
     }
-
-    public Song(String songName, String singer) {
+    
+    public Song(String songName,SiahxySortedListInterface<Singer> singer) {
         this.songName = songName;
-        this.singer = singer;
         this.songID = id;
         id++;
+        this.Singer = singer;
     }
 
+    
+
+    @Override
     public int compareTo(Song other) {
         return (songName.compareTo(other.songName));
 
+    }
+
+    public String getSongName() {
+        return songName;
+    }
+
+    public void setSongName(String songName) {
+        this.songName = songName;
+    }
+    
+
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        Song.id = id;
     }
 
     public int getSongID() {
@@ -45,21 +67,15 @@ public class Song implements Comparable<Song> {
         this.songID = songID;
     }
 
-    public String getSongName() {
-        return songName;
+
+    public SiahxySortedListInterface<Singer> getSinger() {
+        return Singer;
     }
 
-    public void setSongName(String songName) {
-        this.songName = songName;
+    public void setSinger(SiahxySortedListInterface<Singer> Singer) {
+        this.Singer = Singer;
     }
 
-    public String getSinger() {
-        return singer;
-    }
-
-    public void setSinger(String singer) {
-        this.singer = singer;
-    }
 
     public boolean equals(Object other) {
         if (other instanceof Song) {
@@ -77,7 +93,7 @@ public class Song implements Comparable<Song> {
     }
 
     public String toString() {
-        return String.format("%-7d %-18s %-50s\n", songID, songName, singer);
+        return String.format("%-7d %-18s", songID, songName) + Singer + "\n";
     }
 
 }

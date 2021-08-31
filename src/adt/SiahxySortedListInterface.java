@@ -9,7 +9,7 @@ package adt;
  *
  * @author Siah Xin Ying
  */
-public interface SiahxySortedListInterface<T extends Comparable<T>> {
+public interface SiahxySortedListInterface<T extends Comparable<T>>{
 
     public boolean add(T newEntry);
 
