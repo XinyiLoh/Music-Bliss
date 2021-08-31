@@ -5,6 +5,8 @@
  */
 package entity;
 
+import adt.SiahxySortedListInterface;
+
 /**
  *
  * @author Koh Hui Hui
@@ -14,6 +16,7 @@ public class Session {
     private int sessionID;
     private String sessionName;
     private String sessionSinger;
+    private SiahxySortedListInterface<Song> playlist;
     private int sessionRate;
 
     public Session() {
@@ -56,6 +59,14 @@ public class Session {
 
     public void setSessionRate(int sessionRate) {
         this.sessionRate = sessionRate;
+    }
+
+    public SiahxySortedListInterface<Song> getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(SiahxySortedListInterface<Song> playlist) {
+        this.playlist = playlist;
     }
 
     @Override

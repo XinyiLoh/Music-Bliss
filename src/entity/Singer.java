@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  *
- * @author USER
+ * @author Siah Xin Ying
  */
 public class Singer implements Comparable<Singer> {
 
@@ -37,7 +37,6 @@ public class Singer implements Comparable<Singer> {
         return hash;
     }
 
-   
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
