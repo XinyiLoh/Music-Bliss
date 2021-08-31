@@ -552,7 +552,7 @@ public class MusicBliss {
                                                             }
                                                         }
                                                         if (!found) {
-                                                            System.err.println("Song ID is not in the favourite song list.\n\n");
+                                                            System.err.println("\n\nSong ID is not in the favourite song list.\n\n");
                                                         }
                                                     } catch (InputMismatchException a) {
                                                         System.err.println("Must enter numbers.");
