@@ -41,7 +41,7 @@ public class Member implements Comparable<Member>{
         this.mobile = mobile;
     }
 
-    public Member(int iD, String firstName, String lastName, String mobile, String gender, int rewardPoints, SiahxySortedListInterface<Song> favouriteSongList) {
+    public Member(int iD, String firstName, String lastName, String mobile, String gender, int rewardPoints) {
         this.iD = iD;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -59,7 +59,6 @@ public class Member implements Comparable<Member>{
         } else if (totalRewardPoints > 500){
             this.membership = "Gold";
         }
-        this.favouriteSongList = favouriteSongList;
     }
     
     @Override
