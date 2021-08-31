@@ -150,7 +150,7 @@ public class SiahxySortedArrayList<T extends Comparable<T>> implements SiahxySor
     public String toString() {
         String outputStr = "";
         for (int position = 1; position <= getNumberOfSongs(); ++position) {
-            outputStr += position + ".  " + getEntry(position);
+            outputStr += position + "." + getEntry(position);
         }
         return outputStr;
 

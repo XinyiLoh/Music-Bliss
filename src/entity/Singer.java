@@ -56,7 +56,7 @@ public class Singer implements Comparable<Singer>{
     }
     
     public String toString(){
-        return singer;
+        return  "("+singer + ")  ";
     }
     
     @Override
