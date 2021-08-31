@@ -706,7 +706,7 @@ public class MusicBliss {
                                     System.out.print("Enter Song Name: ");
                                     String songName = scan.nextLine().toUpperCase();
                                     updateSong.setSongName(songName);
-//                                    scan.nextLine();
+
 
                                     if (songList.contains(updateSong)) {
 
