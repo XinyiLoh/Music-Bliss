@@ -403,7 +403,7 @@ public class MusicBliss {
                                 Member searchEntryID = new Member();
                                 Member searchEntryPhone = new Member();
                                 System.out.print("Enter Option: ");
-
+                                
                                 try {
                                     int search = scan.nextInt();
 
@@ -463,8 +463,15 @@ public class MusicBliss {
                                     memberfavouriteSongEntry.setiD(memberfavouriteSongID);
 
                                     if (memberList.found(memberfavouriteSongEntry)) {
+                                        
+                                        SiahxySortedListInterface<Song> favouriteSongList = new SiahxySortedArrayList<>();
+                                        
                                         memberfavouriteSongEntry = memberList.getEntry(memberList.getPosition(memberfavouriteSongEntry));
-
+                                        
+                                        if(memberfavouriteSongEntry.getFavouriteSongList() != null){
+                                            favouriteSongList = memberfavouriteSongEntry.getFavouriteSongList();
+                                        }
+                                        
                                         System.out.println("\nFavourite Song List of " + memberfavouriteSongEntry.getFirstName() + " " + memberfavouriteSongEntry.getLastName());
                                         System.out.println("----------------------------------------------------------------");
 
@@ -505,15 +512,19 @@ public class MusicBliss {
                                                     for (int i = 1; i <= songList.getNumberOfSongs(); i++) {
                                                         if (songList.getEntry(i).getSongID() == favouriteSongID) {
 
-                                                            for (int j = 1; j <= memberfavouriteSongEntry.getFavouriteSongList().getNumberOfSongs(); j++) {
-                                                                if (favouriteSongID == memberfavouriteSongEntry.getFavouriteSongList().getEntry(j).getSongID()) {
-                                                                    System.out.println("The song is existed in the favourite song list.\n");
-                                                                    existed = true;
+                                                            if(favouriteSongList.isEmpty() == false){
+                                                                for (int j = 1; j <= favouriteSongList.getNumberOfSongs(); j++) {
+                                                                    if (favouriteSongID == favouriteSongList.getEntry(j).getSongID()) {
+                                                                        System.out.println("The song is existed in the favourite song list.\n");
+                                                                        existed = true;
+                                                                    }
                                                                 }
                                                             }
-
+                                                            
                                                             if (!existed) {
-                                                                memberfavouriteSongEntry.addFavouriteSong(songList.getEntry(i));
+                                                                favouriteSongList.add(songList.getEntry(i));
+                                                                memberfavouriteSongEntry.setFavouriteSongList(favouriteSongList);
+                                                                //memberfavouriteSongEntry.addFavouriteSong(songList.getEntry(i));
                                                                 System.out.println("The song has added into favourite song list.\n");
                                                             }
                                                             found = true;

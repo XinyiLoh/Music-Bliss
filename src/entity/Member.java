@@ -25,7 +25,8 @@ public class Member implements Comparable<Member>{
     private int rewardPoints;
     private int totalRewardPoints = 0;
     private String membership;
-    private SiahxySortedListInterface<Song> favouriteSongList = new SiahxySortedArrayList<>();
+    //private SiahxySortedListInterface<Song> favouriteSongList = new SiahxySortedArrayList<>();
+    private SiahxySortedListInterface<Song> favouriteSongList;
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
 
@@ -179,10 +180,6 @@ public class Member implements Comparable<Member>{
             return false;
         }
         return true;
-    }
-    
-    public void addFavouriteSong(Song fs) {
-        favouriteSongList.add(fs);
     }
     
     public void setFavouriteSongList(SiahxySortedListInterface<Song> favouriteSongList) {
