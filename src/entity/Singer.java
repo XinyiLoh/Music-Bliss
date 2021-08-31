@@ -11,8 +11,8 @@ import java.util.Objects;
  *
  * @author USER
  */
-public class Singer implements Comparable<Singer>{
-    
+public class Singer implements Comparable<Singer> {
+
     String singer;
 
     public Singer() {
@@ -37,6 +37,7 @@ public class Singer implements Comparable<Singer>{
         return hash;
     }
 
+   
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -54,13 +55,13 @@ public class Singer implements Comparable<Singer>{
         }
         return true;
     }
-    
-    public String toString(){
-        return  "("+singer + ")  ";
+
+    public String toString() {
+        return "(" + singer + ")  ";
     }
-    
+
     @Override
     public int compareTo(Singer o) {
-         return (singer.compareTo(o.singer));
+        return (singer.compareTo(o.singer));
     }
 }

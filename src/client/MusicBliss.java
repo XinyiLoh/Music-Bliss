@@ -663,9 +663,6 @@ public class MusicBliss {
                                             currID = songList.getEntry(songList.getPosition(addSong)).getSongID();
                                             addSong.setSongID(currID);
 
-                                            System.out.println(currID);
-                                            System.out.println(addSong);
-
                                             if (songList.contains(addSong)) {
                                                 System.out.print("Enter Singer: ");
                                                 addSinger = scan.nextLine().toUpperCase();
@@ -673,9 +670,8 @@ public class MusicBliss {
                                                 singerAdding = songList.getEntry(songList.getPosition(addSong)).getSinger();
 
                                                 singerList.setSinger(addSinger);
-                                                singerAdding.add(singerList);
-                                                addSong.setSinger(singerAdding);
-                                                songList.replace(songList.getPosition(addSong), addSong);
+                                                singerAdding.add(singerList);                                                
+                                                addSong.addSinger(singerList);
 
                                             } else {
                                                 System.err.print("The Singer Doesn't Exist.");

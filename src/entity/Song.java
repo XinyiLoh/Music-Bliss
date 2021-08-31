@@ -67,7 +67,10 @@ public class Song implements Comparable<Song> {
         this.songID = songID;
     }
 
-
+    public void addSinger(Singer s) {
+        Singer.add(s);
+    }
+    
     public SiahxySortedListInterface<Singer> getSinger() {
         return Singer;
     }
