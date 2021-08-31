@@ -20,10 +20,10 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Acer
+ * @author Music Bliss
  */
-public class MM {
-    
+public class MusicBliss {
+
     public static void main(String[] args) {
 
         SortedListInterface<Member> memberList = new SortedLinkedList<>();
