@@ -722,9 +722,7 @@ public class MusicBliss {
                                             if (songList.getEntry(i).getSongID() == selectId) {
                                                 found = true;
 //------------push selected song from song list to karaoke list
-                                                sessionList.push(new Session(songList.getEntry(i).getSongID(),
-                                                        songList.getEntry(i).getSongName(),
-                                                        songList.getEntry(i).getSinger()));
+                                                sessionList.push(new Session(songList.getEntry(i).getSongID(), songList.getEntry(i).getSongName(), songList.getEntry(i).getSinger()));
                                                 System.out.println("\nThe song was added successfully.\n");
                                             }
                                         }
@@ -753,17 +751,13 @@ public class MusicBliss {
                                 System.out.println("\n\t\tLET'S START SINGING");
 //------------Display NOW PLAYING and NEXT SONG
                                 if (sessionList.isEmpty()) {
-                                    System.out.println("\nThe playlist is currently empty,\n"
-                                            + "please add more songs to the playlist to continue.");
+                                    System.out.println("\nThe playlist is currently empty,\nplease add more songs to the playlist to continue.");
                                 } else if (sessionList.size() == 1) {
-                                    System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName()
-                                            + " by " + sessionList.peek().getSessionSinger());
+                                    System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
                                 } else if (sessionList.size() > 1) {
 //------------Next song is displayed using peekNext()
-                                    System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName()
-                                            + " by " + sessionList.peek().getSessionSinger());
-                                    System.out.println("\nNext Song: \n" + sessionList.peekNext().getSessionName()
-                                            + " by " + sessionList.peekNext().getSessionSinger());
+                                    System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
+                                    System.out.println("\nNext Song: \n" + sessionList.peekNext().getSessionName() + " by " + sessionList.peekNext().getSessionSinger());
                                 }
 
                                 do {
@@ -783,18 +777,13 @@ public class MusicBliss {
 //------------skip to Next Song
 //------------In karaoke, to start singing next song, the current song will be removed using pop
                                             if (sessionList.size() == 1) {
-                                                System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName()
-                                                        + " by " + sessionList.peek().getSessionSinger());
-                                                System.out.println("\nThe playlist now has only 1 song, \n"
-                                                        + "if you want to add more songs, please proceed to sub-menu to do so.");
+                                                System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
+                                                System.out.println("\nThe playlist now has only 1 song, \nif you want to add more songs, please proceed to sub-menu to do so.");
                                             } else if (sessionList.size() > 1) {
                                                 sessionList.pop();
-                                                System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName()
-                                                        + " by " + sessionList.peek().getSessionSinger());
+                                                System.out.println("\nNow Playing: \n" + sessionList.peek().getSessionName() + " by " + sessionList.peek().getSessionSinger());
                                                 if (sessionList.size() > 1) {
-                                                    System.out.println("\nNext Song: \n"
-                                                            + sessionList.peekNext().getSessionName() + " by "
-                                                            + sessionList.peekNext().getSessionSinger());
+                                                    System.out.println("\nNext Song: \n" + sessionList.peekNext().getSessionName() + " by " + sessionList.peekNext().getSessionSinger());
                                                 }
                                             }
                                             break;
@@ -911,8 +900,7 @@ public class MusicBliss {
                                         confirmClear = scan.next().charAt(0);
                                         if (Character.toLowerCase(confirmClear) == 'y') {
                                             sessionList.clear();
-                                            System.out.println("\nYour playlist is empty now.\n\nIf you want to add song to "
-                                                    + "your playlist,\nplease proceed to sub-menu to do so.");
+                                            System.out.println("\nYour playlist is empty now.\n\nIf you want to add song to your playlist,\nplease proceed to sub-menu to do so.");
 
                                         }
                                         break;
