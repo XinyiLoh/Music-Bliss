@@ -26,9 +26,8 @@ public class MusicBliss {
 
     public static void main(String[] args) {
 
-        SortedListInterface<Member> memberList = new SortedLinkedList<>();
-        SiahxySortedListInterface<Song> favouriteSongList = new SiahxySortedArrayList<>();
-
+         SortedListInterface<Member> memberList = new SortedLinkedList<>();
+        
         memberList.insert(new Member(1001, "Aurora", "A", "010-0000000", "Female", 100));
         memberList.insert(new Member(1002, "Bob", "B", "011-1111111", "Male", 700));
         memberList.insert(new Member(1003, "Cara", "C", "012-2222222", "Female", 300));
@@ -77,7 +76,7 @@ public class MusicBliss {
                         System.out.println("3.Update Member");
                         System.out.println("4.Remove Member");
                         System.out.println("5.Search Member");
-                        System.out.println("6.Favorite Song List");
+                        System.out.println("6.Favourite Song List");
                         System.out.println("0.Back to Main Menu");
                         System.out.println("====================");
                         System.out.print("Enter choice: ");
@@ -440,10 +439,22 @@ public class MusicBliss {
                                 try {
                                     int memberfavouriteSongID = scan.nextInt();
                                     memberfavouriteSongEntry.setiD(memberfavouriteSongID);
-                                    memberfavouriteSongEntry = memberList.getEntry(memberList.getPosition(memberfavouriteSongEntry));
-                                    //favouriteSongList = memberfavouriteSongEntry.getFavouriteSongList();
 
                                     if (memberList.found(memberfavouriteSongEntry)) {
+                                        memberfavouriteSongEntry = memberList.getEntry(memberList.getPosition(memberfavouriteSongEntry));
+                                        
+                                        System.out.println("\nFavourite Song List of " + memberfavouriteSongEntry.getFirstName() + " " + memberfavouriteSongEntry.getLastName()); 
+                                        System.out.println("----------------------------------------------------------------");
+                                        
+                                        if(memberfavouriteSongEntry.getFavouriteSongList() == null) {
+                                            System.out.println("No favourite song.");
+                                        } else {
+                                            System.out.print(memberfavouriteSongEntry.getFavouriteSongList());
+                                            System.out.println("----------------------------------------------------------------");
+                                            System.out.println("Total " + memberfavouriteSongEntry.getFavouriteSongList().getNumberOfSongs() + " Favourite Songs");
+                                        }
+                                        System.out.println("----------------------------------------------------------------");
+                                        
                                         scan.nextLine();
                                         char fsChoice;
                                         do{
@@ -468,20 +479,22 @@ public class MusicBliss {
                                                             System.out.print("\nEnter ID to select song: ");
                                                             int favouriteSongID = scan.nextInt();
                                                             boolean found = false;
+                                                            boolean existed = false;
                                                             for (int i = 1; i <= songList.getNumberOfSongs(); i++) {
                                                                 if (songList.getEntry(i).getSongID() == favouriteSongID) {
-                                                                    //favouriteSongList.add(songList.getEntry(i));
-                                                                    if(memberfavouriteSongEntry.getFavouriteSongList() != null){
-                                                                        memberfavouriteSongEntry.getFavouriteSongList().add(songList.getEntry(i));
-                                                                    }else{
-                                                                        memberfavouriteSongEntry.getFavouriteSongList().add(songList.getEntry(i));
+                                                               
+                                                                    for(int j = 1; j <= memberfavouriteSongEntry.getFavouriteSongList().getNumberOfSongs(); j++){
+                                                                        if(favouriteSongID == memberfavouriteSongEntry.getFavouriteSongList().getEntry(j).getSongID()){
+                                                                           System.out.println("The song is existed in the favourite song list.\n");
+                                                                           existed = true;
+                                                                        }
                                                                     }
                                                                     
-                                                                    //memberfavouriteSongEntry.setFavouriteSongList(favouriteSongList);
-                                                                    memberList.delete(memberfavouriteSongEntry);
-                                                                    memberList.insert(memberfavouriteSongEntry);
-                                                                    System.out.println("The song has added into favourite song list.\n");
-                                                                    found = true;
+                                                                    if(!existed){
+                                                                        memberfavouriteSongEntry.addFavouriteSong(songList.getEntry(i));
+                                                                        System.out.println("The song has added into favourite song list.\n");
+                                                                    }
+                                                                   found = true;
                                                                 }
                                                             }
                                                             if (!found) {
@@ -494,23 +507,24 @@ public class MusicBliss {
                                                     scan.nextLine();
                                                     break;
                                                 case '2':
+                                                    System.out.println("\nFavourite Song List of " + memberfavouriteSongEntry.getFirstName() + " " + memberfavouriteSongEntry.getLastName()); 
+                                                    System.out.println("----------------------------------------------------------------");
+                                                    if(memberfavouriteSongEntry.getFavouriteSongList() == null) {
+                                                        System.out.println("No favourite song.");
+                                                    } else {
+                                                        System.out.print(memberfavouriteSongEntry.getFavouriteSongList());
+                                                        System.out.println("----------------------------------------------------------------");
+                                                        System.out.println("Total " + memberfavouriteSongEntry.getFavouriteSongList().getNumberOfSongs() + " Favourite Songs");
+                                                    }
+                                                    System.out.println("----------------------------------------------------------------");
+                                        
                                                     try {
-                                                        memberfavouriteSongEntry = memberList.getEntry(memberList.getPosition(memberfavouriteSongEntry));
-                                                        System.out.println("\nFavourite Song List of " + memberfavouriteSongEntry.getFirstName() + " " + memberfavouriteSongEntry.getLastName()); 
-                                                        System.out.println("----------------------------------------------------------------");
-                                                        System.out.print(favouriteSongList); 
-                                                        System.out.println("----------------------------------------------------------------");
-                                                        System.out.println("Total " + favouriteSongList.getNumberOfSongs() + " Favourite Songs");
-                                                        System.out.print("\nEnter ID to select song: ");
+                                                            System.out.print("\nEnter ID to select song: ");
                                                             int favouriteSongID = scan.nextInt();
                                                             boolean found = false;
                                                             for (int i = 1; i <= memberfavouriteSongEntry.getFavouriteSongList().getNumberOfSongs(); i++) {
                                                                 if(memberfavouriteSongEntry.getFavouriteSongList().getEntry(i).getSongID() == favouriteSongID){
-                                                                    //favouriteSongList.remove(i);
                                                                     memberfavouriteSongEntry.getFavouriteSongList().remove(i);
-                                                                    //memberfavouriteSongEntry.setFavouriteSongList(favouriteSongList);
-                                                                    memberList.delete(memberfavouriteSongEntry);
-                                                                    memberList.insert(memberfavouriteSongEntry);
                                                                     System.out.println("The favourite song has added removed.\n");
                                                                     found = true;
                                                                 }
@@ -518,15 +532,14 @@ public class MusicBliss {
                                                             if (!found) {
                                                                 System.err.println("Song ID is not in the favourite song list.\n\n");
                                                             }
-                                                        } catch (InputMismatchException a) {
-                                                            System.err.println("Must enter numbers.");
-                                                            scan.next();
-                                                        }
+                                                    } catch (InputMismatchException a) {
+                                                        System.err.println("Must enter numbers.");
+                                                        scan.next();
+                                                    }
                                                     scan.nextLine();
                                                     break;
                                                 case '0':
-                                                    System.err.print("Quit.\n");   
-                                                    //favouriteSongList.clear();
+                                                    System.err.print("Quit.\n"); 
                                                     break;
                                                 default:
                                                     System.err.print("Invalid option.\n\n");
