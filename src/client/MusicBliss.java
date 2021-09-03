@@ -651,10 +651,10 @@ public class MusicBliss {
                                         case '1':
                                             System.out.println("\n\nAdd New Song");
                                             System.out.println("-----------------");
-                                            System.out.print("Enter Song Name: ");
+                                            System.out.print("Enter New Song Name: ");
                                             addSongName = scan.nextLine().toUpperCase();
 
-                                            System.out.print("Enter Singer: ");
+                                            System.out.print("Enter New Singer: ");
                                             addSinger = scan.nextLine().toUpperCase();
 
                                             addSong.setSongName(addSongName);
@@ -674,7 +674,7 @@ public class MusicBliss {
                                             if (songList.contains(addSong)) {
                                                 currID = songList.getEntry(songList.getPosition(addSong)).getSongID();
                                                 addSong.setSongID(currID);
-                                                System.out.print("Enter Singer: ");
+                                                System.out.print("Enter New Singer: ");
                                                 addSinger = scan.nextLine().toUpperCase();
 
                                                 singerAdding = songList.getEntry(songList.getPosition(addSong)).getSinger();
@@ -716,7 +716,7 @@ public class MusicBliss {
                                     char updateSelection;
                                     System.out.println("\n\nUpdate Song");
                                     System.out.println("-----------------");
-                                    System.out.print("Enter Song Name: ");
+                                    System.out.print("Enter Song Name To Update: ");
                                     String songName = scan.nextLine().toUpperCase();
                                     updateSong.setSongName(songName);
 
@@ -737,7 +737,7 @@ public class MusicBliss {
 
                                         switch (updateSelection) {
                                             case '1':
-                                                System.out.print("Enter Song Name: ");
+                                                System.out.print("Enter New Song Name: ");
                                                 String replaceName = scan.nextLine().toUpperCase();
                                                 updateSong.setSongName(replaceName);
 
