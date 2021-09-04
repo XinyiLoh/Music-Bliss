@@ -72,7 +72,7 @@ public class MusicBliss {
         StackInterface<Session> sessionList = new LinkedStack<>();
         StackInterface<Session> rankList = new LinkedStack<>();
         SiahxySortedListInterface<Song> playlist = new SiahxySortedArrayList<>();
-        SiahxySortedListInterface<Singer> version = new SiahxySortedArrayList<>();
+
         int nowSong = 0;
         int nextSong = 1;
 
@@ -973,7 +973,7 @@ public class MusicBliss {
 //_______________________________________________________________________________________Add Song To Playlist
                             case '1':
 //------------Add Song
-                                int selectId,
+                                int addId,
                                  selectSinger;
                                 char addMore;
 
@@ -983,6 +983,7 @@ public class MusicBliss {
                                     boolean found = false;
 
                                     try {
+                                        SiahxySortedListInterface<Singer> version = new SiahxySortedArrayList<>();
                                         System.out.println("\nSong List: " + songList.getNumberOfSongs());
                                         System.out.println("----------------------------------------------------------------------------------------");
                                         System.out.println("NO. ID      Song               Singer ");
@@ -991,10 +992,10 @@ public class MusicBliss {
                                         System.out.println("----------------------------------------------------------------------------------------");
 
                                         System.out.print("\nEnter ID to add song: ");
-                                        selectId = scan.nextInt();
+                                        addId = scan.nextInt();
 //------------add if id exists
                                         for (int i = 1; i <= songList.getNumberOfSongs(); i++) {
-                                            if (songList.getEntry(i).getSongID() == selectId) {
+                                            if (songList.getEntry(i).getSongID() == addId) {
                                                 do {
                                                     System.out.print("\n" + songList.getEntry(i).getSinger());
                                                     System.out.print("\nEnter the number(singer) that you want: ");
@@ -1004,8 +1005,9 @@ public class MusicBliss {
                                                     }
                                                 } while (selectSinger > songList.getEntry(i).getSinger().getNumberOfSongs());
 
-                                                playlist.add(songList.getEntry(i));
+                                                playlist.add(new Song(addId, songList.getEntry(i).getSongName()));
                                                 version.add(new Singer(songList.getEntry(i).getSinger().getEntry(selectSinger).getSinger()));
+                                                playlist.getEntry(playlist.getNumberOfSongs()).setSinger(version);
                                                 System.out.println("\n" + songList.getEntry(i).getSongName() + " was added to Playlist.");
                                                 System.out.println(songList.getEntry(i).getSinger().getEntry(selectSinger).getSinger() + "'s version was chosen.\n");
                                                 found = true;
@@ -1041,13 +1043,13 @@ public class MusicBliss {
                                     System.out.println("\nThe playlist is currently empty,\nplease add more songs to the playlist to continue.");
                                 } else if (playlist.getNumberOfSongs() == 1) {
                                     System.out.println("\nNow Playing: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSongName()
-                                            + " by " + version.getEntry(version.getNumberOfSongs() - nowSong).getSinger());
+                                            + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSinger());
                                     System.out.println("\nThe playlist now has only 1 song, \nif you want to add more songs, please proceed to sub-menu to do so.");
                                 } else if (playlist.getNumberOfSongs() > 1) {
                                     System.out.println("\nNow Playing: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSongName()
-                                            + " by " + version.getEntry(version.getNumberOfSongs() - nowSong).getSinger());
+                                            + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSinger());
                                     System.out.println("\nNext Song: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nextSong).getSongName()
-                                            + " by " + version.getEntry(version.getNumberOfSongs() - nextSong).getSinger());
+                                            + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nextSong).getSinger());
                                 }
                                 do {
                                     if (!(playlist.isEmpty())) {
@@ -1066,11 +1068,9 @@ public class MusicBliss {
 //------------skip to Next Song
                                             if (playlist.getNumberOfSongs() == 1) {
                                                 System.out.println("\nNow Playing: \n" + playlist.getEntry(playlist.getNumberOfSongs()).getSongName()
-                                                        + " by " + version.getEntry(version.getNumberOfSongs()).getSinger());
+                                                        + " by " + playlist.getEntry(playlist.getNumberOfSongs()).getSinger());
                                                 System.out.println("\nThe playlist now has only 1 song, \nif you want to add more songs, please proceed to sub-menu to do so.");
                                             } else if (playlist.getNumberOfSongs() > 1) {
-                                                System.out.println(nowSong);
-                                                System.out.println(nextSong);
 //                                                if the last song is playing now
                                                 if (playlist.getNumberOfSongs() - nowSong == 1) {
                                                     nowSong = nowSong - nowSong;
@@ -1083,12 +1083,10 @@ public class MusicBliss {
                                                     nowSong++;
                                                     nextSong++;
                                                 }
-                                                System.out.println(nowSong);
-                                                System.out.println(nextSong);
                                                 System.out.println("\nNow Playing: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSongName()
-                                                        + " by " + version.getEntry(version.getNumberOfSongs() - nowSong).getSinger());
+                                                        + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSinger());
                                                 System.out.println("\nNext Song: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nextSong).getSongName()
-                                                        + " by " + version.getEntry(version.getNumberOfSongs() - nextSong).getSinger());
+                                                        + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nextSong).getSinger());
                                             }
                                             break;
                                         case '0':
@@ -1112,7 +1110,7 @@ public class MusicBliss {
                                         for (int i = 1; i <= playlist.getNumberOfSongs(); i++) {
                                             System.out.print(i);
                                             System.out.printf("  %-7d %-18s %-18s\n", playlist.getEntry(i).getSongID(),
-                                                    playlist.getEntry(i).getSongName(), version.getEntry(i).getSinger());
+                                                    playlist.getEntry(i).getSongName(), playlist.getEntry(i).getSinger());
                                         }
                                         do {
                                             System.out.println("\n(1) - Duplicate Song\n(2) - Rate Song\n(3) - Remove Song\n(4) - Clear Playlist\n(0) - Exit");
@@ -1141,7 +1139,6 @@ public class MusicBliss {
                                                 for (int i = 1; i <= playlist.getNumberOfSongs(); i++) {
                                                     if (playlist.getEntry(i).getSongID() == dupId && found == false) {
                                                         playlist.add(playlist.getEntry(i));
-                                                        version.add(new Singer(version.getEntry(i).getSinger()));
                                                         System.out.println("\n" + playlist.getEntry(i).getSongName() + " was duplicated.");
                                                         found = true;
                                                     }

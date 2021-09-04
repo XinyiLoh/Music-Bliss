@@ -17,24 +17,27 @@ public class Song implements Comparable<Song> {
 
     private static int id = 1000;
     private int songID;
-    private String songName;    
+    private String songName;
     private SiahxySortedListInterface<Singer> Singer = new SiahxySortedArrayList();
-    
+
     public Song() {
     }
 
     public Song(int songID) {
         this.songID = songID;
     }
-    
-    public Song(String songName,SiahxySortedListInterface<Singer> singer) {
+
+    public Song(int songID, String songName) {
+        this.songID = songID;
+        this.songName = songName;
+    }
+
+    public Song(String songName, SiahxySortedListInterface<Singer> singer) {
         this.songName = songName;
         this.songID = id;
         id++;
         this.Singer = singer;
     }
-
-    
 
     @Override
     public int compareTo(Song other) {
@@ -49,7 +52,6 @@ public class Song implements Comparable<Song> {
     public void setSongName(String songName) {
         this.songName = songName;
     }
-    
 
     public static int getId() {
         return id;
@@ -70,7 +72,7 @@ public class Song implements Comparable<Song> {
     public void addSinger(Singer s) {
         Singer.add(s);
     }
-    
+
     public SiahxySortedListInterface<Singer> getSinger() {
         return Singer;
     }
@@ -78,7 +80,6 @@ public class Song implements Comparable<Song> {
     public void setSinger(SiahxySortedListInterface<Singer> Singer) {
         this.Singer = Singer;
     }
-
 
     public boolean equals(Object other) {
         if (other instanceof Song) {
