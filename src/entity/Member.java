@@ -5,7 +5,6 @@
  */
 package entity;
 
-import adt.SiahxySortedArrayList;
 import adt.SiahxySortedListInterface;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,7 +14,8 @@ import java.util.Objects;
  *
  * @author Loh Xin Yi
  */
-public class Member implements Comparable<Member>{
+public class Member implements Comparable<Member> {
+
     private int iD;
     private String firstName;
     private String lastName;
@@ -29,15 +29,15 @@ public class Member implements Comparable<Member>{
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
 
-    public Member(){
-        
+    public Member() {
+
     }
 
-    public Member(int iD){
+    public Member(int iD) {
         this.iD = iD;
     }
-    
-    public Member(String mobile){
+
+    public Member(String mobile) {
         this.mobile = mobile;
     }
 
@@ -50,19 +50,19 @@ public class Member implements Comparable<Member>{
         this.rewardPoints = rewardPoints;
         this.totalRewardPoints += rewardPoints;
         this.joinDate = sdf.format(cal.getTime());
-        if(totalRewardPoints <= 100){
+        if (totalRewardPoints <= 100) {
             this.membership = "Basic";
         } else if (totalRewardPoints > 100 && totalRewardPoints <= 300) {
             this.membership = "Bronze";
         } else if (totalRewardPoints > 300 && totalRewardPoints <= 500) {
             this.membership = "Silver";
-        } else if (totalRewardPoints > 500){
+        } else if (totalRewardPoints > 500) {
             this.membership = "Gold";
         }
     }
-    
+
     @Override
-    public int compareTo(Member m){
+    public int compareTo(Member m) {
         return (int) (this.iD - m.iD);
     }
 
@@ -73,7 +73,7 @@ public class Member implements Comparable<Member>{
     public void setiD(int iD) {
         this.iD = iD;
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
@@ -113,23 +113,23 @@ public class Member implements Comparable<Member>{
     public void setJoinDate(String joinDate) {
         this.joinDate = sdf.format(cal.getTime());
     }
-    
+
     public int getRewardPoints() {
         return rewardPoints;
     }
 
     public void addRewardPoints(int addRewardPoints) {
-        
+
         this.rewardPoints = rewardPoints + addRewardPoints;
         this.totalRewardPoints += addRewardPoints;
-        
+
     }
-    
+
     public boolean minusRewardPoints(int minusRewardPoints) {
-        
-        if(rewardPoints <= 0 || rewardPoints < minusRewardPoints){
+
+        if (rewardPoints <= 0 || rewardPoints < minusRewardPoints) {
             return false;
-        }else{
+        } else {
             this.rewardPoints = rewardPoints - minusRewardPoints;
             return true;
         }
@@ -138,23 +138,23 @@ public class Member implements Comparable<Member>{
     public int getTotalRewardPoints() {
         return totalRewardPoints;
     }
-    
+
     public String getMembership() {
         return membership;
     }
 
     public void setMembership() {
-        
-        if(this.totalRewardPoints <= 100){
+
+        if (this.totalRewardPoints <= 100) {
             this.membership = "Basic";
         } else if (this.totalRewardPoints > 100 && totalRewardPoints <= 300) {
             this.membership = "Bronze";
         } else if (this.totalRewardPoints > 300 && totalRewardPoints <= 500) {
             this.membership = "Silver";
-        } else if (this.totalRewardPoints > 500){
+        } else if (this.totalRewardPoints > 500) {
             this.membership = "Gold";
         }
-        
+
     }
 
     @Override
@@ -180,19 +180,19 @@ public class Member implements Comparable<Member>{
         }
         return true;
     }
-    
+
     public void setFavouriteSongList(SiahxySortedListInterface<Song> favouriteSongList) {
         this.favouriteSongList = favouriteSongList;
     }
-    
+
     public SiahxySortedListInterface<Song> getFavouriteSongList() {
         return favouriteSongList;
     }
-    
+
     @Override
     public String toString() {
-       
-        return String.format("%7d %12s %12s %15s %10s %25s %15d %13s",iD, firstName,lastName,mobile,gender,joinDate,rewardPoints,membership);
+
+        return String.format("%7d %12s %12s %15s %10s %25s %15d %13s", iD, firstName, lastName, mobile, gender, joinDate, rewardPoints, membership);
     }
 
 }
