@@ -1157,7 +1157,7 @@ public class MusicBliss {
 //_______________________________________________________________________________________Playlist
 
                             case '3':
-//------------display the playlist
+//------------display playlist
                                 char editPlaylist = '0';
                                 char confirmClear;
 
@@ -1234,7 +1234,7 @@ public class MusicBliss {
                                  reportTitle;
                                 int reportOpt;
                                 boolean rated;
-//------------show song rank in the report based on the star rates
+//------------report
                                 System.out.println("\nREPORT");
                                 if (!(rankList.isEmpty())) {
                                     try {
@@ -1245,7 +1245,7 @@ public class MusicBliss {
                                             System.out.println("4. Songs rated as " + fourStar);
                                             System.out.println("5. Songs rated as " + fiveStar);
                                             System.out.println("0. Exit");
-
+//------------choose report
                                             System.out.print("\nEnter the number(report) that you want: ");
                                             reportOpt = scan.nextInt();
 
