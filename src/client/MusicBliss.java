@@ -12,11 +12,10 @@ import adt.SortedLinkedList;
 import adt.SortedListInterface;
 import adt.StackInterface;
 import entity.Member;
+import entity.Rank;
 import entity.Session;
 import entity.Singer;
 import entity.Song;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -70,11 +69,10 @@ public class MusicBliss {
 
 //        Koh Hui Hui - Karaoke Session
         StackInterface<Session> sessionList = new LinkedStack<>();
-        StackInterface<Session> rankList = new LinkedStack<>();
-        SiahxySortedListInterface<Song> playlist = new SiahxySortedArrayList<>();
+        StackInterface<Rank> rankList = new LinkedStack<>();
+        StackInterface<Song> playlist = new LinkedStack<>();
 
-        int nowSong = 0;
-        int nextSong = 1;
+        int playlistId = 1000;
 
         Scanner scan = new Scanner(System.in);
         char selection;
@@ -977,7 +975,7 @@ public class MusicBliss {
                                  selectSinger;
                                 char addMore;
 
-                                System.out.println("\n\t\tADD SONG TO PLAYLIST");
+                                System.out.println("\nADD SONG TO PLAYLIST");
 
                                 do {
                                     boolean found = false;
@@ -1004,10 +1002,10 @@ public class MusicBliss {
                                                         System.out.print("\nInvalid input. \nPlease choose an option from the list. \n\n");
                                                     }
                                                 } while (selectSinger > songList.getEntry(i).getSinger().getNumberOfSongs());
-
-                                                playlist.add(new Song(addId, songList.getEntry(i).getSongName()));
                                                 version.add(new Singer(songList.getEntry(i).getSinger().getEntry(selectSinger).getSinger()));
-                                                playlist.getEntry(playlist.getNumberOfSongs()).setSinger(version);
+                                                playlist.push(new Song(playlistId));
+                                                playlist.peek().setSongName(songList.getEntry(i).getSongName());
+                                                playlist.peek().setSinger(version);
                                                 System.out.println("\n" + songList.getEntry(i).getSongName() + " was added to Playlist.");
                                                 System.out.println(songList.getEntry(i).getSinger().getEntry(selectSinger).getSinger() + "'s version was chosen.\n");
                                                 found = true;
@@ -1022,6 +1020,8 @@ public class MusicBliss {
                                         scan.next();
                                     }
 //------------add more songs
+                                    playlistId++;
+
                                     do {
                                         System.out.print("Do you want to continue? (y/n) ");
                                         addMore = scan.next().charAt(0);
@@ -1036,65 +1036,128 @@ public class MusicBliss {
                             case '2':
                                 char playlistOption = '0';
 
-                                System.out.println("\n\t\tLET'S START SINGING");
+                                System.out.println("\nLET'S START SINGING");
 //------------Display Now Playing and Next Song
 //------------In karaoke, usually it plays the newest added song
                                 if (playlist.isEmpty()) {
                                     System.out.println("\nThe playlist is currently empty,\nplease add more songs to the playlist to continue.");
-                                } else if (playlist.getNumberOfSongs() == 1) {
-                                    System.out.println("\nNow Playing: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSongName()
-                                            + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSinger());
-                                    System.out.println("\nThe playlist now has only 1 song, \nif you want to add more songs, please proceed to sub-menu to do so.");
-                                } else if (playlist.getNumberOfSongs() > 1) {
-                                    System.out.println("\nNow Playing: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSongName()
-                                            + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSinger());
-                                    System.out.println("\nNext Song: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nextSong).getSongName()
-                                            + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nextSong).getSinger());
+                                } else if (playlist.size() == 1) {
+                                    System.out.println("\nNow Playing: \n" + playlist.peek().getSongName() + " by " + playlist.peek().getSinger());
+                                } else if (playlist.size() > 1) {
+//------------Next song is displayed using peekNext()
+                                    System.out.println("\nNow Playing: \n" + playlist.peek().getSongName() + " by " + playlist.peek().getSinger());
+                                    System.out.println("\nNext Song: \n" + playlist.peekNext().getSongName() + " by " + playlist.peekNext().getSinger());
                                 }
                                 do {
                                     if (!(playlist.isEmpty())) {
                                         do {
-                                            System.out.println("\n(1) Next Song\n(0) Exit");
+                                            System.out.println("\n(1) Next Song\n(2)Rate Song\n(0) Exit");
                                             System.out.print("Enter choice: ");
                                             playlistOption = scan.next().charAt(0);
-                                            if (playlistOption != '1' && playlistOption != '0') {
+                                            if (playlistOption != '1' && playlistOption != '2' && playlistOption != '0') {
                                                 System.out.println("\nInvalid input. \nPlease choose an option from the list.\n");
                                             }
-                                        } while (playlistOption != '1' && playlistOption != '0');
+                                        } while (playlistOption != '1' && playlistOption != '2' && playlistOption != '0');
                                     }
 
                                     switch (playlistOption) {
                                         case '1':
 //------------skip to Next Song
-                                            if (playlist.getNumberOfSongs() == 1) {
-                                                System.out.println("\nNow Playing: \n" + playlist.getEntry(playlist.getNumberOfSongs()).getSongName()
-                                                        + " by " + playlist.getEntry(playlist.getNumberOfSongs()).getSinger());
+//------------In karaoke, to start singing next song, the current song will be removed using pop
+                                            if (playlist.size() == 1) {
+                                                System.out.println("\nNow Playing: \n" + playlist.peek().getSongName() + " by " + playlist.peek().getSinger());
                                                 System.out.println("\nThe playlist now has only 1 song, \nif you want to add more songs, please proceed to sub-menu to do so.");
-                                            } else if (playlist.getNumberOfSongs() > 1) {
-//                                                if the last song is playing now
-                                                if (playlist.getNumberOfSongs() - nowSong == 1) {
-                                                    nowSong = nowSong - nowSong;
-                                                    nextSong++;
-//                                                if the last song is going to play now
-                                                } else if (playlist.getNumberOfSongs() - nextSong == 1) {
-                                                    nowSong++;
-                                                    nextSong = nextSong - nextSong;
-                                                } else {
-                                                    nowSong++;
-                                                    nextSong++;
+                                            } else if (playlist.size() > 1) {
+                                                playlist.pop();
+                                                System.out.println("\nNow Playing: \n" + playlist.peek().getSongName() + " by " + playlist.peek().getSinger());
+                                                if (playlist.size() > 1) {
+                                                    System.out.println("\nNext Song: \n" + playlist.peekNext().getSongName() + " by " + playlist.peekNext().getSinger());
                                                 }
-                                                System.out.println("\nNow Playing: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSongName()
-                                                        + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nowSong).getSinger());
-                                                System.out.println("\nNext Song: \n" + playlist.getEntry(playlist.getNumberOfSongs() - nextSong).getSongName()
-                                                        + " by " + playlist.getEntry(playlist.getNumberOfSongs() - nextSong).getSinger());
                                             }
+                                            break;
+                                        case '2':
+//------------rate song
+                                            int i;
+                                            int j;
+                                            int songRate;
+                                            String starRate = null;
+                                            Song newRate = new Song();
+                                            boolean replaceRate = false;
+                                            SiahxySortedListInterface ratedSong = new SiahxySortedArrayList();
+                                            System.out.println("\nRate Song\n");
+                                            System.out.println("Star\t    Classification\n--------------------------");
+//------------display stars
+                                            for (i = 5; i >= 1; i--) {
+                                                for (j = 1; j <= i; j++) {
+                                                    System.out.print("*");
+                                                }
+                                                switch (i) {
+                                                    case 1:
+                                                        System.out.println("\t    Poor");
+                                                        break;
+                                                    case 2:
+                                                        System.out.println("\t    Fair");
+                                                        break;
+                                                    case 3:
+                                                        System.out.println("\t    Good");
+                                                        break;
+                                                    case 4:
+                                                        System.out.println("\t    Excellent");
+                                                        break;
+                                                    case 5:
+                                                        System.out.println("\t    Superior");
+                                                        break;
+                                                }
+                                            }
+                                            try {
+                                                System.out.print("\nEnter your rating (1 to 5): ");
+                                                songRate = scan.nextInt();
+                                                switch (songRate) {
+                                                    case 1:
+                                                        starRate = oneStar;
+                                                        break;
+                                                    case 2:
+                                                        starRate = twoStar;
+                                                        break;
+                                                    case 3:
+                                                        starRate = threeStar;
+                                                        break;
+                                                    case 4:
+                                                        starRate = fourStar;
+                                                        break;
+                                                    case 5:
+                                                        starRate = fiveStar;
+                                                        break;
+                                                }
+                                                for (int n = 1; n <= rankList.size(); n++) {
+                                                    if (rankList.getEach(n).getRatedSong().contains(playlist.peek())) {
+//------------If there are same songs, it will take the newest rate
+                                                        if (rankList.getEach(n).getRatedSong().getEntry(0).getSongID() == playlist.peek().getSongID()) {
+                                                            rankList.getEach(n).setStarRate(starRate);
+                                                        }
+                                                        System.out.print("\nSong is rated as " + starRate + "\n");
+                                                        replaceRate = true;
+                                                    }
+                                                }
+//------------If there are NO same songs, it will push the rated song to rank list
+                                                if (!(replaceRate)) {
+                                                    ratedSong.add(new Song(playlist.peek().getSongName(), playlist.peek().getSinger()));
+                                                    rankList.push(new Rank(ratedSong, starRate));
+                                                    System.out.print("\nSong is rated as " + starRate + "\n");
+                                                }
+                                            } catch (InputMismatchException a) {
+                                                System.err.println("\nPlease enter numeric input only.\n");
+                                                scan.next();
+                                            }
+
                                             break;
                                         case '0':
                                             break;
                                     }
-                                } while (playlistOption == '1');
+                                } while (playlistOption == '1' || playlistOption == '2');
                                 break;
 //_______________________________________________________________________________________Playlist
+
                             case '3':
 //------------display the playlist
                                 char editPlaylist = '0';
@@ -1103,23 +1166,22 @@ public class MusicBliss {
                                 do {
                                     if (!playlist.isEmpty()) {
                                         System.out.println("\nPLAYLIST\n");
-                                        System.out.println(playlist.getNumberOfSongs() + " songs");
+                                        System.out.println(playlist.size() + " songs");
                                         System.out.println("-------------------------------------------------------------");
                                         System.out.println("#   ID      Title             Artist ");
                                         System.out.println("-------------------------------------------------------------");
-                                        for (int i = 1; i <= playlist.getNumberOfSongs(); i++) {
+                                        for (int i = 1; i <= playlist.size(); i++) {
                                             System.out.print(i);
-                                            System.out.printf("  %-7d %-18s %-18s\n", playlist.getEntry(i).getSongID(),
-                                                    playlist.getEntry(i).getSongName(), playlist.getEntry(i).getSinger());
+                                            System.out.print(playlist.getEach(i));
                                         }
                                         do {
-                                            System.out.println("\n(1) - Duplicate Song\n(2) - Rate Song\n(3) - Remove Song\n(4) - Clear Playlist\n(0) - Exit");
+                                            System.out.println("\n(1) - Duplicate Song\n(2) - Clear Playlist\n(0) - Exit");
                                             System.out.print("Enter choice: ");
                                             editPlaylist = scan.next().charAt(0);
-                                            if (editPlaylist != '1' && editPlaylist != '2' && editPlaylist != '3' && editPlaylist != '4' && editPlaylist != '0') {
+                                            if (editPlaylist != '1' && editPlaylist != '2' && editPlaylist != '0') {
                                                 System.out.println("\nInvalid input. \nPlease choose an option from the list.\n");
                                             }
-                                        } while (editPlaylist != '1' && editPlaylist != '2' && editPlaylist != '3' && editPlaylist != '4' && editPlaylist != '0');
+                                        } while (editPlaylist != '1' && editPlaylist != '2' && editPlaylist != '0');
                                     } else {
                                         System.out.println("\nYour playlist is currently empty.\n\nIf you want to add song to your playlist,\nplease proceed to sub-menu to do so.");
                                         editPlaylist = '0';
@@ -1133,16 +1195,16 @@ public class MusicBliss {
 
                                             System.out.println("\nDUPLICATE SONG\n");
                                             try {
-                                                System.out.print("Enter ID to remove song: ");
+                                                System.out.print("Enter ID to duplicate song: ");
                                                 dupId = scan.nextInt();
 
-                                                for (int i = 1; i <= playlist.getNumberOfSongs(); i++) {
-                                                    if (playlist.getEntry(i).getSongID() == dupId && found == false) {
-                                                        playlist.add(playlist.getEntry(i));
-                                                        System.out.println("\n" + playlist.getEntry(i).getSongName() + " was duplicated.");
-                                                        found = true;
-                                                    }
-                                                }
+//                                                for (int i = 1; i <= playlist.getNumberOfSongs(); i++) {
+//                                                    if (playlist.getEntry(i).getSongID() == dupId && found == false) {
+//                                                        playlist.add(playlist.getEntry(i));
+//                                                        System.out.println("\n" + playlist.getEntry(i).getSongName() + " was duplicated.");
+//                                                        found = true;
+//                                                    }
+//                                                }
                                                 if (!found) {
                                                     System.out.println("\nSong ID does not exist.\n");
                                                 }
@@ -1153,124 +1215,6 @@ public class MusicBliss {
                                             }
                                             break;
                                         case '2':
-//------------rate song
-                                            int i,
-                                             j,
-                                             rateId,
-                                             songRate;
-                                            String starRate = null;
-                                            boolean rated = false;
-                                            boolean replaceRate = false;
-
-                                            System.out.println("\nRATE SONG\n");
-
-                                            try {
-                                                System.out.print("Enter ID to rate song: ");
-                                                rateId = scan.nextInt();
-
-                                                for (int r = 1; r <= playlist.getNumberOfSongs(); r++) {
-                                                    if (playlist.getEntry(r).getSongID() == rateId) {
-                                                        System.out.println("Star\t    Classification\n--------------------------");
-//------------display stars
-                                                        for (i = 5; i >= 1; i--) {
-                                                            for (j = 1; j <= i; j++) {
-                                                                System.out.print("*");
-                                                            }
-                                                            switch (i) {
-                                                                case 1:
-                                                                    System.out.println("\t    Poor");
-                                                                    break;
-                                                                case 2:
-                                                                    System.out.println("\t    Fair");
-                                                                    break;
-                                                                case 3:
-                                                                    System.out.println("\t    Good");
-                                                                    break;
-                                                                case 4:
-                                                                    System.out.println("\t    Excellent");
-                                                                    break;
-                                                                case 5:
-                                                                    System.out.println("\t    Superior");
-                                                                    break;
-                                                            }
-                                                        }
-
-                                                        System.out.print("\nEnter your rating (1 to 5): ");
-                                                        songRate = scan.nextInt();
-                                                        switch (songRate) {
-                                                            case 1:
-                                                                starRate = oneStar;
-                                                                break;
-                                                            case 2:
-                                                                starRate = twoStar;
-                                                                break;
-                                                            case 3:
-                                                                starRate = threeStar;
-                                                                break;
-                                                            case 4:
-                                                                starRate = fourStar;
-                                                                break;
-                                                            case 5:
-                                                                starRate = fiveStar;
-                                                                break;
-                                                        }
-//                                                        for (int n = 1; n <= rankList.size(); n++) {
-//                                                            if (rankList.getEach(n).getSessionID() == sessionList.peek().getSessionID()) {
-////------------If there are same songs, it will take the newest rate
-//                                                                rankList.getEach(n).setSessionRate(curSongRate);
-//                                                                System.out.print("\nSong is rated as " + starRate);
-//                                                                replaceRate = true;
-//                                                            }
-//
-//                                                        }
-                                                        System.out.print("\nSong is rated as " + starRate + "\n");
-//                                                if (!(replaceRate)) {
-////                                                    sessionList.peek().setSessionRate(curSongRate);
-////                                                    rankList.push(sessionList.peek());
-//                                                    System.out.print("\nSong is rated as " + starRate + "\n");
-//                                                }
-                                                        System.out.println("\n" + playlist.getEntry(r).getSongName() + " was rated.");
-                                                        rated = true;
-                                                    }
-                                                }
-                                                if (!rated) {
-                                                    System.out.println("\nSong ID does not exist.\n");
-                                                }
-                                            } catch (InputMismatchException a) {
-                                                System.err.println("\nPlease enter numeric input.\n");
-                                                scan.next();
-                                            }
-
-                                            break;
-                                        case '3':
-                                            int removeId;
-                                            boolean exist = false;
-                                            Song dltSong = new Song();
-
-                                            System.out.println("\nREMOVE SONG\n");
-                                            try {
-                                                System.out.print("Enter ID to remove song: ");
-                                                removeId = scan.nextInt();
-
-                                                for (int n = 1; n <= playlist.getNumberOfSongs(); n++) {
-                                                    if (playlist.getEntry(n).getSongID() == removeId) {
-                                                        dltSong.setSongName(playlist.getEntry(n).getSongName());
-                                                        dltSong = playlist.getEntry(playlist.getPosition(dltSong));
-                                                        System.out.println("\n" + playlist.getEntry(n).getSongName() + " was removed.");
-                                                        playlist.remove(playlist.getPosition(dltSong));
-                                                        exist = true;
-                                                    }
-                                                }
-                                                if (!exist) {
-                                                    System.out.println("\nSong ID does not exist.\n");
-                                                }
-                                            } catch (InputMismatchException a) {
-                                                System.err.println("\nPlease enter numeric input.\n");
-                                                System.err.println("\nSong was not removed.\n");
-                                                scan.next();
-                                            }
-                                            break;
-                                        case '4':
 //------------clear playlist
                                             System.out.println("\nCLEAR PLAYLIST\n");
 
@@ -1284,7 +1228,7 @@ public class MusicBliss {
                                         case '0':
                                             break;
                                     }
-                                } while (editPlaylist == '1' || editPlaylist == '2' || editPlaylist == '3' || editPlaylist == '4');
+                                } while (editPlaylist == '1' || editPlaylist == '2');
                                 break;
 //_______________________________________________________________________________________Generate Report
                             case '4':
@@ -1294,15 +1238,15 @@ public class MusicBliss {
 //------------show song rank in the report based on the star rates
                                 System.out.println("\nREPORT");
                                 if (!(rankList.isEmpty())) {
-                                    Calendar cal = Calendar.getInstance();
-                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
-                                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
-                                    reportDate = dateFormat.format(cal.getTime());
-                                    reportTime = timeFormat.format(cal.getTime());
+//                                    Calendar cal = Calendar.getInstance();
+//                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
+//                                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+//                                    reportDate = dateFormat.format(cal.getTime());
+//                                    reportTime = timeFormat.format(cal.getTime());
                                     reportTitle = "Song Rank";
                                     System.out.println("---------------------------------------------------------------------------------------");
-                                    System.out.println("\nReport Date: " + reportDate
-                                            + "\t\t" + "Report Time: " + reportTime + "\t\t" + "Report Title: " + reportTitle);
+//                                    System.out.println("\nReport Date: " + reportDate
+//                                            + "\t\t" + "Report Time: " + reportTime + "\t\t" + "Report Title: " + reportTitle);
                                     System.out.println("---------------------------------------------------------------------------------------");
                                     for (int i = 1; i <= rankList.size(); i++) {
                                         switch (rankList.getEach(i).getSessionRate()) {

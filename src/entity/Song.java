@@ -27,11 +27,6 @@ public class Song implements Comparable<Song> {
         this.songID = songID;
     }
 
-    public Song(int songID, String songName) {
-        this.songID = songID;
-        this.songName = songName;
-    }
-
     public Song(String songName, SiahxySortedListInterface<Singer> singer) {
         this.songName = songName;
         this.songID = id;

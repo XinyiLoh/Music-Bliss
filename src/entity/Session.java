@@ -6,6 +6,7 @@
 package entity;
 
 import adt.SiahxySortedListInterface;
+import adt.StackInterface;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Session {
 
     private SiahxySortedListInterface<Song> playlist;
     private SiahxySortedListInterface<Singer> version;
-    private int sessionRate;
+    private StackInterface<Rank> ranklist;
 
     public Session() {
 
@@ -27,13 +28,11 @@ public class Session {
 
     public Session(SiahxySortedListInterface<Song> playlist, int sessionRate) {
         this.playlist = playlist;
-        this.sessionRate = sessionRate;
     }
 
     public Session(SiahxySortedListInterface<Song> playlist, SiahxySortedListInterface<Singer> version, int sessionRate) {
         this.playlist = playlist;
         this.version = version;
-        this.sessionRate = sessionRate;
     }
 
 //    public Session(int sessionID, String sessionName, String sessionSinger) {
@@ -65,14 +64,13 @@ public class Session {
 //    public void setSessionSinger(String sessionSinger) {
 //        this.sessionSinger = sessionSinger;
 //    }
-    public int getSessionRate() {
-        return sessionRate;
-    }
-
-    public void setSessionRate(int sessionRate) {
-        this.sessionRate = sessionRate;
-    }
-
+//    public int getSessionRate() {
+//        return sessionRate;
+//    }
+//
+//    public void setSessionRate(int sessionRate) {
+//        this.sessionRate = sessionRate;
+//    }
     public SiahxySortedListInterface<Song> getPlaylist() {
         return playlist;
     }
@@ -95,6 +93,6 @@ public class Session {
 //    }
     @Override
     public String toString() {
-        return playlist + "\n";
+        return playlist + "\n" + ranklist + "\n";
     }
 }
