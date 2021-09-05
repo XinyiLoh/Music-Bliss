@@ -856,7 +856,9 @@ public class MusicBliss {
                                             if (songList.contains(removeSong)) {
 
                                                 removeSong = songList.getEntry(songList.getPosition(removeSong));
+                                                System.out.println("\n----------------------------------------------------------------------------------------------");
                                                 System.out.print(removeSong);
+                                                System.out.println("----------------------------------------------------------------------------------------------");
 
                                                 System.out.print("Enter Singer: ");
                                                 singer = scan.nextLine().toUpperCase();
@@ -869,9 +871,7 @@ public class MusicBliss {
                                                     removeSinger = Singer.getEntry(Singer.getPosition(removeSinger));
 
                                                     System.out.print(removeSinger);
-                                                    System.out.println("\n----------------------------------------------------------------------------------------------");
-                                                    System.out.print(removeSong);
-                                                    System.out.println("----------------------------------------------------------------------------------------------");
+                                                    
                                                     System.out.println("Delete Successfully.");
                                                     Singer.remove(Singer.getPosition(removeSinger));
 
