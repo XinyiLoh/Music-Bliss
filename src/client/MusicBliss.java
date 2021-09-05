@@ -13,9 +13,10 @@ import adt.SortedListInterface;
 import adt.StackInterface;
 import entity.Member;
 import entity.Rank;
-import entity.Session;
 import entity.Singer;
 import entity.Song;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -68,7 +69,6 @@ public class MusicBliss {
         songList.add(new Song("SOUR CANDY", singer5));
 
 //        Koh Hui Hui - Karaoke Session
-        StackInterface<Session> sessionList = new LinkedStack<>();
         StackInterface<Rank> rankList = new LinkedStack<>();
         StackInterface<Song> playlist = new LinkedStack<>();
 
@@ -1051,7 +1051,7 @@ public class MusicBliss {
                                 do {
                                     if (!(playlist.isEmpty())) {
                                         do {
-                                            System.out.println("\n(1) Next Song\n(2)Rate Song\n(0) Exit");
+                                            System.out.println("\n(1) Skip to Next Song\n(2) Rate the Current Song\n(0) Exit");
                                             System.out.print("Enter choice: ");
                                             playlistOption = scan.next().charAt(0);
                                             if (playlistOption != '1' && playlistOption != '2' && playlistOption != '0') {
@@ -1084,7 +1084,7 @@ public class MusicBliss {
                                             Song newRate = new Song();
                                             boolean replaceRate = false;
                                             SiahxySortedListInterface ratedSong = new SiahxySortedArrayList();
-                                            System.out.println("\nRate Song\n");
+                                            System.out.println("\nRate " + playlist.peek().getSongName() + "\n");
                                             System.out.println("Star\t    Classification\n--------------------------");
 //------------display stars
                                             for (i = 5; i >= 1; i--) {
@@ -1132,10 +1132,8 @@ public class MusicBliss {
                                                 for (int n = 1; n <= rankList.size(); n++) {
                                                     if (rankList.getEach(n).getRatedSong().contains(playlist.peek())) {
 //------------If there are same songs, it will take the newest rate
-                                                        if (rankList.getEach(n).getRatedSong().getEntry(0).getSongID() == playlist.peek().getSongID()) {
-                                                            rankList.getEach(n).setStarRate(starRate);
-                                                        }
-                                                        System.out.print("\nSong is rated as " + starRate + "\n");
+                                                        rankList.getEach(n).setStarRate(starRate);
+                                                        System.out.print("\n" + playlist.peek().getSongName() + " was rated as " + starRate + "\n");
                                                         replaceRate = true;
                                                     }
                                                 }
@@ -1143,7 +1141,7 @@ public class MusicBliss {
                                                 if (!(replaceRate)) {
                                                     ratedSong.add(new Song(playlist.peek().getSongName(), playlist.peek().getSinger()));
                                                     rankList.push(new Rank(ratedSong, starRate));
-                                                    System.out.print("\nSong is rated as " + starRate + "\n");
+                                                    System.out.print("\n" + playlist.peek().getSongName() + " was rated as " + starRate + "\n");
                                                 }
                                             } catch (InputMismatchException a) {
                                                 System.err.println("\nPlease enter numeric input only.\n");
@@ -1168,14 +1166,14 @@ public class MusicBliss {
                                         System.out.println("\nPLAYLIST\n");
                                         System.out.println(playlist.size() + " songs");
                                         System.out.println("-------------------------------------------------------------");
-                                        System.out.println("#   ID      Title             Artist ");
+                                        System.out.println("#  ID      Title             Artist ");
                                         System.out.println("-------------------------------------------------------------");
                                         for (int i = 1; i <= playlist.size(); i++) {
                                             System.out.print(i);
                                             System.out.print(playlist.getEach(i));
                                         }
                                         do {
-                                            System.out.println("\n(1) - Duplicate Song\n(2) - Clear Playlist\n(0) - Exit");
+                                            System.out.println("\n(1) Duplicate Song\n(2) Clear Playlist\n(0) Exit");
                                             System.out.print("Enter choice: ");
                                             editPlaylist = scan.next().charAt(0);
                                             if (editPlaylist != '1' && editPlaylist != '2' && editPlaylist != '0') {
@@ -1191,20 +1189,19 @@ public class MusicBliss {
 //------------duplicate song
                                             boolean found = false;
                                             int dupId;
-                                            int count = 0;
 
                                             System.out.println("\nDUPLICATE SONG\n");
                                             try {
                                                 System.out.print("Enter ID to duplicate song: ");
                                                 dupId = scan.nextInt();
 
-//                                                for (int i = 1; i <= playlist.getNumberOfSongs(); i++) {
-//                                                    if (playlist.getEntry(i).getSongID() == dupId && found == false) {
-//                                                        playlist.add(playlist.getEntry(i));
-//                                                        System.out.println("\n" + playlist.getEntry(i).getSongName() + " was duplicated.");
-//                                                        found = true;
-//                                                    }
-//                                                }
+                                                for (int i = 1; i <= playlist.size(); i++) {
+                                                    if (playlist.getEach(i).getSongID() == dupId && found == false) {
+                                                        found = true;
+                                                        playlist.duplicate(i);
+                                                        System.out.println("\nSong " + playlist.getEach(i).getSongID() + " was duplicated.\n");
+                                                    }
+                                                }
                                                 if (!found) {
                                                     System.out.println("\nSong ID does not exist.\n");
                                                 }
@@ -1222,12 +1219,12 @@ public class MusicBliss {
                                             confirmClear = scan.next().charAt(0);
                                             if (Character.toLowerCase(confirmClear) == 'y') {
                                                 playlist.clear();
-                                                System.out.println("\nYour playlist is empty now.\n\nIf you want to add song to your playlist,\nplease proceed to sub-menu to do so.");
                                             }
                                             break;
                                         case '0':
                                             break;
                                     }
+
                                 } while (editPlaylist == '1' || editPlaylist == '2');
                                 break;
 //_______________________________________________________________________________________Generate Report
@@ -1235,57 +1232,170 @@ public class MusicBliss {
                                 String reportDate,
                                  reportTime,
                                  reportTitle;
+                                int reportOpt;
+                                boolean rated;
 //------------show song rank in the report based on the star rates
                                 System.out.println("\nREPORT");
                                 if (!(rankList.isEmpty())) {
-//                                    Calendar cal = Calendar.getInstance();
-//                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
-//                                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
-//                                    reportDate = dateFormat.format(cal.getTime());
-//                                    reportTime = timeFormat.format(cal.getTime());
-                                    reportTitle = "Song Rank";
-                                    System.out.println("---------------------------------------------------------------------------------------");
-//                                    System.out.println("\nReport Date: " + reportDate
-//                                            + "\t\t" + "Report Time: " + reportTime + "\t\t" + "Report Title: " + reportTitle);
-                                    System.out.println("---------------------------------------------------------------------------------------");
-                                    for (int i = 1; i <= rankList.size(); i++) {
-                                        switch (rankList.getEach(i).getSessionRate()) {
-                                            case 5:
-                                                System.out.println("\nSongs rated as " + fiveStar + ":");
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
-                                            case 4:
-                                                System.out.println("\nSongs rated as " + fourStar + ":");
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
-                                            case 3:
-                                                System.out.println("\nSongs rated as " + threeStar + ":");
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
-                                            case 2:
-                                                System.out.println("\nSongs rated as " + twoStar + ":");
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
-                                            case 1:
-                                                System.out.println("\nSongs rated as " + oneStar + ":");
-                                                System.out.println("----------------------------------------------------------------");
-                                                System.out.print(rankList.getEach(i));
-                                                System.out.println("----------------------------------------------------------------");
-                                                break;
-                                        }
+                                    try {
+                                        do {
+                                            System.out.println("\n1. Songs rated as " + oneStar);
+                                            System.out.println("2. Songs rated as " + twoStar);
+                                            System.out.println("3. Songs rated as " + threeStar);
+                                            System.out.println("4. Songs rated as " + fourStar);
+                                            System.out.println("5. Songs rated as " + fiveStar);
+                                            System.out.println("0. Exit");
+
+                                            System.out.print("\nEnter the number(report) that you want: ");
+                                            reportOpt = scan.nextInt();
+
+                                            Calendar cal = Calendar.getInstance();
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
+                                            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+                                            reportDate = dateFormat.format(cal.getTime());
+                                            reportTime = timeFormat.format(cal.getTime());
+
+                                            switch (reportOpt) {
+                                                case 5:
+                                                    rated = false;
+                                                    for (int i = 1; i <= rankList.size(); i++) {
+                                                        if (rankList.getEach(i).getStarRate().equals(fiveStar)) {
+                                                            rated = true;
+                                                        }
+                                                    }
+                                                    if (rated) {
+                                                        reportTitle = "Songs Rated As " + fiveStar;
+                                                        System.out.println("\n\n______________________________________________________________");
+                                                        System.out.println("\n" + "Report Title: " + reportTitle);
+                                                        System.out.println("______________________________________________________________");
+                                                        System.out.println("\nReport Date: " + reportDate + "\t\t" + "Report Time: " + reportTime);
+                                                        System.out.println("______________________________________________________________");
+                                                        System.out.println("#   ID      Title             Artist ");
+                                                        System.out.println("-----------------------------------------\n");
+                                                        for (int i = 1; i <= rankList.size(); i++) {
+                                                            if (rankList.getEach(i).getStarRate().equals(fiveStar)) {
+                                                                System.out.print(rankList.getEach(i).getRatedSong());
+                                                            }
+                                                        }
+                                                        System.out.println("______________________________________________________________\n\n");
+                                                    } else {
+                                                        System.out.println("\nThere is no song rated as " + fiveStar + " yet.");
+                                                    }
+                                                    break;
+                                                case 4:
+                                                    rated = false;
+                                                    for (int i = 1; i <= rankList.size(); i++) {
+                                                        if (rankList.getEach(i).getStarRate().equals(fourStar)) {
+                                                            rated = true;
+                                                        }
+                                                    }
+                                                    if (rated) {
+                                                        reportTitle = "Songs Rated As " + fourStar;
+                                                        System.out.println("\n\t\t" + "Report Title: " + reportTitle);
+                                                        System.out.println("---------------------------------------------------------------------------------------");
+                                                        System.out.println("\tReport Date: " + reportDate
+                                                                + "\t\t" + "Report Time: " + reportTime);
+                                                        System.out.println("---------------------------------------------------------------------------------------");
+                                                        System.out.println("#   ID      Title             Artist ");
+                                                        System.out.println("-----------------------------------------\n");
+                                                        for (int i = 1; i <= rankList.size(); i++) {
+                                                            if (rankList.getEach(i).getStarRate().equals(fourStar)) {
+                                                                System.out.print(rankList.getEach(i).getRatedSong());
+                                                            }
+                                                        }
+                                                    } else {
+                                                        System.out.println("\nThere is no song rated as " + fourStar + " yet.");
+                                                    }
+                                                    break;
+                                                case 3:
+                                                    rated = false;
+                                                    for (int i = 1; i <= rankList.size(); i++) {
+                                                        if (rankList.getEach(i).getStarRate().equals(threeStar)) {
+                                                            rated = true;
+                                                        }
+                                                    }
+                                                    if (rated) {
+                                                        reportTitle = "Songs Rated As " + threeStar;
+                                                        System.out.println("\n\t\t" + "Report Title: " + reportTitle);
+                                                        System.out.println("---------------------------------------------------------------------------------------");
+                                                        System.out.println("\tReport Date: " + reportDate
+                                                                + "\t\t" + "Report Time: " + reportTime);
+                                                        System.out.println("---------------------------------------------------------------------------------------");
+                                                        System.out.println("#   ID      Title             Artist ");
+                                                        System.out.println("-----------------------------------------\n");
+                                                        for (int i = 1; i <= rankList.size(); i++) {
+                                                            if (rankList.getEach(i).getStarRate().equals(threeStar)) {
+                                                                System.out.print(rankList.getEach(i).getRatedSong());
+                                                            }
+                                                        }
+                                                    } else {
+                                                        System.out.println("\nThere is no song rated as " + threeStar + " yet.");
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    rated = false;
+                                                    for (int i = 1; i <= rankList.size(); i++) {
+                                                        if (rankList.getEach(i).getStarRate().equals(twoStar)) {
+                                                            rated = true;
+                                                        }
+                                                    }
+                                                    if (rated) {
+                                                        reportTitle = "Songs Rated As " + twoStar;
+                                                        System.out.println("\n\t\t" + "Report Title: " + reportTitle);
+                                                        System.out.println("---------------------------------------------------------------------------------------");
+                                                        System.out.println("\tReport Date: " + reportDate
+                                                                + "\t\t" + "Report Time: " + reportTime);
+                                                        System.out.println("---------------------------------------------------------------------------------------");
+                                                        System.out.println("#   ID      Title             Artist ");
+                                                        System.out.println("-----------------------------------------\n");
+                                                        for (int i = 1; i <= rankList.size(); i++) {
+                                                            if (rankList.getEach(i).getStarRate().equals(twoStar)) {
+                                                                System.out.print(rankList.getEach(i).getRatedSong());
+                                                            }
+                                                        }
+                                                    } else {
+                                                        System.out.println("\nThere is no song rated as " + twoStar + " yet.");
+                                                    }
+                                                    break;
+                                                case 1:
+                                                    rated = false;
+                                                    for (int i = 1; i <= rankList.size(); i++) {
+                                                        if (rankList.getEach(i).getStarRate().equals(oneStar)) {
+                                                            rated = true;
+                                                        }
+                                                    }
+                                                    if (rated) {
+                                                        reportTitle = "Songs Rated As " + oneStar;
+                                                        System.out.println("\n\t\t" + "Report Title: " + reportTitle);
+                                                        System.out.println("---------------------------------------------------------------------------------------");
+                                                        System.out.println("\tReport Date: " + reportDate
+                                                                + "\t\t" + "Report Time: " + reportTime);
+                                                        System.out.println("---------------------------------------------------------------------------------------");
+                                                        System.out.println("#   ID      Title             Artist ");
+                                                        System.out.println("-----------------------------------------\n");
+                                                        for (int i = 1; i <= rankList.size(); i++) {
+                                                            if (rankList.getEach(i).getStarRate().equals(oneStar)) {
+                                                                System.out.print(rankList.getEach(i).getRatedSong());
+                                                            }
+                                                        }
+                                                    } else {
+                                                        System.out.println("\nThere is no song rated as " + oneStar + " yet.");
+                                                    }
+                                                    break;
+                                                case 0:
+                                                    break;
+                                            }
+                                        } while (reportOpt != 0);
+                                    } catch (InputMismatchException a) {
+                                        System.err.println("\nPlease enter numeric input.\n");
+                                        System.err.println("\nSong was not rated.\n");
+                                        scan.next();
                                     }
                                 } else {
                                     System.out.println("\nYou have not rated any song yet.\n");
                                 }
                                 break;
+
                             case '0':
                                 break;
                             default:
@@ -1307,7 +1417,8 @@ public class MusicBliss {
                     System.err.print("Incorrect Input, Please try again.\n\n");
             }
 
-        } while (Character.compare(selection, '0') != 0);
+        } while (Character.compare(selection,
+                '0') != 0);
 
     }
 
